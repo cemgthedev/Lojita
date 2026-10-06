@@ -55,6 +55,7 @@ export const authUserSchema = z.object({
     .string({ error: message.email.invalid })
     .min(1, { error: message.email.required }),
   role: z.array(roleSchema).min(1, { error: message.role.required }),
+  avatarUrl: z.string().optional(),
 });
 
 export type AuthUser = z.infer<typeof authUserSchema>;

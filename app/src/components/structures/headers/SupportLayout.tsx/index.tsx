@@ -1,8 +1,9 @@
-import { publicNavConfig } from "@/components/structures/headers/PublicHeader/nav.config";
+import { supportNavConfig } from "@/components/structures/headers/SupportLayout.tsx/nav.config";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -13,14 +14,18 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
+import { useAuth } from "@/hooks/useAuth";
+import { authApi } from "@/shared/lib/auth.api";
 import { cn } from "@/utils/cn";
-import { UserCircle2Icon } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { LogOutIcon, UserCircle2Icon } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const notVisibleHeaderRoutes = [urls.login, urls.register];
 
-export function PublicHeader() {
+export function SupportHeader() {
   const { pathname, hash } = useLocation();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const currentPath = pathname + hash;
 
@@ -28,6 +33,11 @@ export function PublicHeader() {
 
   if (isNotVisibleHeader) {
     return null;
+  }
+
+  function handleLogout() {
+    authApi.logout();
+    navigate(urls.home);
   }
 
   return (
@@ -44,7 +54,7 @@ export function PublicHeader() {
         </Link>
 
         <ul className="flex items-center gap-4">
-          {publicNavConfig.map((item) => (
+          {supportNavConfig.map((item) => (
             <li key={item.name}>
               <Link
                 to={item.href ?? "#"}
@@ -67,32 +77,41 @@ export function PublicHeader() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-64 max-w-64 p-3">
           <DropdownMenuGroup>
-            <div>
-              <Label size="xs">Não autenticado</Label>
-              <Text>Faça login ou cadastre-se para acessar sua conta.</Text>
-            </div>
+            <Link to={urls.home} className="flex items-center gap-2">
+              <Avatar size="lg">
+                <AvatarImage src={user?.avatarUrl} alt="logo" />
+                <AvatarFallback variant="primary">AU</AvatarFallback>
+              </Avatar>
+              <div>
+                <Label size="xs">{user?.name || "Usuário"}</Label>
+                <Text>{user?.email}</Text>
+              </div>
+            </Link>
             <Separator
               variant={"secondary"}
               orientation="horizontal"
               className="my-2"
             />
+            <Label size="xs">Minha conta</Label>
             <DropdownMenuItem>
               <Link
-                to={urls.login}
+                to={urls.profile}
                 className="hover:text-secondary flex gap-2 items-center transition-colors"
               >
-                Faça login
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                to={urls.register}
-                className="hover:text-secondary flex gap-2 items-center transition-colors"
-              >
-                Cliente novo ? Cadastre-se
+                Ver perfil
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
+
+          <DropdownMenuItem>
+            <Button
+              onClick={handleLogout}
+              className="bg-transparent p-0 text-danger flex gap-2 items-center"
+            >
+              <LogOutIcon size={16} />
+              Sair
+            </Button>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
