@@ -1,5 +1,6 @@
 import { PublicLayout } from "@/components/structures/layouts/PublicLayout";
 import { LoginPage } from "@/pages/Login";
+import { RegisterPage } from "@/pages/Register";
 import type { RouteObject } from "react-router";
 
 export const publicRoutes: RouteObject[] = [
@@ -16,7 +17,7 @@ export const publicRoutes: RouteObject[] = [
       },
       {
         path: "/register",
-        element: <div />,
+        element: <RegisterPage />,
       },
     ],
   },
