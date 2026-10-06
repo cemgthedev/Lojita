@@ -17,11 +17,11 @@ const separatorVariants = cva("peer w-full rounded-full opacity-60 border-0", {
       danger: "bg-danger",
     },
     size: {
-      xl: "data-horizontal:h-2 data-horizontal:w-full data-vertical:w-2 data-vertical:self-stretch",
-      lg: "data-horizontal:h-1.5 data-horizontal:w-full data-vertical:w-1.5 data-vertical:self-stretch",
-      md: "data-horizontal:h-1 data-horizontal:w-full data-vertical:w-1 data-vertical:self-stretch",
-      sm: "data-horizontal:h-0.5 data-horizontal:w-full data-vertical:w-0.5 data-vertical:self-stretch",
-      xs: "data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+      xl: "data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:self-stretch",
+      lg: "data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-1.5 data-[orientation=vertical]:self-stretch",
+      md: "data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-1 data-[orientation=vertical]:self-stretch",
+      sm: "data-[orientation=horizontal]:h-0.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-0.5 data-[orientation=vertical]:self-stretch",
+      xs: "data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch",
     },
   },
   defaultVariants: {
@@ -44,7 +44,7 @@ function Separator({
     <SeparatorPrimitive.Root
       data-slot="hr"
       data-variant={variant}
-      orientation={orientation}
+      data-orientation={orientation}
       data-size={size}
       className={cn(separatorVariants({ variant, size, className }))}
       {...props}

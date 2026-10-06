@@ -35,4 +35,12 @@ export const urls = {
    * Customer dashboard page
    */
   customer_dashboard: "/customer-dashboard",
+  /**
+   * Profile page
+   */
+  profile: "/profile",
+  /**
+   * Categories page
+   */
+  categories: "/categories",
 };
