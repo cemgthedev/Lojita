@@ -12,10 +12,12 @@ import {
   Label,
   Text,
 } from "@/components/ui";
+import { urls } from "@/constants/urls";
 import { useAuth } from "@/hooks/useAuth";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import type { Role } from "@/types/Auth";
 import {
+  ArrowLeftIcon,
   EyeIcon,
   EyeOffIcon,
   LockKeyholeIcon,
@@ -23,7 +25,7 @@ import {
   User2Icon,
 } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const defaultRouteByRole: Record<Role, string> = {
   admin: "/admin-dashboard",
@@ -213,6 +215,14 @@ export function RegisterPage() {
             </FieldSet>
           </FieldGroup>
         </form>
+
+        <Link
+          to={urls.login}
+          className="text-center flex gap-2 justify-center items-center hover:text-primary-600 transition-colors"
+        >
+          <ArrowLeftIcon size={20} />
+          <Text>Voltar para o login</Text>
+        </Link>
       </div>
     </main>
   );

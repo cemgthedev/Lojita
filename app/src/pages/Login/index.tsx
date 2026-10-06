@@ -17,7 +17,7 @@ import {
 import { urls } from "@/constants/urls";
 import { useAuth } from "@/hooks/useAuth";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
-import type { Role } from "@/types/Auth";
+import { ROLE_LABEL, type Role } from "@/types/Auth";
 import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon } from "lucide-react";
 
 const defaultRouteByRole: Record<Role, string> = {
@@ -167,7 +167,7 @@ export function LoginPage() {
                     setPassword(MOCK_LOGIN_PASSWORD);
                   }}
                 >
-                  {user.role[0]}: {user.email}
+                  {ROLE_LABEL[user.role[0]]}: {user.email}
                 </Button>
               </li>
             ))}

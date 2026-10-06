@@ -7,6 +7,13 @@ export const ROLE = {
   CUSTOMER: "customer",
 } as const;
 
+export const ROLE_LABEL = {
+  [ROLE.ADMIN]: "Administrador",
+  [ROLE.SUPPORT]: "Suporte",
+  [ROLE.SELLER]: "Vendedor",
+  [ROLE.CUSTOMER]: "Cliente",
+} as const;
+
 const message = {
   role: {
     required: "Perfil é obrigatório.",

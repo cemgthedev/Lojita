@@ -16,6 +16,10 @@ export const urls = {
    */
   forgot_password: "/forgot-password",
   /**
+   * Email verification page
+   */
+  email_verification: "/forgot-password/email-verification",
+  /**
    * Admin dashboard page
    */
   admin_dashboard: "/admin-dashboard",

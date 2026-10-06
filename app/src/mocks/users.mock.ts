@@ -95,3 +95,21 @@ export function findMockUserById(id: string): AuthUser | null {
 
   return user ? toAuthUser(user) : null;
 }
+
+export function mockUserExistsByEmail(email: string) {
+  return mockUsers.some(
+    (mockUser) =>
+      mockUser.email.toLocaleLowerCase() === email.trim().toLocaleLowerCase(),
+  );
+}
+
+export function updateMockUserPassword(email: string, password: string) {
+  const user = mockUsers.find(
+    (mockUser) =>
+      mockUser.email.toLocaleLowerCase() === email.trim().toLocaleLowerCase(),
+  );
+
+  if (user) {
+    user.password = password;
+  }
+}
