@@ -4,8 +4,8 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
-const buttonVariants = cva(
-  "w-fit h-fit flex justify-center items-center gap-2 transition-all cursor-pointer",
+const badgeVariants = cva(
+  "w-fit h-fit flex justify-center items-center gap-2 transition-all border border-border cursor-default select-none",
   {
     variants: {
       variant: {
@@ -18,21 +18,23 @@ const buttonVariants = cva(
         warning: "bg-warning text-warning-foreground hover:opacity-80",
         danger: "bg-danger text-danger-foreground hover:opacity-80",
         "dark-bordered":
-          "border border-dark text-dark hover:bg-dark hover:text-dark-foreground",
+          "border-dark text-dark hover:bg-dark hover:text-dark-foreground",
         "muted-bordered":
-          "border border-muted text-muted opacity-60 hover:bg-muted hover:text-muted-foreground",
+          "border-muted text-muted opacity-60 hover:bg-muted hover:text-muted-foreground",
         "primary-bordered":
-          "border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+          "border-primary text-primary hover:bg-primary hover:text-primary-foreground",
         "secondary-bordered":
-          "border border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground",
+          "border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground",
         "success-bordered":
-          "border border-success text-success hover:bg-success hover:text-success-foreground",
+          "border-success text-success hover:bg-success hover:text-success-foreground",
         "warning-bordered":
-          "border border-warning text-warning hover:bg-warning hover:text-warning-foreground",
+          "border-warning text-warning hover:bg-warning hover:text-warning-foreground",
         "danger-bordered":
-          "border border-danger text-danger hover:bg-danger hover:text-danger-foreground",
-        ghost: "bg-transparent border-transparent hover:bg-muted",
+          "border-danger text-danger hover:bg-danger hover:text-danger-foreground",
         "dark-ghost": "bg-muted border-dark text-dark hover:opacity-80",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        "muted-ghost":
+          "bg-muted border-dark text-dark opacity-60 hover:opacity-80",
         "primary-ghost":
           "bg-primary-200 border-primary-800 text-primary-800 hover:opacity-80",
         "secondary-ghost":
@@ -46,10 +48,10 @@ const buttonVariants = cva(
       },
       size: {
         xl: "text-lg leading-lg p-3",
-        lg: "text-md leading-md p-3",
+        lg: "text-md leading-md px-2.5 py-2",
         md: "text-md leading-md p-2",
-        sm: "text-sm leading-sm p-2",
-        xs: "text-sm leading-xs p-2",
+        sm: "text-sm leading-sm px-2 py-1.5",
+        xs: "text-sm leading-xs p-1.5",
       },
       rounded: {
         full: "rounded-full",
@@ -68,31 +70,32 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+type BadgeProps = React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
     startContent?: React.ReactNode;
     endContent?: React.ReactNode;
   };
 
-function Button({
+function Badge({
   className,
   variant = "default",
   size = "md",
   rounded = "md",
   asChild = false,
-  startContent = null,
-  endContent = null,
+  startContent,
+  endContent,
   children,
   ...props
-}: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
+}: BadgeProps) {
+  const Comp = asChild ? Slot.Root : "span";
+
   return (
     <Comp
-      data-slot="button"
+      data-slot="span"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, rounded, className }))}
+      className={cn(badgeVariants({ variant, size, rounded, className }))}
       {...props}
     >
       {startContent}
@@ -102,5 +105,5 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export { Badge, badgeVariants };
+export type { BadgeProps };

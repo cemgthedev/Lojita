@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
-const buttonVariants = cva(
+const inputGroupButtonVariants = cva(
   "w-fit h-fit flex justify-center items-center gap-2 transition-all cursor-pointer",
   {
     variants: {
@@ -62,37 +62,39 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "default",
-      size: "md",
+      size: "xs",
       rounded: "md",
     },
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+type InputGroupButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof inputGroupButtonVariants> & {
     asChild?: boolean;
     startContent?: React.ReactNode;
     endContent?: React.ReactNode;
   };
 
-function Button({
+function InputGroupButton({
   className,
   variant = "default",
-  size = "md",
+  size = "xs",
   rounded = "md",
   asChild = false,
   startContent = null,
   endContent = null,
   children,
   ...props
-}: ButtonProps) {
+}: InputGroupButtonProps) {
   const Comp = asChild ? Slot.Root : "button";
   return (
     <Comp
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, rounded, className }))}
+      className={cn(
+        inputGroupButtonVariants({ variant, size, rounded, className }),
+      )}
       {...props}
     >
       {startContent}
@@ -102,5 +104,5 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export { InputGroupButton, inputGroupButtonVariants };
+export type { InputGroupButtonProps };

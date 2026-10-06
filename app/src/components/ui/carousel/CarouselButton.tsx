@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
-const buttonVariants = cva(
+const carouselButtonVariants = cva(
   "w-fit h-fit flex justify-center items-center gap-2 transition-all cursor-pointer",
   {
     variants: {
@@ -68,14 +68,14 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+type CarouselButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof carouselButtonVariants> & {
     asChild?: boolean;
     startContent?: React.ReactNode;
     endContent?: React.ReactNode;
   };
 
-function Button({
+function CarouselButton({
   className,
   variant = "default",
   size = "md",
@@ -85,22 +85,47 @@ function Button({
   endContent = null,
   children,
   ...props
-}: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
+}: CarouselButtonProps) {
+  if (asChild)
+    return (
+      <div
+        className={cn(
+          carouselButtonVariants({ variant, size, rounded, className }),
+        )}
+      >
+        {startContent}
+
+        <Slot.Root
+          data-slot="button"
+          data-variant={variant}
+          data-size={size}
+          {...props}
+        >
+          {children}
+        </Slot.Root>
+
+        {endContent}
+      </div>
+    );
+
   return (
-    <Comp
+    <button
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, rounded, className }))}
+      className={cn(
+        carouselButtonVariants({ variant, size, rounded, className }),
+      )}
       {...props}
     >
       {startContent}
+
       {children}
+
       {endContent}
-    </Comp>
+    </button>
   );
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export { CarouselButton, carouselButtonVariants };
+export type { CarouselButtonProps };

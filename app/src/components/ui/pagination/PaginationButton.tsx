@@ -1,38 +1,38 @@
+import { cn } from "@/utils/cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
-import * as React from "react";
 
-import { cn } from "@/utils/cn";
-
-const buttonVariants = cva(
-  "w-fit h-fit flex justify-center items-center gap-2 transition-all cursor-pointer",
+const paginationButtonVariants = cva(
+  "w-fit h-fit flex justify-center items-center gap-1 transition-all border border-border cursor-pointer",
   {
     variants: {
       variant: {
         default: "bg-muted text-foreground hover:opacity-80",
         dark: "bg-dark text-dark-foreground hover:opacity-80",
-        muted: "bg-muted text-foreground opacity-60 hover:opacity-80",
+        muted: "bg-muted text-muted-foreground opacity hover:opacity-80",
         primary: "bg-primary text-primary-foreground hover:opacity-80",
         secondary: "bg-secondary text-secondary-foreground hover:opacity-80",
         success: "bg-success text-success-foreground hover:opacity-80",
         warning: "bg-warning text-warning-foreground hover:opacity-80",
         danger: "bg-danger text-danger-foreground hover:opacity-80",
         "dark-bordered":
-          "border border-dark text-dark hover:bg-dark hover:text-dark-foreground",
+          "border-dark text-dark hover:bg-dark hover:text-dark-foreground",
         "muted-bordered":
-          "border border-muted text-muted opacity-60 hover:bg-muted hover:text-muted-foreground",
+          "border-muted text-muted-foreground opacity-60 hover:bg-muted hover:text-muted-foreground",
         "primary-bordered":
-          "border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+          "border-primary text-primary hover:bg-primary hover:text-primary-foreground",
         "secondary-bordered":
-          "border border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground",
+          "border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground",
         "success-bordered":
-          "border border-success text-success hover:bg-success hover:text-success-foreground",
+          "border-success text-success hover:bg-success hover:text-success-foreground",
         "warning-bordered":
-          "border border-warning text-warning hover:bg-warning hover:text-warning-foreground",
+          "border-warning text-warning hover:bg-warning hover:text-warning-foreground",
         "danger-bordered":
-          "border border-danger text-danger hover:bg-danger hover:text-danger-foreground",
+          "border-danger text-danger hover:bg-danger hover:text-danger-foreground",
         ghost: "bg-transparent border-transparent hover:bg-muted",
         "dark-ghost": "bg-muted border-dark text-dark hover:opacity-80",
+        "muted-ghost":
+          "bg-muted border-dark text-dark opacity-60 hover:opacity-80",
         "primary-ghost":
           "bg-primary-200 border-primary-800 text-primary-800 hover:opacity-80",
         "secondary-ghost":
@@ -45,11 +45,11 @@ const buttonVariants = cva(
           "bg-danger-200 border-danger-800 text-danger-800 hover:opacity-80",
       },
       size: {
-        xl: "text-lg leading-lg p-3",
-        lg: "text-md leading-md p-3",
-        md: "text-md leading-md p-2",
-        sm: "text-sm leading-sm p-2",
-        xs: "text-sm leading-xs p-2",
+        xl: "h-13 min-w-13 px-3 text-lg leading-none",
+        lg: "h-11 min-w-11 px-2.5 text-md leading-none",
+        md: "h-10 min-w-10 px-2 text-md leading-none",
+        sm: "h-9 min-w-9 px-2 text-sm leading-none",
+        xs: "h-8 min-w-8 px-1.5 text-sm leading-none",
       },
       rounded: {
         full: "rounded-full",
@@ -68,39 +68,32 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+type PaginationButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof paginationButtonVariants> & {
     asChild?: boolean;
-    startContent?: React.ReactNode;
-    endContent?: React.ReactNode;
   };
 
-function Button({
+function PaginationButton({
   className,
   variant = "default",
   size = "md",
   rounded = "md",
   asChild = false,
-  startContent = null,
-  endContent = null,
-  children,
   ...props
-}: ButtonProps) {
+}: PaginationButtonProps) {
   const Comp = asChild ? Slot.Root : "button";
   return (
     <Comp
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, rounded, className }))}
+      className={cn(
+        paginationButtonVariants({ variant, size, rounded, className }),
+      )}
       {...props}
-    >
-      {startContent}
-      {children}
-      {endContent}
-    </Comp>
+    />
   );
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export { PaginationButton, paginationButtonVariants };
+export type { PaginationButtonProps };

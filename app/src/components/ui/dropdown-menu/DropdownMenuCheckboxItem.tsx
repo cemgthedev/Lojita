@@ -1,15 +1,21 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
+import { CheckIcon } from "lucide-react";
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
-const buttonVariants = cva(
-  "w-fit h-fit flex justify-center items-center gap-2 transition-all cursor-pointer",
+const dropdownMenuCheckboxItemVariants = cva(
+  "border border-transparent relative flex cursor-default items-center gap-1.5 rounded-md outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
+      inset: {
+        true: "pl-7",
+        false: "",
+      },
+
       variant: {
-        default: "bg-muted text-foreground hover:opacity-80",
+        default: "bg-transparent text-foreground hover:opacity-80",
         dark: "bg-dark text-dark-foreground hover:opacity-80",
         muted: "bg-muted text-foreground opacity-60 hover:opacity-80",
         primary: "bg-primary text-primary-foreground hover:opacity-80",
@@ -17,6 +23,7 @@ const buttonVariants = cva(
         success: "bg-success text-success-foreground hover:opacity-80",
         warning: "bg-warning text-warning-foreground hover:opacity-80",
         danger: "bg-danger text-danger-foreground hover:opacity-80",
+
         "dark-bordered":
           "border border-dark text-dark hover:bg-dark hover:text-dark-foreground",
         "muted-bordered":
@@ -31,7 +38,9 @@ const buttonVariants = cva(
           "border border-warning text-warning hover:bg-warning hover:text-warning-foreground",
         "danger-bordered":
           "border border-danger text-danger hover:bg-danger hover:text-danger-foreground",
+
         ghost: "bg-transparent border-transparent hover:bg-muted",
+
         "dark-ghost": "bg-muted border-dark text-dark hover:opacity-80",
         "primary-ghost":
           "bg-primary-200 border-primary-800 text-primary-800 hover:opacity-80",
@@ -45,62 +54,64 @@ const buttonVariants = cva(
           "bg-danger-200 border-danger-800 text-danger-800 hover:opacity-80",
       },
       size: {
-        xl: "text-lg leading-lg p-3",
-        lg: "text-md leading-md p-3",
-        md: "text-md leading-md p-2",
-        sm: "text-sm leading-sm p-2",
-        xs: "text-sm leading-xs p-2",
-      },
-      rounded: {
-        full: "rounded-full",
-        xl: "rounded-xl",
-        lg: "rounded-lg",
-        md: "rounded-md",
-        sm: "rounded-sm",
-        xs: "rounded-xs",
+        xl: "text-xl p-2 pr-10",
+        lg: "text-lg p-2 pr-10",
+        md: "text-md py-2 pr-8 pl-2",
+        sm: "text-sm p-2 pr-10",
+        xs: "text-xs p-2 pr-10",
       },
     },
+
     defaultVariants: {
+      inset: false,
       variant: "default",
       size: "md",
-      rounded: "md",
     },
   },
 );
 
-type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-    startContent?: React.ReactNode;
-    endContent?: React.ReactNode;
-  };
+type DropdownMenuCheckboxItemProps = React.ComponentProps<
+  typeof DropdownMenuPrimitive.CheckboxItem
+> &
+  VariantProps<typeof dropdownMenuCheckboxItemVariants>;
 
-function Button({
+function DropdownMenuCheckboxItem({
   className,
-  variant = "default",
-  size = "md",
-  rounded = "md",
-  asChild = false,
-  startContent = null,
-  endContent = null,
   children,
+  checked,
+  inset,
+  variant,
+  size,
   ...props
-}: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
+}: DropdownMenuCheckboxItemProps) {
   return (
-    <Comp
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, rounded, className }))}
+    <DropdownMenuPrimitive.CheckboxItem
+      data-slot="dropdown-menu-checkbox-item"
+      className={cn(
+        dropdownMenuCheckboxItemVariants({
+          inset,
+          variant,
+          size,
+        }),
+        className,
+      )}
+      checked={checked}
       {...props}
     >
-      {startContent}
+      <span
+        className="pointer-events-none absolute right-2 flex items-center justify-center"
+        data-slot="dropdown-menu-checkbox-item-indicator"
+      >
+        <DropdownMenuPrimitive.ItemIndicator>
+          <CheckIcon />
+        </DropdownMenuPrimitive.ItemIndicator>
+      </span>
+
       {children}
-      {endContent}
-    </Comp>
+    </DropdownMenuPrimitive.CheckboxItem>
   );
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export { DropdownMenuCheckboxItem, dropdownMenuCheckboxItemVariants };
+
+export type { DropdownMenuCheckboxItemProps };
