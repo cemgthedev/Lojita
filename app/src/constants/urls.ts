@@ -8,9 +8,13 @@ export const urls = {
    */
   login: "/login",
   /**
-   * Signin page
+   * Register page
    */
-  signin: "/signin",
+  register: "/register",
+  /**
+   * Forgot password page
+   */
+  forgot_password: "/forgot-password",
   /**
    * Admin dashboard page
    */
