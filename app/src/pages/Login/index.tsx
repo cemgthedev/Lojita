@@ -41,6 +41,14 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
+  }
+
+  function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
+  }
+
   function handleVisibilityToggle() {
     setIsVisible((prev) => !prev);
   }
@@ -89,6 +97,9 @@ export function LoginPage() {
                       id="email-input"
                       placeholder="seu.email@exemplo.com"
                       required
+                      type="email"
+                      value={email}
+                      onChange={handleEmailChange}
                     />
                     <InputGroupAddon align="inline-start">
                       <MailIcon size={20} />
@@ -113,6 +124,8 @@ export function LoginPage() {
                       placeholder="••••••••"
                       type={isVisible ? "text" : "password"}
                       required
+                      value={password}
+                      onChange={handlePasswordChange}
                     />
                     <InputGroupAddon align="inline-start">
                       <LockKeyholeIcon size={20} />
