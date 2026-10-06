@@ -54,7 +54,7 @@ export function LoginPage() {
       await login({ email, password });
       const user = mockUsers.find((mockUser) => mockUser.email === email);
       const from = (location.state as LocationState | null)?.from?.pathname;
-      navigate(from ?? defaultRouteByRole[user?.role[0] ?? ""], {
+      navigate(from ?? defaultRouteByRole[user?.role[0] ?? "customer"], {
         replace: true,
       });
     } catch (caughtError) {
