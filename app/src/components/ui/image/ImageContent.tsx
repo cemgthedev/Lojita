@@ -11,8 +11,12 @@ type ImageContentProps = React.ComponentProps<"img"> &
   VariantProps<typeof imageContentVariants>;
 
 const ImageContent = React.forwardRef<HTMLImageElement, ImageContentProps>(
-  ({ className, onLoad, onError, alt, ...props }, ref) => {
+  ({ className, onLoad, onError, src, alt, ...props }, ref) => {
     const { loaded, error, setLoaded, setError } = useImageContext();
+
+    if (!src) {
+      setError(true);
+    }
 
     return (
       <img

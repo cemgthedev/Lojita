@@ -32,17 +32,17 @@ const buttonVariants = cva(
         "danger-bordered":
           "border border-danger text-danger hover:bg-danger hover:text-danger-foreground",
         ghost: "bg-transparent border-transparent hover:bg-muted",
-        "dark-ghost": "bg-muted border-dark text-dark hover:opacity-80",
+        "dark-ghost": "bg-muted border border-dark text-dark hover:opacity-80",
         "primary-ghost":
-          "bg-primary-200 border-primary-800 text-primary-800 hover:opacity-80",
+          "bg-primary-200 border border-primary-800 text-primary-800 hover:opacity-80",
         "secondary-ghost":
-          "bg-secondary-200 border-secondary-800 text-secondary-800 hover:opacity-80",
+          "bg-secondary-200 border border-secondary-800 text-secondary-800 hover:opacity-80",
         "success-ghost":
-          "bg-success-200 border-success-800 text-success-800 hover:opacity-80",
+          "bg-success-200 border border-success-800 text-success-800 hover:opacity-80",
         "warning-ghost":
-          "bg-warning-200 border-warning-800 text-warning-800 hover:opacity-80",
+          "bg-warning-200 border border-warning-800 text-warning-800 hover:opacity-80",
         "danger-ghost":
-          "bg-danger-200 border-danger-800 text-danger-800 hover:opacity-80",
+          "bg-danger-200 border border-danger-800 text-danger-800 hover:opacity-80",
       },
       size: {
         xl: "text-lg leading-lg p-3",
