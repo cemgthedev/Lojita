@@ -35,6 +35,14 @@ const message = {
     required: "Senha é obrigatória.",
     invalid: "Senha inválida.",
   },
+  document: {
+    required: "Documento é obrigatório.",
+    invalid: "Documento inválido.",
+  },
+  phone: {
+    required: "Telefone é obrigatório.",
+    invalid: "Telefone inválido.",
+  },
 } as const;
 
 export const roleSchema = z.enum(ROLE, {
@@ -51,10 +59,17 @@ export const authUserSchema = z.object({
   name: z.string({ error: message.name.invalid }).min(1, {
     error: message.name.required,
   }),
+  document: z.string({ error: message.document.invalid }).min(1, {
+    error: message.document.required,
+  }),
+  phone: z.string({
+    error: message.phone.invalid,
+  }),
   email: z
     .string({ error: message.email.invalid })
     .min(1, { error: message.email.required }),
   role: z.array(roleSchema).min(1, { error: message.role.required }),
+  avatarUrl: z.string().optional(),
 });
 
 export type AuthUser = z.infer<typeof authUserSchema>;

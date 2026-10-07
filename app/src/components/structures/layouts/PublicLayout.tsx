@@ -1,3 +1,4 @@
+import { PublicHeader } from "@/components/structures/headers/PublicHeader";
 import { Outlet } from "react-router";
 
 export type PublicLayoutProps = {
@@ -7,6 +8,7 @@ export type PublicLayoutProps = {
 export function PublicLayout() {
   return (
     <div className="flex min-h-screen flex-col">
+      <PublicHeader />
       <Outlet />
     </div>
   );

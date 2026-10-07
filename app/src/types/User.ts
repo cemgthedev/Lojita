@@ -22,6 +22,10 @@ const message = {
     required: "Documento é obrigatório.",
     invalid: "Documento inválido.",
   },
+  phone: {
+    required: "Telefone é obrigatório.",
+    invalid: "Telefone inválido.",
+  },
   role: {
     required: "Perfil é obrigatório.",
     invalid: "Perfil inválido.",
@@ -49,6 +53,9 @@ export const userSchema = z.object({
   avatarUrl: z.string({ error: message.avatarUrl.invalid }),
   document: z.string({ error: message.document.invalid }).min(1, {
     error: message.document.required,
+  }),
+  phone: z.string({
+    error: message.phone.invalid,
   }),
   role: z.array(roleSchema).min(1, { error: message.role.required }),
   createdAt: z

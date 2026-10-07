@@ -1,3 +1,4 @@
+import { CustomerHeader } from "@/components/structures/headers/CustomerHeader";
 import { Outlet } from "react-router";
 
 export type CustomerLayoutProps = {
@@ -7,6 +8,7 @@ export type CustomerLayoutProps = {
 export function CustomerLayout() {
   return (
     <div className="flex min-h-screen flex-col">
+      <CustomerHeader />
       <Outlet />
     </div>
   );

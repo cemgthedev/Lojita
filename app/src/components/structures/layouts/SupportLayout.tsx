@@ -1,3 +1,4 @@
+import { SupportHeader } from "@/components/structures/headers/SupportLayout.tsx";
 import { Outlet } from "react-router";
 
 export type SupportLayoutProps = {
@@ -7,6 +8,7 @@ export type SupportLayoutProps = {
 export function SupportLayout() {
   return (
     <div className="flex min-h-screen flex-col">
+      <SupportHeader />
       <Outlet />
     </div>
   );
