@@ -20,7 +20,7 @@ import { cn } from "@/utils/cn";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
-const notVisibleHeaderRoutes = [urls.login, urls.register];
+const notVisibleHeaderRoutes = [urls.login, urls.register, urls.profile];
 
 export function AdminHeader() {
   const { pathname, hash } = useLocation();
@@ -77,7 +77,7 @@ export function AdminHeader() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-64 max-w-64 p-3">
           <DropdownMenuGroup>
-            <Link to={urls.home} className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <Avatar size="lg">
                 <AvatarImage src={user?.avatarUrl} alt="logo" />
                 <AvatarFallback variant="primary">AU</AvatarFallback>
@@ -86,7 +86,7 @@ export function AdminHeader() {
                 <Label size="xs">{user?.name || "Usuário"}</Label>
                 <Text>{user?.email}</Text>
               </div>
-            </Link>
+            </div>
             <Separator
               variant={"secondary"}
               orientation="horizontal"
