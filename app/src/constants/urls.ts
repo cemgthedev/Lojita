@@ -1,5 +1,11 @@
 export const urls = {
   /**
+   * CRUD endpoints
+   */
+  create: "/create",
+  update: "/update",
+
+  /**
    * Home page
    */
   home: "/",
@@ -55,6 +61,18 @@ export const urls = {
    * Profile page
    */
   profile: "/profile",
+  /**
+   * Addresses page
+   */
+  addresses: "/addresses",
+  /**
+   * Payment page
+   */
+  payments: "/payments",
+  /**
+   * Security page
+   */
+  security: "/security",
   /**
    * Categories page
    */
