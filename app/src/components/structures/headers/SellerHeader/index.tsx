@@ -103,7 +103,7 @@ export function SellerHeader() {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link
-                to={urls.profile}
+                to={urls.store_dashboard}
                 className="hover:text-secondary flex gap-2 items-center transition-colors"
               >
                 Ver loja
