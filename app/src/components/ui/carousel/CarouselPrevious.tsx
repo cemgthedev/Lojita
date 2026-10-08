@@ -1,5 +1,4 @@
-import { useCarousel } from "@/components/ui/carousel";
-import { CarouselButton } from "@/components/ui/carousel";
+import { CarouselButton, useCarousel } from "@/components/ui/carousel";
 import { cn } from "@/utils/cn";
 import { ChevronLeftIcon } from "lucide-react";
 

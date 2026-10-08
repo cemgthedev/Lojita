@@ -1,6 +1,12 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
-import { authApi } from "@/shared/lib/auth.api";
+import { authApi } from "@/api/auth.api";
 import type { AuthUser, LoginCredentials } from "@/types/Auth";
 
 export type AuthContextValue = {

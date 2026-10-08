@@ -1,3 +1,4 @@
+import { authApi } from "@/api/auth.api";
 import { sellerNavConfig } from "@/components/structures/headers/SellerHeader/nav.config";
 import {
   Avatar,
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
 import { useAuth } from "@/providers/AuthProvider";
-import { authApi } from "@/shared/lib/auth.api";
 import { cn } from "@/utils/cn";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
