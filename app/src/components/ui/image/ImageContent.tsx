@@ -1,7 +1,7 @@
 import { useImageContext } from "@/components/ui/image";
 import { cn } from "@/utils/cn";
 import { cva, type VariantProps } from "class-variance-authority";
-import React from "react";
+import React, { useEffect } from "react";
 
 const imageContentVariants = cva(
   "size-full object-cover transition-opacity duration-300",
@@ -14,9 +14,11 @@ const ImageContent = React.forwardRef<HTMLImageElement, ImageContentProps>(
   ({ className, onLoad, onError, src, alt, ...props }, ref) => {
     const { loaded, error, setLoaded, setError } = useImageContext();
 
-    if (!src) {
-      setError(true);
-    }
+    const hasInvalidSrc = !src;
+
+    useEffect(() => {
+      setError(hasInvalidSrc);
+    }, [hasInvalidSrc]);
 
     return (
       <img

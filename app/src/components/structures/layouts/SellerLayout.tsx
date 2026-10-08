@@ -7,7 +7,7 @@ export type SellerLayoutProps = {
 
 export function SellerLayout() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-red-500">
       <SellerHeader />
       <Outlet />
     </div>

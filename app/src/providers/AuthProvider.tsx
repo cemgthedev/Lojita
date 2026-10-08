@@ -18,6 +18,8 @@ export type AuthContextValue = {
 
   login: (credentials: LoginCredentials) => Promise<void>;
 
+  updateUser: (user: AuthUser) => void;
+
   logout: () => Promise<void>;
 
   isAuthenticated: boolean;
@@ -68,12 +70,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setStatus("unauthenticated");
   }
 
+  function updateUser(user: AuthUser) {
+    setUser(user);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
         status,
         login,
+        updateUser,
         logout,
         isAuthenticated: status === "authenticated",
       }}
@@ -84,3 +91,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 }
 
 export const useAuth = () => useContext(AuthContext) as AuthContextValue;
+
+export function useRequiredAuth() {
+  const auth = useAuth();
+
+  if (auth.status !== "authenticated" || !auth.user) {
+    throw new Error("useRequiredAuth must be used by an authenticated user.");
+  }
+
+  return {
+    ...auth,
+    user: auth.user,
+  };
+}
