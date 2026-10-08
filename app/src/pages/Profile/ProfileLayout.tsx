@@ -36,7 +36,7 @@ export function ProfileLayout() {
                     ? "secondary-ghost"
                     : "dark-bordered"
                 }
-                className="flex items-center gap-2 transition-opacity hover:opacity-80"
+                className="w-40 p-2 flex items-center gap-2 transition-opacity hover:opacity-80"
               >
                 {item.icon}
                 <span>{item.name}</span>
