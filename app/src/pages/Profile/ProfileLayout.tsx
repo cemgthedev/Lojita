@@ -1,8 +1,8 @@
 import { Button, Text } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { useHighestRole } from "@/hooks/useHighestRole";
 import { profileTabConfig } from "@/pages/Profile/nav.config";
+import { useAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 

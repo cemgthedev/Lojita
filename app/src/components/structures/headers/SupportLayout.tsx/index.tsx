@@ -14,7 +14,7 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/AuthProvider";
 import { authApi } from "@/shared/lib/auth.api";
 import { cn } from "@/utils/cn";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";

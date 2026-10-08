@@ -9,8 +9,8 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { useHighestRole } from "@/hooks/useHighestRole";
+import { useAuth } from "@/providers/AuthProvider";
 import { ROLE, ROLE_LABEL } from "@/types/Auth";
 import { Link } from "react-router";
 

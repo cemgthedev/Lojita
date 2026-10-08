@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 import { authApi } from "@/shared/lib/auth.api";
 import type { AuthUser, LoginCredentials } from "@/types/Auth";
@@ -73,3 +73,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
     </AuthContext.Provider>
   );
 }
+
+export const useAuth = () => useContext(AuthContext) as AuthContextValue;

@@ -1,4 +1,4 @@
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/AuthProvider";
 import type { Role } from "@/types/Auth";
 import { Navigate, Outlet } from "react-router";
 

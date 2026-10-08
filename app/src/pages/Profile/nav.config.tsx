@@ -1,6 +1,6 @@
 import { urls } from "@/constants/urls";
-import type { NavItem } from "@/shared/types/NavItem";
 import { ROLE, type Role } from "@/types/Auth";
+import type { NavItem } from "@/types/NavItem";
 import { CreditCardIcon, LockIcon, PinIcon, User2Icon } from "lucide-react";
 
 const adminTabConfig: NavItem[] = [

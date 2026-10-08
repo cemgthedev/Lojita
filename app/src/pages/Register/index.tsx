@@ -13,8 +13,8 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
+import { useAuth } from "@/providers/AuthProvider";
 import type { Role } from "@/types/Auth";
 import {
   ArrowLeftIcon,

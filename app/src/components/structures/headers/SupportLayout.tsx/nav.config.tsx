@@ -1,5 +1,5 @@
 import { urls } from "@/constants/urls";
-import type { NavItem } from "@/shared/types/NavItem";
+import type { NavItem } from "@/types/NavItem";
 import { HouseIcon } from "lucide-react";
 
 export const supportNavConfig: NavItem[] = [
