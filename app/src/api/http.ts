@@ -17,7 +17,7 @@ async function request<T>(
     throw new Error("Request failed");
   }
 
-  const data = await response.json();
+  const data = response.status === 204 ? undefined : await response.json();
 
   return {
     data,

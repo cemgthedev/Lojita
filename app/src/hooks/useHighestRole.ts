@@ -1,4 +1,7 @@
-import { ROLE, type Role } from "@/types/Auth";
+import {
+  ROLE,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
 
 const rolePriority: Role[] = [
   ROLE.ADMIN,

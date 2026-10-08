@@ -2,7 +2,10 @@ import {
   findMockUserByCredentials,
   findMockUserById,
 } from "@/mocks/users.mock";
-import type { AuthUser, LoginCredentials } from "@/types/Auth";
+import type {
+  AuthUser,
+  LoginCredentials,
+} from "@/api/resources/users/validations/auth.schema";
 
 const MOCK_SESSION_KEY = "lojita:mock-session-user-id";
 

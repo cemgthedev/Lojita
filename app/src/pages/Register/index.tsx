@@ -15,7 +15,7 @@ import {
 import { urls } from "@/constants/urls";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import { useAuth } from "@/providers/AuthProvider";
-import type { Role } from "@/types/Auth";
+import type { Role } from "@/api/resources/users/validations/auth.schema";
 import {
   ArrowLeftIcon,
   EyeIcon,

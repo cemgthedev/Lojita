@@ -11,7 +11,10 @@ import {
 import { urls } from "@/constants/urls";
 import { useHighestRole } from "@/hooks/useHighestRole";
 import { useAuth } from "@/providers/AuthProvider";
-import { ROLE, ROLE_LABEL } from "@/types/Auth";
+import {
+  ROLE,
+  ROLE_LABEL,
+} from "@/api/resources/users/validations/auth.schema";
 import { Link } from "react-router";
 
 export function ProfilePage() {

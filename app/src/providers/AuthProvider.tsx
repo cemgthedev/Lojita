@@ -7,7 +7,10 @@ import {
 } from "react";
 
 import { authApi } from "@/api/auth.api";
-import type { AuthUser, LoginCredentials } from "@/types/Auth";
+import type {
+  AuthUser,
+  LoginCredentials,
+} from "@/api/resources/users/validations/auth.schema";
 
 export type AuthContextValue = {
   user: AuthUser | null;

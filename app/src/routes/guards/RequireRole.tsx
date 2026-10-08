@@ -1,5 +1,5 @@
 import { useAuth } from "@/providers/AuthProvider";
-import type { Role } from "@/types/Auth";
+import type { Role } from "@/api/resources/users/validations/auth.schema";
 import { Navigate, Outlet } from "react-router";
 
 interface RequireRoleProps {

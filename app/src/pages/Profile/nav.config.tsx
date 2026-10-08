@@ -1,5 +1,8 @@
 import { urls } from "@/constants/urls";
-import { ROLE, type Role } from "@/types/Auth";
+import {
+  ROLE,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
 import type { NavItem } from "@/types/NavItem";
 import { CreditCardIcon, LockIcon, PinIcon, User2Icon } from "lucide-react";
 
