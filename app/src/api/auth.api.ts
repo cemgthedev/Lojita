@@ -1,6 +1,7 @@
 import {
   findMockUserByCredentials,
   findMockUserById,
+  updateMockUserPasswordById,
 } from "@/mocks/users.mock";
 import type {
   AuthUser,
@@ -51,6 +52,17 @@ export const authApi = {
     // API futura:
     // const response = await http.get<AuthUser>("/auth/me");
     // return response.data;
+  },
+
+  async changePassword(password: string): Promise<void> {
+    const userId = localStorage.getItem(MOCK_SESSION_KEY);
+
+    if (!userId || !updateMockUserPasswordById(userId, password)) {
+      throw new Error("Não foi possível encontrar a conta autenticada.");
+    }
+
+    // API futura:
+    // await http.put("/auth/password", { password });
   },
 
   async logout(): Promise<void> {
