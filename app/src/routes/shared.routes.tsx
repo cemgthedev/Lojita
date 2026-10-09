@@ -2,6 +2,7 @@ import { urls } from "@/constants/urls";
 import { ProfilePage } from "@/pages/Profile";
 import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
 import { ProfileUpdatePage } from "@/pages/Profile/Update";
+import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
@@ -27,7 +28,7 @@ export const sharedRoutes: RouteObject[] = [
       },
       {
         path: urls.security.slice(1),
-        element: <div>Segurança</div>,
+        element: <UpdatePasswordPage />,
       },
     ],
   },

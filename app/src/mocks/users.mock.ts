@@ -124,3 +124,14 @@ export function updateMockUserPassword(email: string, password: string) {
     user.password = password;
   }
 }
+
+export function updateMockUserPasswordById(id: string, password: string) {
+  const user = mockUsers.find((mockUser) => mockUser.id === id);
+
+  if (!user) {
+    return false;
+  }
+
+  user.password = password;
+  return true;
+}
