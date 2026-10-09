@@ -15,9 +15,12 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
-import { ROLE_LABEL, type Role } from "@/types/Auth";
+import { useAuth } from "@/providers/AuthProvider";
+import {
+  ROLE_LABEL,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
 import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon } from "lucide-react";
 
 const defaultRouteByRole: Record<Role, string> = {

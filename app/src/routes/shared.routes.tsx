@@ -1,6 +1,7 @@
 import { urls } from "@/constants/urls";
 import { ProfilePage } from "@/pages/Profile";
 import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
+import { ProfileUpdatePage } from "@/pages/Profile/Update";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
@@ -14,7 +15,7 @@ export const sharedRoutes: RouteObject[] = [
       },
       {
         path: urls.update.slice(1),
-        element: <div>Atualizar perfil</div>,
+        element: <ProfileUpdatePage />,
       },
       {
         path: urls.addresses.slice(1),

@@ -1,8 +1,8 @@
 import { Button, Text } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { useHighestRole } from "@/hooks/useHighestRole";
 import { profileTabConfig } from "@/pages/Profile/nav.config";
+import { useAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 
@@ -36,7 +36,7 @@ export function ProfileLayout() {
                     ? "secondary-ghost"
                     : "dark-bordered"
                 }
-                className="flex items-center gap-2 transition-opacity hover:opacity-80"
+                className="w-40 p-2 flex items-center gap-2 transition-opacity hover:opacity-80"
               >
                 {item.icon}
                 <span>{item.name}</span>

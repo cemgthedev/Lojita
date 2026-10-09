@@ -1,14 +1,10 @@
+import { messages } from "@/api/resources/users/messages";
 import { z } from "zod";
 
 export const PERMISSION = {
   PRODUCTS_READ: "products:read",
   PRODUCTS_CREATE: "products:create",
   PRODUCTS_UPDATE: "products:update",
-} as const;
-
-const message = {
-  required: "Permissão é obrigatória.",
-  invalid: "Permissão inválida.",
 } as const;
 
 export const permissionSchema = z.enum(
@@ -19,7 +15,9 @@ export const permissionSchema = z.enum(
   ],
   {
     error: (issue) =>
-      issue.input === undefined ? message.required : message.invalid,
+      issue.input === undefined
+        ? messages.permission.required
+        : messages.permission.invalid,
   },
 );
 

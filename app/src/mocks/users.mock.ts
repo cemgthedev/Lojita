@@ -1,5 +1,9 @@
-import { ROLE, type AuthUser, type Role } from "@/types/Auth";
-import type { User } from "@/types/User";
+import {
+  ROLE,
+  type AuthUser,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
+import type { User } from "@/api/resources/users/validations/user.schema";
 
 /**
  * Fonte de dados temporária para desenvolvimento local.
@@ -27,6 +31,7 @@ export const mockUsersByRole: Record<Role, MockUser> = {
     password: MOCK_LOGIN_PASSWORD,
     avatarUrl: "",
     document: "000.000.000-01",
+    phone: "(11) 90000-0001",
     role: [ROLE.ADMIN],
     createdAt,
     updatedAt: createdAt,
@@ -38,6 +43,7 @@ export const mockUsersByRole: Record<Role, MockUser> = {
     password: MOCK_LOGIN_PASSWORD,
     avatarUrl: "",
     document: "000.000.000-02",
+    phone: "(11) 90000-0002",
     role: [ROLE.SUPPORT],
     createdAt,
     updatedAt: createdAt,
@@ -49,6 +55,7 @@ export const mockUsersByRole: Record<Role, MockUser> = {
     password: MOCK_LOGIN_PASSWORD,
     avatarUrl: "",
     document: "000.000.000-03",
+    phone: "(11) 90000-0003",
     role: [ROLE.SELLER],
     createdAt,
     updatedAt: createdAt,
@@ -60,6 +67,7 @@ export const mockUsersByRole: Record<Role, MockUser> = {
     password: MOCK_LOGIN_PASSWORD,
     avatarUrl: "",
     document: "000.000.000-04",
+    phone: "(11) 90000-0004",
     role: [ROLE.CUSTOMER],
     createdAt,
     updatedAt: createdAt,
@@ -73,7 +81,10 @@ function toAuthUser(user: MockUser): AuthUser {
     id: user.id,
     name: user.name,
     email: user.email,
+    document: user.document,
+    phone: user.phone,
     role: user.role,
+    avatarUrl: user.avatarUrl,
   };
 }
 

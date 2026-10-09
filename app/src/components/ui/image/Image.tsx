@@ -21,41 +21,44 @@ function useImageContext() {
   return context;
 }
 
-const imageVariants = cva("relative overflow-hidden select-none border", {
-  variants: {
-    size: {
-      "5xl": "w-44 h-44",
-      "4xl": "w-40 h-40",
-      "3xl": "w-36 h-36",
-      "2xl": "w-32 h-32",
-      xl: "w-28 h-28",
-      lg: "w-24 h-24",
-      md: "w-20 h-20",
-      sm: "w-16 h-16",
-      xs: "w-12 h-12",
+const imageVariants = cva(
+  "relative overflow-hidden select-none border border-muted-300 bg-muted-200",
+  {
+    variants: {
+      size: {
+        "5xl": "w-44 h-44",
+        "4xl": "w-40 h-40",
+        "3xl": "w-36 h-36",
+        "2xl": "w-32 h-32",
+        xl: "w-28 h-28",
+        lg: "w-24 h-24",
+        md: "w-20 h-20",
+        sm: "w-16 h-16",
+        xs: "w-12 h-12",
+      },
+      rounded: {
+        full: "rounded-full after:rounded-full",
+        xl: "rounded-xl after:rounded-xl",
+        lg: "rounded-lg after:rounded-lg",
+        md: "rounded-md after:rounded-md",
+        sm: "rounded-sm after:rounded-sm",
+        xs: "rounded-xs after:rounded-xs",
+        none: "rounded-none after:rounded-none",
+      },
+      aspect: {
+        square: "aspect-square",
+        video: "aspect-video",
+        portrait: "aspect-3/4",
+        auto: "",
+      },
     },
-    rounded: {
-      full: "rounded-full after:rounded-full",
-      xl: "rounded-xl after:rounded-xl",
-      lg: "rounded-lg after:rounded-lg",
-      md: "rounded-md after:rounded-md",
-      sm: "rounded-sm after:rounded-sm",
-      xs: "rounded-xs after:rounded-xs",
-      none: "rounded-none after:rounded-none",
-    },
-    aspect: {
-      square: "aspect-square",
-      video: "aspect-video",
-      portrait: "aspect-3/4",
-      auto: "",
+    defaultVariants: {
+      size: "md",
+      rounded: "md",
+      aspect: "square",
     },
   },
-  defaultVariants: {
-    size: "md",
-    rounded: "md",
-    aspect: "square",
-  },
-});
+);
 
 type ImageProps = React.ComponentProps<"div"> &
   VariantProps<typeof imageVariants>;

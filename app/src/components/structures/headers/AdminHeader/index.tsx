@@ -1,3 +1,4 @@
+import { authApi } from "@/api/auth.api";
 import { adminNavConfig } from "@/components/structures/headers/AdminHeader/nav.config";
 import {
   Avatar,
@@ -14,8 +15,7 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
-import { authApi } from "@/shared/lib/auth.api";
+import { useAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";

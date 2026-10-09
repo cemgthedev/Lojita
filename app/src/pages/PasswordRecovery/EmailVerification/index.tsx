@@ -1,3 +1,4 @@
+import { passwordRecoveryApi } from "@/api/password-recovery.api";
 import {
   Button,
   Field,
@@ -11,7 +12,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { passwordRecoveryApi } from "@/shared/lib/password-recovery.api";
 import {
   ArrowLeftIcon,
   EyeIcon,

@@ -1,5 +1,11 @@
-import { ROLE, type Role } from "@/types/Auth";
-import { PERMISSION, type Permission } from "@/types/Permission";
+import {
+  ROLE,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
+import {
+  PERMISSION,
+  type Permission,
+} from "@/api/resources/users/validations/permission.schema";
 
 export const permissions: Record<Role, readonly Permission[]> = {
   [ROLE.CUSTOMER]: [

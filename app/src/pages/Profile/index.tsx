@@ -9,9 +9,12 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { useAuth } from "@/hooks/useAuth";
 import { useHighestRole } from "@/hooks/useHighestRole";
-import { ROLE, ROLE_LABEL } from "@/types/Auth";
+import { useAuth } from "@/providers/AuthProvider";
+import {
+  ROLE,
+  ROLE_LABEL,
+} from "@/api/resources/users/validations/auth.schema";
 import { Link } from "react-router";
 
 export function ProfilePage() {

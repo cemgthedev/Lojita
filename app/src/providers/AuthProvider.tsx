@@ -1,13 +1,24 @@
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
-import { authApi } from "@/shared/lib/auth.api";
-import type { AuthUser, LoginCredentials } from "@/types/Auth";
+import { authApi } from "@/api/auth.api";
+import type {
+  AuthUser,
+  LoginCredentials,
+} from "@/api/resources/users/validations/auth.schema";
 
 export type AuthContextValue = {
   user: AuthUser | null;
   status: AuthStatus;
 
   login: (credentials: LoginCredentials) => Promise<void>;
+
+  updateUser: (user: AuthUser) => void;
 
   logout: () => Promise<void>;
 
@@ -59,12 +70,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setStatus("unauthenticated");
   }
 
+  function updateUser(user: AuthUser) {
+    setUser(user);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
         status,
         login,
+        updateUser,
         logout,
         isAuthenticated: status === "authenticated",
       }}
@@ -72,4 +88,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+export const useAuth = () => useContext(AuthContext) as AuthContextValue;
+
+export function useRequiredAuth() {
+  const auth = useAuth();
+
+  if (auth.status !== "authenticated" || !auth.user) {
+    throw new Error("useRequiredAuth must be used by an authenticated user.");
+  }
+
+  return {
+    ...auth,
+    user: auth.user,
+  };
 }
