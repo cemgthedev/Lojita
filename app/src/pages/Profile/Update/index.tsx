@@ -49,15 +49,15 @@ export function ProfileUpdatePage() {
     event.preventDefault();
 
     const result = updateUserSchema.safeParse(values);
-    console.log(JSON.stringify(result));
     if (!result.success) {
-      toast(
-        result.error.issues[0]?.message ?? "Verifique os dados informados.",
-        {
-          variant: "danger",
-        },
-      );
+      toast("Verifique os dados informados.", {
+        variant: "danger",
+      });
       return;
+    } else {
+      toast("A edição de perfil estará disponível em breve.", {
+        variant: "primary",
+      });
     }
 
     try {
@@ -75,7 +75,10 @@ export function ProfileUpdatePage() {
       toast("Perfil atualizado com sucesso.", { variant: "success" });
       navigate("/profile");
     } catch (error) {
-      toast("Não foi possível atualizar o perfil.", { variant: "danger" });
+      toast("Não foi possível atualizar o perfil.", {
+        variant: "danger",
+        duration: 1500,
+      });
     }
   }
 
