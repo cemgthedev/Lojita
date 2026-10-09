@@ -81,7 +81,7 @@ export function UploadImage({
             id="profile-avatar"
             type="file"
             accept="image/*"
-            className="sr-only"
+            className="hidden"
             onChange={handleFileChange}
             disabled={disabled}
           />

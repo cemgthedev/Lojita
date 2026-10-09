@@ -49,6 +49,7 @@ export function ProfileUpdatePage() {
     event.preventDefault();
 
     const result = updateUserSchema.safeParse(values);
+    console.log(JSON.stringify(result));
     if (!result.success) {
       toast(
         result.error.issues[0]?.message ?? "Verifique os dados informados.",
@@ -60,10 +61,7 @@ export function ProfileUpdatePage() {
     }
 
     try {
-      const updatedUser = await mutation.mutateAsync({
-        id: user.id,
-        input: result.data,
-      });
+      const updatedUser = await mutation.mutateAsync(result.data);
 
       updateUser({
         id: updatedUser.id,
@@ -77,12 +75,7 @@ export function ProfileUpdatePage() {
       toast("Perfil atualizado com sucesso.", { variant: "success" });
       navigate("/profile");
     } catch (error) {
-      toast(
-        error instanceof Error
-          ? error.message
-          : "Não foi possível atualizar o perfil.",
-        { variant: "danger" },
-      );
+      toast("Não foi possível atualizar o perfil.", { variant: "danger" });
     }
   }
 

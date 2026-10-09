@@ -1,6 +1,6 @@
 export const urls = {
   /**
-   * CRUD endpoints
+   * CRUD urls
    */
   create: "/create",
   update: "/update",

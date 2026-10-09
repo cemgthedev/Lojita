@@ -1,32 +1,24 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { usersKeys } from "@/api/resources/users/keys";
-import {
-  usersService,
-} from "@/api/resources/users/services";
+import { usersService } from "@/api/resources/users/services";
 import type { CreateUser } from "@/api/resources/users/validations/create.schema";
 import type { UpdateUser } from "@/api/resources/users/validations/update.schema";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useCreateUserMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (input: CreateUser) => usersService.create(input),
+    mutationFn: (createdUser: CreateUser) => usersService.create(createdUser),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: usersKeys.lists() }),
   });
 }
 
-export type UpdateUserVariables = {
-  id: string;
-  input: UpdateUser;
-};
-
 export function useUpdateUserMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, input }: UpdateUserVariables) =>
-      usersService.update(id, input),
+    mutationFn: (updatedUser: UpdateUser) => usersService.update(updatedUser),
     onSuccess: (user) => {
       queryClient.setQueryData(usersKeys.detail(user.id), user);
       return queryClient.invalidateQueries({ queryKey: usersKeys.lists() });

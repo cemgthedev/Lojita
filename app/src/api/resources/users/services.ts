@@ -1,22 +1,26 @@
 import { http } from "@/api/http";
+import { endpoints } from "@/api/resources/endpoints";
 import type { CreateUser } from "@/api/resources/users/validations/create.schema";
 import {
   userQuerySchema,
   type UserQuery,
 } from "@/api/resources/users/validations/query.schema";
 import type { UpdateUser } from "@/api/resources/users/validations/update.schema";
-import { userSchema, type User } from "@/api/resources/users/validations/user.schema";
-
-const usersEndpoint = "/users";
+import {
+  userSchema,
+  type User,
+} from "@/api/resources/users/validations/user.schema";
 
 function userEndpoint(id: string) {
-  return `${usersEndpoint}/${encodeURIComponent(id)}`;
+  return `${endpoints.users}/${encodeURIComponent(id)}`;
 }
 
 function queryString(query?: UserQuery) {
   const params = new URLSearchParams();
 
-  for (const [key, value] of Object.entries(userQuerySchema.parse(query ?? {}))) {
+  for (const [key, value] of Object.entries(
+    userQuerySchema.parse(query ?? {}),
+  )) {
     if (value !== undefined) {
       params.set(key, String(value));
     }
@@ -29,7 +33,7 @@ function queryString(query?: UserQuery) {
 export const usersService = {
   async list(query?: UserQuery): Promise<User[]> {
     const response = await http.get<unknown>(
-      `${usersEndpoint}${queryString(query)}`,
+      `${endpoints.users}${queryString(query)}`,
     );
 
     return userSchema.array().parse(response.data);
@@ -41,14 +45,17 @@ export const usersService = {
     return userSchema.parse(response.data);
   },
 
-  async create(input: CreateUser): Promise<User> {
-    const response = await http.post<unknown>(usersEndpoint, input);
+  async create(createdUser: CreateUser): Promise<User> {
+    const response = await http.post<unknown>(endpoints.users, createdUser);
 
     return userSchema.parse(response.data);
   },
 
-  async update(id: string, input: UpdateUser): Promise<User> {
-    const response = await http.put<unknown>(userEndpoint(id), input);
+  async update({ id, ...updatedUser }: UpdateUser): Promise<User> {
+    const response = await http.put<unknown>(
+      userEndpoint(id ?? ""),
+      updatedUser,
+    );
 
     return userSchema.parse(response.data);
   },
