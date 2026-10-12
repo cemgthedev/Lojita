@@ -7,4 +7,8 @@ export const endpoints = {
    * Addresses endpoints
    */
   addresses: "/addresses",
+  /**
+   * Payment methods endpoints
+   */
+  paymentMethods: "/payment-methods",
 };
