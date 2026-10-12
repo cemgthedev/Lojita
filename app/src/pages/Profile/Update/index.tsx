@@ -12,26 +12,17 @@ export function ProfileUpdatePage() {
   const navigate = useNavigate();
 
   async function handleSubmit(values: UpdateUser) {
-    try {
-      const updatedUser = await mutation.mutateAsync(values);
+    const updatedUser = await mutation.mutateAsync(values);
 
-      updateUser({
-        id: updatedUser.id,
-        name: updatedUser.name,
-        document: updatedUser.document,
-        phone: updatedUser.phone,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        avatarUrl: updatedUser.avatarUrl,
-      });
-      toast("Perfil atualizado com sucesso.", { variant: "success" });
-      navigate("/profile");
-    } catch {
-      toast("Não foi possível atualizar o perfil.", {
-        variant: "danger",
-        duration: 1500,
-      });
-    }
+    updateUser({
+      id: updatedUser.id,
+      name: updatedUser.name,
+      document: updatedUser.document,
+      phone: updatedUser.phone,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      avatarUrl: updatedUser.avatarUrl,
+    });
   }
 
   return (
@@ -45,6 +36,16 @@ export function ProfileUpdatePage() {
 
       <ProfileForm
         onSubmit={handleSubmit}
+        onSuccess={() => {
+          toast("Perfil atualizado com sucesso.", { variant: "success" });
+          navigate("/profile");
+        }}
+        onError={() => {
+          toast("Não foi possível atualizar o perfil.", {
+            variant: "danger",
+            duration: 1500,
+          });
+        }}
         onCancel={() => navigate("/profile")}
         isPending={mutation.isPending}
       />

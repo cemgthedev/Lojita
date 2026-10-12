@@ -68,7 +68,8 @@ type FormAddressProps = {
   address?: Address;
   addressType?: Type;
   onBack?: () => void;
-  onSuccess?: () => void;
+  onSuccess?: () => void | Promise<void>;
+  onError?: (error: unknown) => void | Promise<void>;
   cancelLabel?: string;
   submitLabel?: string;
 };
@@ -78,6 +79,7 @@ export function FormAddress({
   addressType = TYPE.DEFAULT,
   onBack,
   onSuccess,
+  onError,
   cancelLabel = "Cancelar",
   submitLabel,
 }: FormAddressProps) {
@@ -118,17 +120,21 @@ export function FormAddress({
         toast("Endereço cadastrado com sucesso.", { variant: "success" });
       }
       if (onSuccess) {
-        onSuccess();
+        await onSuccess();
       } else {
         navigate(`${urls.profile}${urls.addresses}`);
       }
-    } catch {
-      toast(
-        address
-          ? "Não foi possível atualizar o endereço."
-          : "Não foi possível cadastrar o endereço.",
-        { variant: "danger" },
-      );
+    } catch (error) {
+      if (onError) {
+        await onError(error);
+      } else {
+        toast(
+          address
+            ? "Não foi possível atualizar o endereço."
+            : "Não foi possível cadastrar o endereço.",
+          { variant: "danger" },
+        );
+      }
     }
   }
 

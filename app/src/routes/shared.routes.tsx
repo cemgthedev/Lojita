@@ -3,6 +3,7 @@ import { ProfilePage } from "@/pages/Profile";
 import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
 import { ProfileUpdatePage } from "@/pages/Profile/Update";
 import { SellerRegisterPage } from "@/pages/SellerRegister";
+import { WelcomeSellerPage } from "@/pages/SellerRegister/WelcomeSeller";
 import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
 import { AddressesPage } from "@/pages/Profile/Addresses";
 import { CreateAddressesPage } from "@/pages/Profile/Addresses/Create";
@@ -16,6 +17,10 @@ export const sharedRoutes: RouteObject[] = [
   {
     path: urls.seller_register,
     element: <SellerRegisterPage />,
+  },
+  {
+    path: `${urls.welcome_seller}/:storeId`,
+    element: <WelcomeSellerPage />,
   },
   {
     path: urls.profile,

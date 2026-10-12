@@ -50,6 +50,10 @@ export const urls = {
    */
   seller_register: "/seller-register",
   /**
+   * Welcome seller page
+   */
+  welcome_seller: "/welcome-seller",
+  /**
    * Store page
    */
   store_dashboard: "/store-dashboard",

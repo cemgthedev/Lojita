@@ -79,43 +79,25 @@ export function SellerRegisterPage() {
     createStoreMutation.isPending || updateStoreMutation.isPending;
 
   async function handlePersonalSubmit(values: UpdateUser) {
-    try {
-      const updatedUser = await updateUserMutation.mutateAsync(values);
-      updateUser({
-        id: updatedUser.id,
-        name: updatedUser.name,
-        document: updatedUser.document,
-        phone: updatedUser.phone,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        avatarUrl: updatedUser.avatarUrl,
-      });
-      setActiveStep("store");
-      setFurthestStep((current) => Math.max(current, 1));
-    } catch {
-      toast("Não foi possível salvar os dados pessoais.", {
-        variant: "danger",
-      });
-    }
+    const updatedUser = await updateUserMutation.mutateAsync(values);
+    updateUser({
+      id: updatedUser.id,
+      name: updatedUser.name,
+      document: updatedUser.document,
+      phone: updatedUser.phone,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      avatarUrl: updatedUser.avatarUrl,
+    });
   }
 
   async function handleStoreSubmit(values: CreateStore) {
-    try {
-      const store = registeredStore
-        ? await updateStoreMutation.mutateAsync({
-            ...values,
-            id: registeredStore.id,
-          })
-        : await createStoreMutation.mutateAsync(values);
-
-      setRegisteredStore(store);
-      setActiveStep("address");
-      setFurthestStep((current) => Math.max(current, 2));
-    } catch {
-      toast("Não foi possível salvar os dados da loja.", {
-        variant: "danger",
-      });
-    }
+    return registeredStore
+      ? updateStoreMutation.mutateAsync({
+          ...values,
+          id: registeredStore.id,
+        })
+      : createStoreMutation.mutateAsync(values);
   }
 
   return (
@@ -177,6 +159,15 @@ export function SellerRegisterPage() {
             <Separator variant="secondary" />
             <ProfileForm
               onSubmit={handlePersonalSubmit}
+              onSuccess={() => {
+                setActiveStep("store");
+                setFurthestStep((current) => Math.max(current, 1));
+              }}
+              onError={() => {
+                toast("Não foi possível salvar os dados pessoais.", {
+                  variant: "danger",
+                });
+              }}
               onCancel={() => navigate(urls.profile)}
               submitLabel="Prosseguir"
               isPending={updateUserMutation.isPending}
@@ -198,6 +189,16 @@ export function SellerRegisterPage() {
             <StoreForm
               userId={user.id}
               onSubmit={handleStoreSubmit}
+              onSuccess={(store) => {
+                setRegisteredStore(store);
+                setActiveStep("address");
+                setFurthestStep((current) => Math.max(current, 2));
+              }}
+              onError={() => {
+                toast("Não foi possível salvar os dados da loja.", {
+                  variant: "danger",
+                });
+              }}
               onBack={() => setActiveStep("personal")}
               isPending={isSavingStore}
             />
@@ -219,10 +220,25 @@ export function SellerRegisterPage() {
               addressType={TYPE.STORE}
               onBack={() => setActiveStep("store")}
               onSuccess={() => {
+                if (!registeredStore) {
+                  toast("Não foi possível identificar a loja cadastrada.", {
+                    variant: "danger",
+                  });
+                  return;
+                }
+
                 toast("Cadastro de vendedor finalizado com sucesso.", {
                   variant: "success",
                 });
-                navigate(urls.profile);
+                navigate(
+                  `${urls.welcome_seller}/${encodeURIComponent(registeredStore.id)}`,
+                );
+              }}
+              onError={() => {
+                toast("Não foi possível salvar o endereço da loja.", {
+                  variant: "danger",
+                });
+                navigate(`${urls.welcome_seller}/1}`);
               }}
               cancelLabel="Voltar"
               submitLabel="Finalizar cadastro"

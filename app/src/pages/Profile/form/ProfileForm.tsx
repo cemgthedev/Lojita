@@ -19,6 +19,8 @@ type ProfileFormValues = {
 
 type ProfileFormProps = {
   onSubmit: (values: UpdateUser) => Promise<void>;
+  onSuccess?: (values: UpdateUser) => void | Promise<void>;
+  onError?: (error: unknown) => void | Promise<void>;
   onCancel: () => void;
   cancelLabel?: string;
   submitLabel?: string;
@@ -37,6 +39,8 @@ function profileValues(user: AuthUser): ProfileFormValues {
 
 export function ProfileForm({
   onSubmit,
+  onSuccess,
+  onError,
   onCancel,
   cancelLabel = "Cancelar",
   submitLabel = "Salvar alterações",
@@ -58,7 +62,19 @@ export function ProfileForm({
       return;
     }
 
-    await onSubmit(result.data);
+    try {
+      await onSubmit(result.data);
+      await onSuccess?.(result.data);
+    } catch (error) {
+      if (onError) {
+        await onError(error);
+        return;
+      }
+
+      toast("Não foi possível salvar os dados pessoais.", {
+        variant: "danger",
+      });
+    }
   }
 
   return (
