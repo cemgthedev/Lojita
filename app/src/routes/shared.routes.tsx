@@ -2,6 +2,7 @@ import { urls } from "@/constants/urls";
 import { ProfilePage } from "@/pages/Profile";
 import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
 import { ProfileUpdatePage } from "@/pages/Profile/Update";
+import { SellerRegisterPage } from "@/pages/SellerRegister";
 import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
 import { AddressesPage } from "@/pages/Profile/Addresses";
 import { CreateAddressesPage } from "@/pages/Profile/Addresses/Create";
@@ -12,6 +13,10 @@ import { UpdatePaymentMethodPage } from "@/pages/Profile/Payments/Update";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
+  {
+    path: urls.seller_register,
+    element: <SellerRegisterPage />,
+  },
   {
     path: urls.profile,
     element: <ProfileLayout />,

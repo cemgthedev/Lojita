@@ -11,4 +11,8 @@ export const endpoints = {
    * Payment methods endpoints
    */
   paymentMethods: "/payment-methods",
+  /**
+   * Store endpoints
+   */
+  stores: "/stores",
 };
