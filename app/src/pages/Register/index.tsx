@@ -1,3 +1,4 @@
+import type { Role } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
   Field,
@@ -15,7 +16,6 @@ import {
 import { urls } from "@/constants/urls";
 import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import { useAuth } from "@/providers/AuthProvider";
-import type { Role } from "@/api/resources/users/validations/auth.schema";
 import {
   ArrowLeftIcon,
   EyeIcon,
@@ -42,7 +42,6 @@ export function RegisterPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState(mockUsers[0].email);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isVisible, setIsVisible] = useState(false);
