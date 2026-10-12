@@ -3,6 +3,9 @@ import { ProfilePage } from "@/pages/Profile";
 import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
 import { ProfileUpdatePage } from "@/pages/Profile/Update";
 import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
+import { AddressesPage } from "@/pages/Profile/Addresses";
+import { CreateAddressesPage } from "@/pages/Profile/Addresses/Create";
+import { UpdateAddressesPage } from "@/pages/Profile/Addresses/Update";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
@@ -20,7 +23,15 @@ export const sharedRoutes: RouteObject[] = [
       },
       {
         path: urls.addresses.slice(1),
-        element: <div>Endereços</div>,
+        element: <AddressesPage />,
+      },
+      {
+        path: `${urls.addresses.slice(1)}${urls.create}`,
+        element: <CreateAddressesPage />,
+      },
+      {
+        path: `${urls.addresses.slice(1)}${urls.update}/:addressId`,
+        element: <UpdateAddressesPage />,
       },
       {
         path: urls.payments.slice(1),

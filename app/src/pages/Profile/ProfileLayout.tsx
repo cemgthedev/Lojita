@@ -32,7 +32,9 @@ export function ProfileLayout() {
                   })
                 }
                 variant={
-                  item.href === currentPath
+                  item.href === currentPath ||
+                  (item.href !== urls.profile &&
+                    currentPath.startsWith(`${item.href}/`))
                     ? "secondary-ghost"
                     : "dark-bordered"
                 }
