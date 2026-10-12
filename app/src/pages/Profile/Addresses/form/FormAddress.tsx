@@ -8,6 +8,7 @@ import { createAddressSchema } from "@/api/resources/addresses/validations/creat
 import {
   TYPE,
   TYPE_LABEL,
+  type Type,
 } from "@/api/resources/addresses/validations/type.schema";
 import {
   Button,
@@ -42,9 +43,12 @@ const emptyValues: AddressFormValues = {
   type: TYPE.DEFAULT,
 };
 
-function getAddressValues(address?: Address): AddressFormValues {
+function getAddressValues(
+  address?: Address,
+  defaultType: Type = TYPE.DEFAULT,
+): AddressFormValues {
   if (!address) {
-    return emptyValues;
+    return { ...emptyValues, type: defaultType };
   }
 
   return {
@@ -60,14 +64,32 @@ function getAddressValues(address?: Address): AddressFormValues {
   };
 }
 
-export function FormAddress({ address }: { address?: Address }) {
+type FormAddressProps = {
+  address?: Address;
+  addressType?: Type;
+  onBack?: () => void;
+  onSuccess?: () => void | Promise<void>;
+  onError?: (error: unknown) => void | Promise<void>;
+  cancelLabel?: string;
+  submitLabel?: string;
+};
+
+export function FormAddress({
+  address,
+  addressType = TYPE.DEFAULT,
+  onBack,
+  onSuccess,
+  onError,
+  cancelLabel = "Cancelar",
+  submitLabel,
+}: FormAddressProps) {
   const { user } = useRequiredAuth();
   const navigate = useNavigate();
   const createMutation = useCreateAddressMutation();
   const updateMutation = useUpdateAddressMutation();
   const isSaving = createMutation.isPending || updateMutation.isPending;
   const [values, setValues] = useState<AddressFormValues>(() =>
-    getAddressValues(address),
+    getAddressValues(address, addressType),
   );
 
   function handleChange(field: keyof AddressFormValues, value: string) {
@@ -79,7 +101,6 @@ export function FormAddress({ address }: { address?: Address }) {
     const result = createAddressSchema.safeParse({
       ...values,
       userId: user.id,
-      type: [values.type],
     });
 
     if (!result.success) {
@@ -98,14 +119,22 @@ export function FormAddress({ address }: { address?: Address }) {
         await createMutation.mutateAsync(result.data);
         toast("Endereço cadastrado com sucesso.", { variant: "success" });
       }
-      navigate(`${urls.profile}${urls.addresses}`);
-    } catch {
-      toast(
-        address
-          ? "Não foi possível atualizar o endereço."
-          : "Não foi possível cadastrar o endereço.",
-        { variant: "danger" },
-      );
+      if (onSuccess) {
+        await onSuccess();
+      } else {
+        navigate(`${urls.profile}${urls.addresses}`);
+      }
+    } catch (error) {
+      if (onError) {
+        await onError(error);
+      } else {
+        toast(
+          address
+            ? "Não foi possível atualizar o endereço."
+            : "Não foi possível cadastrar o endereço.",
+          { variant: "danger" },
+        );
+      }
     }
   }
 
@@ -257,11 +286,13 @@ export function FormAddress({ address }: { address?: Address }) {
         <Button
           type="button"
           variant="danger-bordered"
-          onClick={() => navigate(`${urls.profile}${urls.addresses}`)}
+          onClick={
+            onBack ?? (() => navigate(`${urls.profile}${urls.addresses}`))
+          }
           disabled={isSaving}
           className="w-full max-w-50"
         >
-          Cancelar
+          {cancelLabel}
         </Button>
         <Button
           type="submit"
@@ -271,9 +302,8 @@ export function FormAddress({ address }: { address?: Address }) {
         >
           {isSaving
             ? "Salvando..."
-            : address
-              ? "Salvar alterações"
-              : "Cadastrar endereço"}
+            : (submitLabel ??
+              (address ? "Salvar alterações" : "Cadastrar endereço"))}
         </Button>
       </div>
     </form>
