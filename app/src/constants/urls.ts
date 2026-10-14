@@ -57,6 +57,7 @@ export const urls = {
    * Store page
    */
   store_dashboard: "/store-dashboard",
+  stores: "/stores",
   /**
    * Customer dashboard page
    */

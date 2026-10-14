@@ -21,7 +21,7 @@ import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
 import { FormAddress } from "@/pages/Profile/Addresses/form/FormAddress";
 import { ProfileForm } from "@/pages/Profile/form/ProfileForm";
-import { StoreForm } from "@/pages/SellerRegister/StoreForm";
+import { StoreForm } from "@/pages/Stores/form/StoreForm";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import {
