@@ -2,6 +2,7 @@ import { PublicLayout } from "@/components/structures/layouts/PublicLayout";
 import { urls } from "@/constants/urls";
 import { LoginPage } from "@/pages/Login";
 import { RegisterPage } from "@/pages/Register";
+import { StoreDetailsPage } from "@/pages/Stores/public/StoreDetails";
 import type { RouteObject } from "react-router";
 
 export const publicRoutes: RouteObject[] = [
@@ -19,6 +20,10 @@ export const publicRoutes: RouteObject[] = [
       {
         path: urls.register,
         element: <RegisterPage />,
+      },
+      {
+        path: `${urls.stores}/:id`,
+        element: <StoreDetailsPage />,
       },
     ],
   },

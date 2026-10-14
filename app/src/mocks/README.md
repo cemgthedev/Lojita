@@ -16,3 +16,6 @@ useQuery({ queryKey: ["products"], queryFn: productsApi.list });
 Quando a API estiver pronta, substitua somente a implementação de
 `productsApi.list` por `http.get(...)`; a chave da query e os componentes
 continuam os mesmos. Para ações de escrita, use `useMutation`.
+
+As lojas de demonstração ficam em `stores.mock.ts` e devem seguir o schema
+`Store`, associando `userId` ao usuário correspondente em `users.mock.ts`.

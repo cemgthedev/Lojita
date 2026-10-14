@@ -23,6 +23,8 @@ type StoreFormValues = Omit<CreateStore, "userId">;
 
 type StoreFormProps = {
   userId: string;
+  initialValues?: Partial<StoreFormValues>;
+  submitLabel?: string;
   onSubmit: (values: CreateStore) => Promise<Store>;
   onSuccess?: (store: Store) => void | Promise<void>;
   onError?: (error: unknown) => void | Promise<void>;
@@ -41,13 +43,18 @@ const emptyValues: StoreFormValues = {
 
 export function StoreForm({
   userId,
+  initialValues,
+  submitLabel = "Prosseguir",
   onSubmit,
   onSuccess,
   onError,
   onBack,
   isPending,
 }: StoreFormProps) {
-  const [values, setValues] = useState<StoreFormValues>(emptyValues);
+  const [values, setValues] = useState<StoreFormValues>(() => ({
+    ...emptyValues,
+    ...initialValues,
+  }));
 
   function handleChange(field: keyof StoreFormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -157,7 +164,7 @@ export function StoreForm({
             <InputGroupInput
               id="store-url"
               name="url"
-              type="url"
+              type="text"
               placeholder="Digite o nickname da loja"
               value={values.url}
               onChange={(event) => handleChange("url", event.target.value)}
@@ -186,7 +193,7 @@ export function StoreForm({
           disabled={isPending}
           className="w-full max-w-50"
         >
-          {isPending ? "Salvando..." : "Prosseguir"}
+          {isPending ? "Salvando..." : submitLabel}
         </Button>
       </div>
     </form>

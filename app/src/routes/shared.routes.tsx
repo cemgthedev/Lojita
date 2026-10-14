@@ -11,9 +11,26 @@ import { UpdateAddressesPage } from "@/pages/Profile/Addresses/Update";
 import { PaymentMethodsPage } from "@/pages/Profile/Payments";
 import { CreatePaymentMethodPage } from "@/pages/Profile/Payments/Create";
 import { UpdatePaymentMethodPage } from "@/pages/Profile/Payments/Update";
+import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
+import { StoreUpdatePage } from "@/pages/Stores/Update";
+import { ROLE } from "@/api/resources/users/validations/auth.schema";
+import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
+  {
+    element: <RequireRole allowedRoles={[ROLE.ADMIN, ROLE.SELLER]} />,
+    children: [
+      {
+        path: `${urls.store_dashboard}${urls.update}/:storeId`,
+        element: <StoreUpdatePage />,
+      },
+    ],
+  },
+  {
+    path: `${urls.store_dashboard}/details/:storeId`,
+    element: <StoreManagementPage />,
+  },
   {
     path: urls.seller_register,
     element: <SellerRegisterPage />,
