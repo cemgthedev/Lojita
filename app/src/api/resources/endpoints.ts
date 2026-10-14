@@ -15,4 +15,14 @@ export const endpoints = {
    * Store endpoints
    */
   stores: "/stores",
+  /**
+   * Catalog endpoints
+   */
+  categories: "/categories",
+  products: "/products",
+  variants: "/variants",
+  attributes: "/attributes",
+  attributeValues: "/attribute-values",
+  specifications: "/specifications",
+  productReviews: "/product-reviews",
 };
