@@ -7,7 +7,8 @@ Para um novo domínio, como produtos:
 
 1. Crie `products.mock.ts` com os dados de desenvolvimento. O catálogo exporta
    categorias, produtos, variantes, atributos, valores de atributos,
-   especificações, avaliações e as relações entre variantes e valores.
+   imagens de produtos e variantes, especificações, avaliações e as relações
+   entre variantes e valores.
 2. Crie `products.api.ts` com métodos como `list` e `findById` que leem o mock.
 3. Consuma o adaptador em um hook com React Query:
 

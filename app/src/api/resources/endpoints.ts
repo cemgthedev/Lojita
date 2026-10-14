@@ -21,6 +21,8 @@ export const endpoints = {
   categories: "/categories",
   products: "/products",
   variants: "/variants",
+  productImages: "/product-images",
+  variantImages: "/variant-images",
   attributes: "/attributes",
   attributeValues: "/attribute-values",
   specifications: "/specifications",

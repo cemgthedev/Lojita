@@ -1,5 +1,7 @@
 import type { Category } from "@/api/resources/categories/validations/category.schema";
 import type { ProductReview } from "@/api/resources/product-reviews/validations/product-review.schema";
+import type { ProductImage } from "@/api/resources/products/product-images/validations/product-image.schema";
+import type { VariantImage } from "@/api/resources/products/variant-images/validations/variant-image.schema";
 import type { AttributeValue } from "@/api/resources/products/attributes/validations/attribute-value.schema";
 import type { Attribute } from "@/api/resources/products/attributes/validations/attribute.schema";
 import type { Product } from "@/api/resources/products/products/validations/product.schema";
@@ -424,6 +426,68 @@ export const mockVariants: Variant[] = [
     updatedAt: null,
   },
 ];
+
+const imagePhotoIdsByProductId: Record<string, [string, string, string]> = {
+  "mock-product-camiseta-basica": [
+    "photo-1521572163474-6864f9cf17ab",
+    "photo-1576566588028-4147f3842f27",
+    "photo-1529374255404-311a2a4f1fd9",
+  ],
+  "mock-product-polo-classica": [
+    "photo-1598033129183-c4f50c736f10",
+    "photo-1603252109303-2751441dd157",
+    "photo-1586790170083-2f9ceadc732d",
+  ],
+  "mock-product-camiseta-estampada": [
+    "photo-1551488831-00ddcb6c6bd3",
+    "photo-1529374255404-311a2a4f1fd9",
+    "photo-1576566588028-4147f3842f27",
+  ],
+  "mock-product-jeans-reto": [
+    "photo-1542272604-787c3835535d",
+    "photo-1541099649105-f69ad21f3246",
+    "photo-1473966968600-fa801b869a1a",
+  ],
+  "mock-product-calca-sarja": [
+    "photo-1473966968600-fa801b869a1a",
+    "photo-1541099649105-f69ad21f3246",
+    "photo-1542272604-787c3835535d",
+  ],
+  "mock-product-mochila-canvas": [
+    "photo-1553062407-98eeb64c6a62",
+    "photo-1622560480654-d96214fdc887",
+    "photo-1581605405669-fcdf81165afa",
+  ],
+};
+
+const imageUrl = (photoId: string) =>
+  `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=800&q=80`;
+
+export const mockProductImages: ProductImage[] = mockProducts.flatMap(
+  (product) =>
+    imagePhotoIdsByProductId[product.id]
+      .slice(0, 2)
+      .map((photoId, index) => ({
+        id: `${product.id}-image-${index + 1}`,
+        url: imageUrl(photoId),
+        sortOrder: index,
+        productId: product.id,
+        createdAt,
+        updatedAt: null,
+      })),
+);
+
+export const mockVariantImages: VariantImage[] = mockVariants.flatMap(
+  (variant) =>
+    imagePhotoIdsByProductId[variant.productId].map((photoId, index) => ({
+      id: `${variant.id}-image-${index + 1}`,
+      url: imageUrl(photoId),
+      sortOrder: index,
+      variantId: variant.id,
+      createdAt,
+      updatedAt: null,
+    })),
+);
 
 export const mockVariantAttributes = [
   { variantId: "mock-variant-camiseta-basica-1", attributeValueId: "mock-value-color-black", createdAt },
