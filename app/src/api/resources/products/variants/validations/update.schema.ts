@@ -2,6 +2,7 @@ import { variantSchema } from "@/api/resources/products/variants/validations/var
 import { z } from "zod";
 
 export const updateVariantSchema = variantSchema.partial().omit({
+  urlImage: true,
   updatedAt: true,
   createdAt: true,
 });

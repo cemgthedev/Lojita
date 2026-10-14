@@ -2,6 +2,7 @@ import { productSchema } from "@/api/resources/products/products/validations/pro
 import { z } from "zod";
 
 export const updateProductSchema = productSchema.partial().omit({
+  defaultVariant: true,
   createdAt: true,
   updatedAt: true,
 });

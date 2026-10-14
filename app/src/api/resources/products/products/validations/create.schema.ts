@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const createProductSchema = productSchema.omit({
   id: true,
+  defaultVariant: true,
   updatedAt: true,
   createdAt: true,
 });

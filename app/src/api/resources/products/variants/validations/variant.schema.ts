@@ -15,6 +15,7 @@ export const variantSchema = z.object({
   sku: z.string({ error: messages.sku.invalid }).min(1, {
     error: messages.sku.required,
   }),
+  urlImage: z.string().optional().nullable(),
   productId: z.string({ error: messages.productId.invalid }).min(1, {
     error: messages.productId.required,
   }),

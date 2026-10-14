@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const createVariantSchema = variantSchema.omit({
   id: true,
+  urlImage: true,
   updatedAt: true,
   createdAt: true,
 });
