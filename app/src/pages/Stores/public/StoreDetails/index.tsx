@@ -1,8 +1,6 @@
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
 import { TYPE } from "@/api/resources/addresses/validations/type.schema";
-import { useProductsQuery } from "@/api/resources/products/products/queries";
-import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { useStoreQuery } from "@/api/resources/stores/queries";
 import {
   Button,
@@ -17,15 +15,9 @@ import {
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
 import { mockAddresses } from "@/mocks/addresses.mock";
-import { mockProducts } from "@/mocks/products.mock";
 import { mockStores } from "@/mocks/stores.mock";
-import { CardProduct } from "@/pages/Products/CardProduct";
-import {
-  ProductHeaderFilters,
-  type ProductSort,
-} from "@/pages/Products/ProductHeaderFilters";
+import { ListProducts } from "@/pages/Products/components/ListProducts";
 import { ArrowLeftIcon } from "lucide-react";
-import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 function formatAddress(address: Address) {
@@ -35,8 +27,6 @@ function formatAddress(address: Address) {
 export function StoreDetailsPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
-  const [filters, setFilters] = useState<ProductQuery>({});
-  const [sort, setSort] = useState<ProductSort>("price-asc");
   const storeQuery = useStoreQuery(id);
   const addressesQuery = useAddressesQuery();
   const shouldUseMockStore =
@@ -45,9 +35,6 @@ export function StoreDetailsPage() {
     (store) => store.id === id || store.url === id,
   );
   const store = storeQuery.data ?? (shouldUseMockStore ? mockStore : undefined);
-  const productsQuery = useProductsQuery(
-    store ? { storeId: store.id, ...filters } : undefined,
-  );
   const shouldUseMockAddresses =
     !addressesQuery.isPending &&
     (addressesQuery.isError || !addressesQuery.data?.length);
@@ -66,47 +53,6 @@ export function StoreDetailsPage() {
         `${formattedAddress}, ${storeAddress.cep}, ${storeAddress.neighborhood}, Brasil`,
       )}`
     : undefined;
-  const products = useMemo(() => {
-    const storeProducts = store
-      ? (
-          productsQuery.data ?? (productsQuery.isError ? mockProducts : [])
-        ).filter((product) => product.storeId === store.id)
-      : [];
-    const normalizedTitle = filters.title?.trim().toLocaleLowerCase("pt-BR");
-
-    return storeProducts
-      .filter((product) => {
-        const matchesTitle =
-          !normalizedTitle ||
-          product.title.toLocaleLowerCase("pt-BR").includes(normalizedTitle);
-        const matchesCategory =
-          !filters.categoryId || product.categoryId === filters.categoryId;
-
-        return matchesTitle && matchesCategory;
-      })
-      .toSorted((productA, productB) => {
-        if (sort === "title-asc") {
-          return productA.title.localeCompare(productB.title, "pt-BR");
-        }
-
-        const priceA = productA.defaultVariant?.price;
-        const priceB = productB.defaultVariant?.price;
-
-        if (priceA == null || priceB == null) {
-          if (priceA == null && priceB == null) return 0;
-          return priceA == null ? 1 : -1;
-        }
-
-        return sort === "price-asc" ? priceA - priceB : priceB - priceA;
-      });
-  }, [
-    filters.categoryId,
-    filters.title,
-    productsQuery.data,
-    productsQuery.isError,
-    sort,
-    store,
-  ]);
 
   if (!id) {
     return (
@@ -186,38 +132,7 @@ export function StoreDetailsPage() {
         )}
       </header>
 
-      <section aria-labelledby="store-products-heading" className="space-y-4">
-        <ProductHeaderFilters
-          title={filters.categoryId || filters.title ? "Resultados" : "Todos"}
-          subtitle={`${products.length} produtos encontrados`}
-          filters={filters}
-          setFilters={setFilters}
-          sort={sort}
-          setSort={setSort}
-        />
-
-        <Separator orientation="horizontal" variant="secondary" />
-
-        {productsQuery.isPending ? (
-          <Text>Carregando produtos...</Text>
-        ) : productsQuery.isError && !productsQuery.data && !products ? (
-          <Text role="status">
-            Não foi possível carregar os produtos. Exibindo dados de exemplo.
-          </Text>
-        ) : products.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {products.map((product) => (
-              <CardProduct
-                key={product.id}
-                baseUrl={`${urls.stores}/${encodeURIComponent(store.id)}/products`}
-                product={product}
-              />
-            ))}
-          </div>
-        ) : (
-          <Text>Esta loja ainda não possui produtos cadastrados.</Text>
-        )}
-      </section>
+      <ListProducts storeId={store.id} />
     </main>
   );
 }
