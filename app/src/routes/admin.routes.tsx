@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/structures/layouts/AdminLayout";
-import { urls } from "@/constants/urls";
+import { adminSidebarItems } from "@/components/structures/layouts/sidebar.config";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -10,10 +10,9 @@ export const adminRoutes: RouteObject[] = [
       {
         element: <AdminLayout />,
         children: [
-          {
-            path: urls.admin_dashboard,
-            element: <div>Admin Dashboard</div>,
-          },
+          ...adminSidebarItems.flatMap(({ href, name }) =>
+            href ? [{ path: href, element: <div>{name}</div> }] : [],
+          ),
         ],
       },
     ],

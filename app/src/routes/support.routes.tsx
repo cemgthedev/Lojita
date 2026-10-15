@@ -1,5 +1,5 @@
 import { SupportLayout } from "@/components/structures/layouts/SupportLayout";
-import { urls } from "@/constants/urls";
+import { supportSidebarItems } from "@/components/structures/layouts/sidebar.config";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -10,10 +10,9 @@ export const supportRoutes: RouteObject[] = [
       {
         element: <SupportLayout />,
         children: [
-          {
-            path: urls.support_dashboard,
-            element: <div>Support Dashboard</div>,
-          },
+          ...supportSidebarItems.flatMap(({ href, name }) =>
+            href ? [{ path: href, element: <div>{name}</div> }] : [],
+          ),
         ],
       },
     ],
