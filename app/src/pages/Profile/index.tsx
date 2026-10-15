@@ -65,7 +65,7 @@ export function ProfilePage() {
             </Text>
           </div>
           <Link
-            to={urls.store_dashboard}
+            to={`${urls.seller_dashboard}${urls.store}`}
             className={buttonVariants({ variant: "secondary" })}
           >
             Ir para minha loja

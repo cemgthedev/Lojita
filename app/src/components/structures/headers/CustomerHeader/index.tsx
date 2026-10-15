@@ -104,7 +104,7 @@ export function CustomerHeader() {
             {user?.role.includes("seller") ? (
               <DropdownMenuItem>
                 <Link
-                  to={urls.store_dashboard}
+                  to={`${urls.seller_dashboard}${urls.store}`}
                   className="hover:text-secondary flex gap-2 items-center transition-colors"
                 >
                   Ver loja

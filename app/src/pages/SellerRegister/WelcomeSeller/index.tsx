@@ -33,7 +33,7 @@ export function WelcomeSellerPage() {
           <Text>Comece agora a anunciar e vender na Lojita.</Text>
         </div>
         <Link
-          to={`${urls.store_dashboard}/details/${encodeURIComponent(storeId)}`}
+          to={`${urls.seller_dashboard}${urls.store}/${encodeURIComponent(storeId)}`}
           className={buttonVariants({ variant: "secondary" })}
         >
           Ir para minha loja

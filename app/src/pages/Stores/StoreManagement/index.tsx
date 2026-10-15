@@ -1,7 +1,7 @@
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
 import { TYPE } from "@/api/resources/addresses/validations/type.schema";
-import { useStoreQuery } from "@/api/resources/stores/queries";
+import { useStoreQuery, useStoresQuery } from "@/api/resources/stores/queries";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -31,13 +31,23 @@ export function StoreManagementPage() {
   const navigate = useNavigate();
   const { user } = useRequiredAuth();
   const storeQuery = useStoreQuery(storeId);
+  const ownStoresQuery = useStoresQuery({ userId: user.id }, !storeId);
   const addressesQuery = useAddressesQuery();
-  const shouldUseMock =
-    !storeQuery.isPending && (storeQuery.isError || !storeQuery.data);
+  const ownStore = ownStoresQuery.data?.find(
+    (candidate) => candidate.userId === user.id,
+  );
+  const isStorePending = storeId
+    ? storeQuery.isPending
+    : ownStoresQuery.isPending;
+  const shouldUseMock = storeId
+    ? !storeQuery.isPending && (storeQuery.isError || !storeQuery.data)
+    : !ownStoresQuery.isPending && (ownStoresQuery.isError || !ownStore);
   const mockStore =
     mockStores.find((store) => store.id === storeId) ??
     mockStores.find((store) => store.userId === user.id);
-  const store = storeQuery.data ?? (shouldUseMock ? mockStore : undefined);
+  const store = storeId
+    ? (storeQuery.data ?? (shouldUseMock ? mockStore : undefined))
+    : (ownStore ?? (shouldUseMock ? mockStore : undefined));
   const shouldUseMockAddresses =
     !addressesQuery.isPending &&
     (addressesQuery.isError || !addressesQuery.data?.length);
@@ -45,11 +55,13 @@ export function StoreManagementPage() {
     ? mockAddresses
     : (addressesQuery.data ?? []);
   const storeAddress = addresses.find(
-    (address) => address.userId === user.id && address.type === TYPE.STORE,
+    (address) =>
+      address.userId === store?.userId && address.type === TYPE.STORE,
   );
   const canUpdateStore = user.role.some(
     (role) => role === ROLE.ADMIN || role === ROLE.SELLER,
   );
+  const isAdmin = user.role.includes(ROLE.ADMIN);
   const formattedAddress = storeAddress && formatAddress(storeAddress);
   const googleMapsUrl = storeAddress
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -67,17 +79,7 @@ export function StoreManagementPage() {
     return <Navigate to={urls.home} replace />;
   }
 
-  if (!storeId) {
-    return (
-      <Card className="p-6 border-none" size="md" rounded="lg">
-        <CardContent>
-          <Text>Não foi possível encontrar a loja.</Text>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (storeQuery.isPending || addressesQuery.isPending) {
+  if (isStorePending || addressesQuery.isPending) {
     return (
       <Card className="p-6 border-none" size="md" rounded="lg">
         <CardContent>
@@ -91,10 +93,18 @@ export function StoreManagementPage() {
     return (
       <Card className="p-6 border-none" size="md" rounded="lg">
         <CardContent>
-          <Text>Não foi possível carregar os dados da loja.</Text>
+          <Text>
+            {storeId
+              ? "Não foi possível carregar os dados da loja."
+              : "Não foi encontrada uma loja vinculada a este usuário."}
+          </Text>
         </CardContent>
       </Card>
     );
+  }
+
+  if (!isAdmin && store.userId !== user.id) {
+    return <Navigate to={urls.home} replace />;
   }
 
   return (
@@ -123,7 +133,11 @@ export function StoreManagementPage() {
         </div>
         {canUpdateStore && (
           <Link
-            to={`${urls.store_dashboard}${urls.update}/${encodeURIComponent(store.id)}`}
+            to={
+              isAdmin
+                ? `${urls.admin_dashboard}${urls.stores}/${encodeURIComponent(store.id)}${urls.update}`
+                : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(store.id)}${urls.update}`
+            }
             className={buttonVariants({ variant: "secondary-bordered" })}
           >
             Atualizar loja

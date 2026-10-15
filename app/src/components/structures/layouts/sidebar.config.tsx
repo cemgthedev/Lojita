@@ -23,47 +23,47 @@ export const adminSidebarItems: NavItem[] = [
   },
   {
     name: "Usuários",
-    href: `${urls.admin_dashboard}/users`,
+    href: `${urls.admin_dashboard}${urls.users}`,
     icon: <UsersIcon size={iconSize} />,
   },
   {
     name: "Lojas",
-    href: `${urls.admin_dashboard}/stores`,
+    href: `${urls.admin_dashboard}${urls.stores}`,
     icon: <StoreIcon size={iconSize} />,
   },
   {
     name: "Categorias",
-    href: `${urls.admin_dashboard}/categories`,
+    href: `${urls.admin_dashboard}${urls.categories}`,
     icon: <ListSortAscendingIcon size={iconSize} />,
   },
   {
     name: "Variantes",
-    href: `${urls.admin_dashboard}/variants`,
+    href: `${urls.admin_dashboard}${urls.variants}`,
     icon: <BoxIcon size={iconSize} />,
   },
   {
     name: "Produtos",
-    href: `${urls.admin_dashboard}/products`,
+    href: `${urls.admin_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
   },
   {
     name: "Cupons",
-    href: `${urls.admin_dashboard}/coupons`,
+    href: `${urls.admin_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
   },
   {
     name: "Pedidos",
-    href: `${urls.admin_dashboard}/orders`,
+    href: `${urls.admin_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
   {
     name: "Avaliações",
-    href: `${urls.admin_dashboard}/reviews`,
+    href: `${urls.admin_dashboard}${urls.reviews}`,
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
   {
     name: "Atendimentos",
-    href: `${urls.admin_dashboard}/support`,
+    href: `${urls.admin_dashboard}${urls.attendances}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
 ];
@@ -75,43 +75,48 @@ export const supportSidebarItems: NavItem[] = [
     icon: <HomeIcon size={iconSize} />,
   },
   {
+    name: "Usuários",
+    href: `${urls.support_dashboard}${urls.users}`,
+    icon: <UsersIcon size={iconSize} />,
+  },
+  {
     name: "Lojas",
-    href: `${urls.support_dashboard}/stores`,
+    href: `${urls.support_dashboard}${urls.stores}`,
     icon: <StoreIcon size={iconSize} />,
   },
   {
     name: "Categorias",
-    href: `${urls.support_dashboard}/categories`,
+    href: `${urls.support_dashboard}${urls.categories}`,
     icon: <ListSortAscendingIcon size={iconSize} />,
   },
   {
     name: "Variantes",
-    href: `${urls.support_dashboard}/variants`,
+    href: `${urls.support_dashboard}${urls.variants}`,
     icon: <BoxIcon size={iconSize} />,
   },
   {
     name: "Produtos",
-    href: `${urls.support_dashboard}/products`,
+    href: `${urls.support_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
   },
   {
     name: "Cupons",
-    href: `${urls.support_dashboard}/coupons`,
+    href: `${urls.support_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
   },
   {
     name: "Pedidos",
-    href: `${urls.support_dashboard}/orders`,
+    href: `${urls.support_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
   {
     name: "Avaliações",
-    href: `${urls.support_dashboard}/reviews`,
+    href: `${urls.support_dashboard}${urls.reviews}`,
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
   {
     name: "Atendimentos",
-    href: `${urls.support_dashboard}/support`,
+    href: `${urls.support_dashboard}${urls.attendances}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
 ];
@@ -124,32 +129,32 @@ export const sellerSidebarItems: NavItem[] = [
   },
   {
     name: "Loja",
-    href: `${urls.seller_dashboard}/store`,
+    href: `${urls.seller_dashboard}${urls.store}`,
     icon: <StoreIcon size={iconSize} />,
   },
   {
     name: "Produtos",
-    href: `${urls.seller_dashboard}/products`,
+    href: `${urls.seller_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
   },
   {
     name: "Cupons",
-    href: `${urls.seller_dashboard}/coupons`,
+    href: `${urls.seller_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
   },
   {
     name: "Pedidos",
-    href: `${urls.seller_dashboard}/orders`,
+    href: `${urls.seller_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
   {
     name: "Avaliações",
-    href: `${urls.seller_dashboard}/reviews`,
+    href: `${urls.seller_dashboard}${urls.reviews}`,
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
   {
     name: "Chats",
-    href: `${urls.seller_dashboard}/chats`,
+    href: `${urls.seller_dashboard}${urls.chats}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
 ];
