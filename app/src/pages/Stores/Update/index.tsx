@@ -1,5 +1,6 @@
 import { useUpdateStoreMutation } from "@/api/resources/stores/mutations";
 import { useStoreQuery } from "@/api/resources/stores/queries";
+import { mockStores } from "@/api/resources/stores/stores.mock";
 import type { CreateStore } from "@/api/resources/stores/validations/create.schema";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
@@ -12,7 +13,6 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockStores } from "@/mocks/stores.mock";
 import { StoreForm } from "@/pages/Stores/form/StoreForm";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";

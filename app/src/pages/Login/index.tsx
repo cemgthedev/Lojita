@@ -2,6 +2,14 @@ import { useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import {
+  MOCK_LOGIN_PASSWORD,
+  mockUsers,
+} from "@/api/resources/users/users.mock";
+import {
+  ROLE_LABEL,
+  type Role,
+} from "@/api/resources/users/validations/auth.schema";
+import {
   Button,
   Field,
   FieldGroup,
@@ -15,12 +23,7 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import { useAuth } from "@/providers/AuthProvider";
-import {
-  ROLE_LABEL,
-  type Role,
-} from "@/api/resources/users/validations/auth.schema";
 import { EyeIcon, EyeOffIcon, LockKeyholeIcon, MailIcon } from "lucide-react";
 
 const defaultRouteByRole: Record<Role, string> = {

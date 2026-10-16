@@ -1,3 +1,7 @@
+import {
+  MOCK_LOGIN_PASSWORD,
+  mockUsers,
+} from "@/api/resources/users/users.mock";
 import type { Role } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -14,7 +18,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   ArrowLeftIcon,

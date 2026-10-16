@@ -6,9 +6,9 @@ import type { Product } from "@/api/resources/products/products/validations/prod
 import type { VariantImage } from "@/api/resources/products/variant-images/validations/variant-image.schema";
 import type { Variant } from "@/api/resources/products/variants/validations/variant.schema";
 import type { Specification } from "@/api/resources/specifications/validations/specification.schema";
+import { mockStores } from "@/api/resources/stores/stores.mock";
+import { mockUsersByRole } from "@/api/resources/users/users.mock";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
-import { mockStores } from "@/mocks/stores.mock";
-import { mockUsersByRole } from "@/mocks/users.mock";
 
 const createdAt = "2026-01-01T00:00:00.000Z";
 const storeId = mockStores[0].id;
@@ -286,7 +286,9 @@ export const mockVariants: Variant[] = [
     stock: 18,
     status: "active",
     sku: "LOJ-CAMISETA-BASICA-1",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-basica"][0]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-basica"][0],
+    ),
     productId: "mock-product-camiseta-basica",
     createdAt,
     updatedAt: null,
@@ -297,7 +299,9 @@ export const mockVariants: Variant[] = [
     stock: 14,
     status: "active",
     sku: "LOJ-CAMISETA-BASICA-2",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-basica"][1]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-basica"][1],
+    ),
     productId: "mock-product-camiseta-basica",
     createdAt,
     updatedAt: null,
@@ -308,7 +312,9 @@ export const mockVariants: Variant[] = [
     stock: 9,
     status: "active",
     sku: "LOJ-CAMISETA-BASICA-3",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-basica"][2]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-basica"][2],
+    ),
     productId: "mock-product-camiseta-basica",
     createdAt,
     updatedAt: null,
@@ -319,7 +325,9 @@ export const mockVariants: Variant[] = [
     stock: 11,
     status: "active",
     sku: "LOJ-POLO-CLASSICA-1",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-polo-classica"][0]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-polo-classica"][0],
+    ),
     productId: "mock-product-polo-classica",
     createdAt,
     updatedAt: null,
@@ -330,7 +338,9 @@ export const mockVariants: Variant[] = [
     stock: 7,
     status: "active",
     sku: "LOJ-POLO-CLASSICA-2",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-polo-classica"][1]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-polo-classica"][1],
+    ),
     productId: "mock-product-polo-classica",
     createdAt,
     updatedAt: null,
@@ -341,7 +351,9 @@ export const mockVariants: Variant[] = [
     stock: 6,
     status: "active",
     sku: "LOJ-POLO-CLASSICA-3",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-polo-classica"][2]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-polo-classica"][2],
+    ),
     productId: "mock-product-polo-classica",
     createdAt,
     updatedAt: null,
@@ -352,7 +364,9 @@ export const mockVariants: Variant[] = [
     stock: 12,
     status: "active",
     sku: "LOJ-CAMISETA-ESTAMPADA-1",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-estampada"][0]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-estampada"][0],
+    ),
     productId: "mock-product-camiseta-estampada",
     createdAt,
     updatedAt: null,
@@ -363,7 +377,9 @@ export const mockVariants: Variant[] = [
     stock: 8,
     status: "active",
     sku: "LOJ-CAMISETA-ESTAMPADA-2",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-estampada"][1]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-estampada"][1],
+    ),
     productId: "mock-product-camiseta-estampada",
     createdAt,
     updatedAt: null,
@@ -374,7 +390,9 @@ export const mockVariants: Variant[] = [
     stock: 5,
     status: "active",
     sku: "LOJ-CAMISETA-ESTAMPADA-3",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-camiseta-estampada"][2]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-camiseta-estampada"][2],
+    ),
     productId: "mock-product-camiseta-estampada",
     createdAt,
     updatedAt: null,
@@ -451,7 +469,9 @@ export const mockVariants: Variant[] = [
     stock: 9,
     status: "active",
     sku: "LOJ-MOCHILA-CANVAS-1",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-mochila-canvas"][0]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-mochila-canvas"][0],
+    ),
     productId: "mock-product-mochila-canvas",
     createdAt,
     updatedAt: null,
@@ -462,7 +482,9 @@ export const mockVariants: Variant[] = [
     stock: 7,
     status: "active",
     sku: "LOJ-MOCHILA-CANVAS-2",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-mochila-canvas"][1]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-mochila-canvas"][1],
+    ),
     productId: "mock-product-mochila-canvas",
     createdAt,
     updatedAt: null,
@@ -473,7 +495,9 @@ export const mockVariants: Variant[] = [
     stock: 4,
     status: "active",
     sku: "LOJ-MOCHILA-CANVAS-3",
-    urlImage: imageUrl(imagePhotoIdsByProductId["mock-product-mochila-canvas"][2]),
+    urlImage: imageUrl(
+      imagePhotoIdsByProductId["mock-product-mochila-canvas"][2],
+    ),
     productId: "mock-product-mochila-canvas",
     createdAt,
     updatedAt: null,

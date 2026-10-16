@@ -2,7 +2,7 @@ import {
   findMockUserByCredentials,
   findMockUserById,
   updateMockUserPasswordById,
-} from "@/mocks/users.mock";
+} from "@/api/resources/users/users.mock";
 import type {
   AuthUser,
   LoginCredentials,

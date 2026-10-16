@@ -1,7 +1,9 @@
+import { mockAddresses } from "@/api/resources/addresses/addresses.mock";
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
 import { TYPE } from "@/api/resources/addresses/validations/type.schema";
 import { useStoreQuery, useStoresQuery } from "@/api/resources/stores/queries";
+import { mockStores } from "@/api/resources/stores/stores.mock";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -16,8 +18,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { mockAddresses } from "@/mocks/addresses.mock";
-import { mockStores } from "@/mocks/stores.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";

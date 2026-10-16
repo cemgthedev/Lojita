@@ -1,8 +1,13 @@
 import { useCategoriesQuery } from "@/api/resources/categories/queries";
+import {
+  mockCategories,
+  mockProducts,
+} from "@/api/resources/products/products.mock";
 import { useDeleteProductMutation } from "@/api/resources/products/products/mutations";
 import { useProductsQuery } from "@/api/resources/products/products/queries";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { useStoresQuery } from "@/api/resources/stores/queries";
+import { mockStores } from "@/api/resources/stores/stores.mock";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -25,8 +30,6 @@ import {
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
 import { useHighestRole } from "@/hooks/useHighestRole";
-import { mockCategories, mockProducts } from "@/mocks/products.mock";
-import { mockStores } from "@/mocks/stores.mock";
 import {
   ProductHeaderFilters,
   type ProductSort,

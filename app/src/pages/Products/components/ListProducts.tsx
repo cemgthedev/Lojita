@@ -1,8 +1,8 @@
+import { mockProducts } from "@/api/resources/products/products.mock";
 import { useProductsQuery } from "@/api/resources/products/products/queries";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { Separator, Text } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { mockProducts } from "@/mocks/products.mock";
 import { CardProduct } from "@/pages/Products/components/CardProduct";
 import {
   ProductHeaderFilters,

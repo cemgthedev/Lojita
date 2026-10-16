@@ -22,7 +22,7 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockPaymentMethods } from "@/mocks/payment-methods.mock";
+import { mockPaymentMethods } from "@/api/resources/payment-methods/payment-methods.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import { CreditCardIcon, PencilIcon, Trash2Icon } from "lucide-react";

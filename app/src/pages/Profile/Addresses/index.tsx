@@ -1,3 +1,4 @@
+import { mockAddresses } from "@/api/resources/addresses/addresses.mock";
 import { useDeleteAddressMutation } from "@/api/resources/addresses/mutations";
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
@@ -22,7 +23,6 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockAddresses } from "@/mocks/addresses.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import { HomeIcon, PencilIcon, Trash2Icon } from "lucide-react";
