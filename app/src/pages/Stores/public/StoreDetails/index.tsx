@@ -121,7 +121,7 @@ export function StoreDetailsPage() {
       </header>
 
       {(storeQuery.isError || addressesQuery.isError) && (
-        <Text role="status">
+        <Text role="status" className="animate-pulse-once">
           Não foi possível carregar alguns dados da loja. Exibindo dados de
           exemplo.
         </Text>

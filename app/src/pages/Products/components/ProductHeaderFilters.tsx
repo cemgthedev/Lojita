@@ -79,7 +79,7 @@ export function ProductHeaderFilters({
   return (
     <div className="space-y-6">
       {categoriesQuery.isError && (
-        <Text role="alert">
+        <Text role="alert" className="animate-pulse-once">
           Não foi possível carregar as categorias. Exibindo dados de exemplo.
         </Text>
       )}

@@ -111,7 +111,7 @@ export function PaymentMethodsPage() {
       )}
 
       {paymentMethodsQuery.isError && (
-        <Text role="alert">
+        <Text role="alert" className="animate-pulse-once">
           Não foi possível carregar os métodos de pagamento. Exibindo dados de
           demonstração.
         </Text>

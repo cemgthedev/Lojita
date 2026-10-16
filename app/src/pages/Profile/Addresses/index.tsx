@@ -106,7 +106,7 @@ export function AddressesPage() {
       )}
 
       {addressesQuery.isError && (
-        <Text role="status">
+        <Text role="status" className="animate-pulse-once">
           Não foi possível carregar os endereços. Exibindo dados de exemplo.
         </Text>
       )}

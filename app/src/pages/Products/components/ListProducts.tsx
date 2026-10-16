@@ -49,13 +49,7 @@ export function ListProducts({ storeId }: ListProductsProps) {
 
         return sort === "price-asc" ? priceA - priceB : priceB - priceA;
       });
-  }, [
-    filters.categoryId,
-    filters.title,
-    productsQuery.data,
-    sort,
-    storeId,
-  ]);
+  }, [filters.categoryId, filters.title, productsQuery.data, sort, storeId]);
 
   return (
     <section aria-labelledby="store-products-heading" className="space-y-4">
@@ -75,7 +69,7 @@ export function ListProducts({ storeId }: ListProductsProps) {
       ) : (
         <>
           {productsQuery.isError && (
-            <Text role="status">
+            <Text role="status" className="animate-pulse-once">
               Não foi possível carregar os produtos. Exibindo dados de exemplo.
             </Text>
           )}

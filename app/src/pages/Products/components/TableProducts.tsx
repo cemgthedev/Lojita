@@ -99,13 +99,7 @@ export function TableProducts() {
 
         return sort === "price-asc" ? priceA - priceB : priceB - priceA;
       });
-  }, [
-    filters.categoryId,
-    filters.title,
-    productsQuery.data,
-    sort,
-    storeId,
-  ]);
+  }, [filters.categoryId, filters.title, productsQuery.data, sort, storeId]);
 
   return (
     <section
@@ -134,19 +128,18 @@ export function TableProducts() {
       ) : (
         <>
           {ownStoresQuery.isError && isSeller && (
-            <Text role="status">
+            <Text role="status" className="animate-pulse-once">
               Não foi possível carregar a loja vinculada a este usuário.
               {storeId && " Exibindo dados de exemplo."}
             </Text>
           )}
           {productsQuery.isError && (
-            <Text role="status">
-              Não foi possível carregar os produtos. Exibindo dados de
-              exemplo.
+            <Text role="status" className="animate-pulse-once">
+              Não foi possível carregar os produtos. Exibindo dados de exemplo.
             </Text>
           )}
           {categoriesQuery.isError && (
-            <Text role="status">
+            <Text role="status" className="animate-pulse-once">
               Não foi possível carregar as categorias. Exibindo dados de
               exemplo.
             </Text>
