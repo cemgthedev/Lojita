@@ -1,9 +1,7 @@
-import { mockAddresses } from "@/api/resources/addresses/addresses.mock";
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
 import { TYPE } from "@/api/resources/addresses/validations/type.schema";
 import { useStoreQuery, useStoresQuery } from "@/api/resources/stores/queries";
-import { mockStores } from "@/api/resources/stores/stores.mock";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -39,21 +37,10 @@ export function StoreManagementPage() {
   const isStorePending = storeId
     ? storeQuery.isPending
     : ownStoresQuery.isPending;
-  const shouldUseMock = storeId
-    ? !storeQuery.isPending && (storeQuery.isError || !storeQuery.data)
-    : !ownStoresQuery.isPending && (ownStoresQuery.isError || !ownStore);
-  const mockStore =
-    mockStores.find((store) => store.id === storeId) ??
-    mockStores.find((store) => store.userId === user.id);
   const store = storeId
-    ? (storeQuery.data ?? (shouldUseMock ? mockStore : undefined))
-    : (ownStore ?? (shouldUseMock ? mockStore : undefined));
-  const shouldUseMockAddresses =
-    !addressesQuery.isPending &&
-    (addressesQuery.isError || !addressesQuery.data?.length);
-  const addresses = shouldUseMockAddresses
-    ? mockAddresses
-    : (addressesQuery.data ?? []);
+    ? storeQuery.data
+    : ownStore;
+  const addresses = addressesQuery.data ?? [];
   const storeAddress = addresses.find(
     (address) =>
       address.userId === store?.userId && address.type === TYPE.STORE,
@@ -144,6 +131,13 @@ export function StoreManagementPage() {
           </Link>
         )}
       </header>
+
+      {(storeQuery.isError || ownStoresQuery.isError || addressesQuery.isError) && (
+        <Text role="status">
+          Não foi possível carregar alguns dados da loja. Exibindo dados de
+          exemplo.
+        </Text>
+      )}
 
       <Separator variant="secondary" />
 

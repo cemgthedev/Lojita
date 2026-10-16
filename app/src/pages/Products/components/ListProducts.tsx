@@ -1,4 +1,3 @@
-import { mockProducts } from "@/api/resources/products/products.mock";
 import { useProductsQuery } from "@/api/resources/products/products/queries";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { Separator, Text } from "@/components/ui";
@@ -20,9 +19,9 @@ export function ListProducts({ storeId }: ListProductsProps) {
   const productsQuery = useProductsQuery({ storeId, ...filters });
 
   const products = useMemo(() => {
-    const storeProducts = (
-      productsQuery.data ?? (productsQuery.isError ? mockProducts : [])
-    ).filter((product) => product.storeId === storeId);
+    const storeProducts = (productsQuery.data ?? []).filter(
+      (product) => product.storeId === storeId,
+    );
     const normalizedTitle = filters.title?.trim().toLocaleLowerCase("pt-BR");
 
     return storeProducts
@@ -54,7 +53,6 @@ export function ListProducts({ storeId }: ListProductsProps) {
     filters.categoryId,
     filters.title,
     productsQuery.data,
-    productsQuery.isError,
     sort,
     storeId,
   ]);
@@ -76,7 +74,7 @@ export function ListProducts({ storeId }: ListProductsProps) {
         <Text>Carregando produtos...</Text>
       ) : (
         <>
-          {productsQuery.isError && !productsQuery.data && (
+          {productsQuery.isError && (
             <Text role="status">
               Não foi possível carregar os produtos. Exibindo dados de exemplo.
             </Text>

@@ -1,13 +1,8 @@
 import { useCategoriesQuery } from "@/api/resources/categories/queries";
-import {
-  mockCategories,
-  mockProducts,
-} from "@/api/resources/products/products.mock";
 import { useDeleteProductMutation } from "@/api/resources/products/products/mutations";
 import { useProductsQuery } from "@/api/resources/products/products/queries";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { useStoresQuery } from "@/api/resources/stores/queries";
-import { mockStores } from "@/api/resources/stores/stores.mock";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
@@ -56,25 +51,15 @@ export function TableProducts() {
   const [filters, setFilters] = useState<ProductQuery>({});
   const [sort, setSort] = useState<ProductSort>("price-asc");
   const ownStoresQuery = useStoresQuery({ userId: user.id }, isSeller);
-  const useMockStores =
-    isSeller && (ownStoresQuery.isError || !ownStoresQuery.data?.length);
-  const stores = useMockStores ? mockStores : (ownStoresQuery.data ?? []);
   const storeId = isSeller
-    ? (stores.find((store) => store.userId === user.id)?.id ??
-      (useMockStores ? mockStores[0]?.id : undefined))
+    ? ownStoresQuery.data?.find((store) => store.userId === user.id)?.id
     : undefined;
   const productsQuery = useProductsQuery(
     { ...filters, ...(storeId ? { storeId } : {}) },
     !isSeller || (!ownStoresQuery.isPending && Boolean(storeId)),
   );
   const categoriesQuery = useCategoriesQuery();
-  const useMockProducts = productsQuery.isError || !productsQuery.data?.length;
-  const useMockCategories =
-    categoriesQuery.isError ||
-    (!categoriesQuery.isPending && !categoriesQuery.data?.length);
-  const categories = useMockCategories
-    ? mockCategories
-    : (categoriesQuery.data ?? []);
+  const categories = categoriesQuery.data ?? [];
   const deleteProductMutation = useDeleteProductMutation();
   const managementBaseUrl =
     role === ROLE.ADMIN
@@ -84,12 +69,7 @@ export function TableProducts() {
         : urls.seller_dashboard;
 
   const products = useMemo(() => {
-    const productsFromQuery = useMockProducts
-      ? mockProducts.map((product) =>
-          isSeller && storeId ? { ...product, storeId } : product,
-        )
-      : (productsQuery.data ?? []);
-    const storeProducts = productsFromQuery.filter(
+    const storeProducts = (productsQuery.data ?? []).filter(
       (product) => !storeId || product.storeId === storeId,
     );
     const normalizedTitle = filters.title?.trim().toLocaleLowerCase("pt-BR");
@@ -122,11 +102,9 @@ export function TableProducts() {
   }, [
     filters.categoryId,
     filters.title,
-    isSeller,
     productsQuery.data,
     sort,
     storeId,
-    useMockProducts,
   ]);
 
   return (
@@ -155,26 +133,22 @@ export function TableProducts() {
         <Text>Carregando produtos...</Text>
       ) : (
         <>
-          {useMockStores && (
+          {ownStoresQuery.isError && isSeller && (
             <Text role="status">
               Não foi possível carregar a loja vinculada a este usuário.
-              Exibindo dados de exemplo.
+              {storeId && " Exibindo dados de exemplo."}
             </Text>
           )}
-          {useMockProducts && (
+          {productsQuery.isError && (
             <Text role="status">
-              {productsQuery.isError
-                ? "Não foi possível carregar os produtos."
-                : "Nenhum produto foi retornado."}{" "}
-              Exibindo dados de exemplo.
+              Não foi possível carregar os produtos. Exibindo dados de
+              exemplo.
             </Text>
           )}
-          {useMockCategories && (
+          {categoriesQuery.isError && (
             <Text role="status">
-              {categoriesQuery.isError
-                ? "Não foi possível carregar as categorias."
-                : "Nenhuma categoria foi retornada."}{" "}
-              Exibindo categorias de exemplo.
+              Não foi possível carregar as categorias. Exibindo dados de
+              exemplo.
             </Text>
           )}
 

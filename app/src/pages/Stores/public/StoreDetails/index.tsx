@@ -1,9 +1,7 @@
-import { mockAddresses } from "@/api/resources/addresses/addresses.mock";
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
 import { TYPE } from "@/api/resources/addresses/validations/type.schema";
 import { useStoreQuery } from "@/api/resources/stores/queries";
-import { mockStores } from "@/api/resources/stores/stores.mock";
 import {
   Button,
   Card,
@@ -29,18 +27,8 @@ export function StoreDetailsPage() {
   const navigate = useNavigate();
   const storeQuery = useStoreQuery(id);
   const addressesQuery = useAddressesQuery();
-  const shouldUseMockStore =
-    !storeQuery.isPending && (storeQuery.isError || !storeQuery.data);
-  const mockStore = mockStores.find(
-    (store) => store.id === id || store.url === id,
-  );
-  const store = storeQuery.data ?? (shouldUseMockStore ? mockStore : undefined);
-  const shouldUseMockAddresses =
-    !addressesQuery.isPending &&
-    (addressesQuery.isError || !addressesQuery.data?.length);
-  const addresses = shouldUseMockAddresses
-    ? mockAddresses
-    : (addressesQuery.data ?? []);
+  const store = storeQuery.data;
+  const addresses = addressesQuery.data ?? [];
   const storeAddress = store
     ? addresses.find(
         (address) =>
@@ -131,6 +119,13 @@ export function StoreDetailsPage() {
           <Text className="line-clamp-6">{store.description}</Text>
         )}
       </header>
+
+      {(storeQuery.isError || addressesQuery.isError) && (
+        <Text role="status">
+          Não foi possível carregar alguns dados da loja. Exibindo dados de
+          exemplo.
+        </Text>
+      )}
 
       <ListProducts storeId={store.id} />
     </main>

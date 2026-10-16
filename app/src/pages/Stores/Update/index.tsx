@@ -1,6 +1,5 @@
 import { useUpdateStoreMutation } from "@/api/resources/stores/mutations";
 import { useStoreQuery } from "@/api/resources/stores/queries";
-import { mockStores } from "@/api/resources/stores/stores.mock";
 import type { CreateStore } from "@/api/resources/stores/validations/create.schema";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
@@ -24,16 +23,7 @@ export function StoreUpdatePage() {
   const { user } = useRequiredAuth();
   const storeQuery = useStoreQuery(storeId);
   const updateStoreMutation = useUpdateStoreMutation();
-  const shouldUseMock =
-    !storeQuery.isPending && (storeQuery.isError || !storeQuery.data);
-  const store =
-    storeQuery.data ??
-    (shouldUseMock
-      ? mockStores.find(
-          (mockStore) =>
-            mockStore.id === storeId || mockStore.userId === user.id,
-        )
-      : undefined);
+  const store = storeQuery.data;
   const canUpdateStore = user.role.some(
     (role) => role === ROLE.ADMIN || role === ROLE.SELLER,
   );
@@ -42,6 +32,10 @@ export function StoreUpdatePage() {
   async function handleSubmit(values: CreateStore) {
     if (!store) {
       throw new Error("Store is required before it can be updated.");
+    }
+
+    if (storeQuery.isError) {
+      throw new Error("Demo store data cannot be updated through the API.");
     }
 
     return updateStoreMutation.mutateAsync({
@@ -118,6 +112,13 @@ export function StoreUpdatePage() {
 
       <Separator variant="secondary" orientation="horizontal" />
 
+      {storeQuery.isError && (
+        <Text role="alert">
+          Não foi possível carregar a loja. Exibindo dados de exemplo; a
+          atualização está indisponível.
+        </Text>
+      )}
+
       <StoreForm
         key={store.id}
         userId={store.userId}
@@ -144,7 +145,7 @@ export function StoreUpdatePage() {
               : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(store.id)}`,
           )
         }
-        isPending={updateStoreMutation.isPending}
+        isPending={updateStoreMutation.isPending || storeQuery.isError}
       />
     </main>
   );
