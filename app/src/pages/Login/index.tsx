@@ -1,10 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
-import {
-  MOCK_LOGIN_PASSWORD,
-  mockUsers,
-} from "@/api/resources/users/users.mock";
+import { authApi } from "@/api/auth.api";
 import {
   ROLE_LABEL,
   type Role,
@@ -37,12 +34,15 @@ type LocationState = {
   from?: { pathname?: string };
 };
 
+const demoUsers = authApi.getDemoUsers();
+const demoLoginCredentials = authApi.getDemoLoginCredentials();
+
 export function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState(mockUsers[0].email);
-  const [password, setPassword] = useState(MOCK_LOGIN_PASSWORD);
+  const [email, setEmail] = useState(demoLoginCredentials.email);
+  const [password, setPassword] = useState(demoLoginCredentials.password);
   const [isVisible, setIsVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,7 +66,7 @@ export function LoginPage() {
 
     try {
       await login({ email, password });
-      const user = mockUsers.find((mockUser) => mockUser.email === email);
+      const user = demoUsers.find((demoUser) => demoUser.email === email);
       const from = (location.state as LocationState | null)?.from?.pathname;
       navigate(from ?? defaultRouteByRole[user?.role[0] ?? "customer"], {
         replace: true,
@@ -174,16 +174,20 @@ export function LoginPage() {
           </FieldGroup>
         </form>
 
+        {error && <Text role="alert">{error}</Text>}
+
         <section>
-          <Text size="sm">Contas de teste (senha: {MOCK_LOGIN_PASSWORD})</Text>
+          <Text size="sm">
+            Contas de teste (senha: {demoLoginCredentials.password})
+          </Text>
           <ul>
-            {mockUsers.map((user) => (
+            {demoUsers.map((user) => (
               <li key={user.id}>
                 <Button
                   className="text-sm text-primary-600 underline p-0 bg-transparent"
                   onClick={() => {
                     setEmail(user.email);
-                    setPassword(MOCK_LOGIN_PASSWORD);
+                    setPassword(demoLoginCredentials.password);
                   }}
                 >
                   {ROLE_LABEL[user.role[0]]}: {user.email}
