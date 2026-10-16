@@ -1,5 +1,6 @@
 import { SupportLayout } from "@/components/structures/layouts/SupportLayout";
 import { urls } from "@/constants/urls";
+import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -32,7 +33,7 @@ export const supportRoutes: RouteObject[] = [
           },
           {
             path: `${urls.support_dashboard}${urls.products}`,
-            element: <div>Produtos</div>,
+            element: <ProductsManagement />,
           },
           {
             path: `${urls.support_dashboard}${urls.coupons}`,
