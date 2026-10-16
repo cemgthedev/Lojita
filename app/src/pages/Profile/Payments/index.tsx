@@ -22,7 +22,6 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockPaymentMethods } from "@/api/resources/payment-methods/payment-methods.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import { CreditCardIcon, PencilIcon, Trash2Icon } from "lucide-react";
@@ -33,14 +32,7 @@ export function PaymentMethodsPage() {
   const { user } = useRequiredAuth();
   const paymentMethodsQuery = usePaymentMethodsQuery({ userId: user.id });
   const deleteMutation = useDeletePaymentMethodMutation();
-  const shouldUseMocks =
-    !paymentMethodsQuery.isPending &&
-    (paymentMethodsQuery.isError || paymentMethodsQuery.data?.length === 0);
-  const paymentMethods = shouldUseMocks
-    ? mockPaymentMethods.filter(
-        (paymentMethod) => paymentMethod.userId === user.id,
-      )
-    : (paymentMethodsQuery.data ?? []);
+  const paymentMethods = paymentMethodsQuery.data ?? [];
   const [paymentMethodToDelete, setPaymentMethodToDelete] =
     useState<PaymentMethod | null>(null);
 
@@ -118,15 +110,12 @@ export function PaymentMethodsPage() {
         <Text aria-live="polite">Carregando métodos de pagamento...</Text>
       )}
 
-      {/**
-       * Com userQueryAddress integrado com a api
-      *  {paymentMethodsQuery.isError && (
+      {paymentMethodsQuery.isError && (
         <Text role="alert">
           Não foi possível carregar os métodos de pagamento. Exibindo dados de
           demonstração.
         </Text>
       )}
-      */}
 
       {!paymentMethodsQuery.isPending && paymentMethods.length === 0 && (
         <Card variant="secondary-bordered" size="md" rounded="lg">
@@ -180,7 +169,7 @@ export function PaymentMethodsPage() {
                 </CardContent>
                 <div className="flex shrink-0 items-center gap-3">
                   <Link
-                    to={`${urls.profile}${urls.payments}${urls.update}/${encodeURIComponent(paymentMethod.id)}`}
+                    to={`${urls.profile}${urls.payments}/${encodeURIComponent(paymentMethod.id)}${urls.update}`}
                     className={buttonVariants({
                       variant: "secondary-bordered",
                       size: "sm",
