@@ -127,7 +127,7 @@ export function StoreDetailsPage() {
         </Text>
       )}
 
-      <ListProducts storeId={store.id} />
+      <ListProducts />
     </main>
   );
 }

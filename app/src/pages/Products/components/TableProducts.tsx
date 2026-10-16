@@ -66,7 +66,11 @@ export function TableProducts() {
       ? urls.admin_dashboard
       : role === ROLE.SUPPORT
         ? urls.support_dashboard
-        : urls.seller_dashboard;
+        : role === ROLE.SELLER
+          ? urls.seller_dashboard
+          : role === ROLE.CUSTOMER
+            ? urls.customer_dashboard
+            : "";
 
   const products = useMemo(() => {
     const storeProducts = (productsQuery.data ?? []).filter(
@@ -227,7 +231,7 @@ export function TableProducts() {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem asChild>
                                   <Link
-                                    to={`${urls.stores}/${encodeURIComponent(product.storeId)}/products/${encodeURIComponent(product.id)}`}
+                                    to={`${managementBaseUrl}${urls.products}/${encodeURIComponent(product.id)}`}
                                   >
                                     <ExternalLinkIcon />
                                     Visualizar
