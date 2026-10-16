@@ -111,10 +111,10 @@ export function AddressesPage() {
         </Text>
       )}
 
-      {addresses.length === 0 && (
+      {!addressesQuery.isPending && addresses.length === 0 && (
         <Card variant="secondary-bordered" size="md" rounded="lg">
           <CardContent className="items-center gap-3 text-center">
-            <Text>Você ainda não cadastrou nenhum endereço.</Text>
+            <Text>Você ainda não cadastrou nenhum método de pagamento.</Text>
           </CardContent>
         </Card>
       )}

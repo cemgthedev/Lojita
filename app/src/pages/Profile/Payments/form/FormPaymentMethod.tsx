@@ -250,7 +250,7 @@ export function FormPaymentMethod({
             ? "Salvando..."
             : paymentMethod
               ? "Salvar alterações"
-              : "Cadastrar método"}
+              : "Cadastrar cartão"}
         </Button>
       </div>
     </form>
