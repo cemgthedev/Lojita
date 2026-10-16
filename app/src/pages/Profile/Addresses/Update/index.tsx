@@ -15,6 +15,10 @@ export function UpdateAddressesPage() {
     return <Text role="alert">Não foi possível carregar o endereço.</Text>;
   }
 
+  if (!addressQuery.data) {
+    return <Text role="alert">Endereço não encontrado.</Text>;
+  }
+
   return (
     <section className="w-full space-y-4">
       <header className="space-y-1">

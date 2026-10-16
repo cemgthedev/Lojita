@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const addressQuerySchema = z.object({
   id: z.string().optional(),
+  userId: z.string().optional(),
   name: z.string().optional(),
   cep: z.string().optional(),
   street: z.string().optional(),

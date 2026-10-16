@@ -1,4 +1,3 @@
-import { mockAddresses } from "@/api/resources/addresses/addresses.mock";
 import { useDeleteAddressMutation } from "@/api/resources/addresses/mutations";
 import { useAddressesQuery } from "@/api/resources/addresses/queries";
 import type { Address } from "@/api/resources/addresses/validations/address.schema";
@@ -31,11 +30,9 @@ import { Link } from "react-router";
 
 export function AddressesPage() {
   const { user } = useRequiredAuth();
-  const addressesQuery = useAddressesQuery();
+  const addressesQuery = useAddressesQuery({ userId: user.id });
   const deleteAddressMutation = useDeleteAddressMutation();
-  const addresses = !addressesQuery.data?.length
-    ? mockAddresses.filter((address) => address.userId === user.id)
-    : (addressesQuery.data ?? []);
+  const addresses = addressesQuery.data ?? [];
   const [addressToDelete, setAddressToDelete] = useState<Address | null>(null);
 
   async function handleDelete() {
@@ -108,12 +105,11 @@ export function AddressesPage() {
         <Text aria-live="polite">Carregando endereços...</Text>
       )}
 
-      {/**
-       * Com userQueryAddress integrado com a api
-      *  {addressesQuery.isError && (
-        <Text role="alert">Não foi possível carregar os endereços.</Text>
+      {addressesQuery.isError && (
+        <Text role="status">
+          Não foi possível carregar os endereços. Exibindo dados de exemplo.
+        </Text>
       )}
-      */}
 
       {addresses.length === 0 && (
         <Card variant="secondary-bordered" size="md" rounded="lg">
@@ -159,7 +155,7 @@ export function AddressesPage() {
                 </CardContent>
                 <div className="flex shrink-0 items-center gap-3">
                   <Link
-                    to={`${urls.profile}${urls.addresses}${urls.update}/${encodeURIComponent(address.id)}`}
+                    to={`${urls.profile}${urls.addresses}/${encodeURIComponent(address.id)}${urls.update}`}
                     className={buttonVariants({
                       variant: "secondary-bordered",
                       size: "sm",
