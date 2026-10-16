@@ -1,7 +1,7 @@
 import {
   mockUserExistsByEmail,
   updateMockUserPassword,
-} from "@/mocks/users.mock";
+} from "@/api/resources/users/users.mock";
 
 const MOCK_RESET_CODE = "123456";
 const RESET_CODE_TTL_IN_MS = 10 * 60 * 1000;

@@ -16,8 +16,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { mockAddresses } from "@/mocks/addresses.mock";
-import { mockStores } from "@/mocks/stores.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
@@ -39,21 +37,10 @@ export function StoreManagementPage() {
   const isStorePending = storeId
     ? storeQuery.isPending
     : ownStoresQuery.isPending;
-  const shouldUseMock = storeId
-    ? !storeQuery.isPending && (storeQuery.isError || !storeQuery.data)
-    : !ownStoresQuery.isPending && (ownStoresQuery.isError || !ownStore);
-  const mockStore =
-    mockStores.find((store) => store.id === storeId) ??
-    mockStores.find((store) => store.userId === user.id);
   const store = storeId
-    ? (storeQuery.data ?? (shouldUseMock ? mockStore : undefined))
-    : (ownStore ?? (shouldUseMock ? mockStore : undefined));
-  const shouldUseMockAddresses =
-    !addressesQuery.isPending &&
-    (addressesQuery.isError || !addressesQuery.data?.length);
-  const addresses = shouldUseMockAddresses
-    ? mockAddresses
-    : (addressesQuery.data ?? []);
+    ? storeQuery.data
+    : ownStore;
+  const addresses = addressesQuery.data ?? [];
   const storeAddress = addresses.find(
     (address) =>
       address.userId === store?.userId && address.type === TYPE.STORE,
@@ -144,6 +131,13 @@ export function StoreManagementPage() {
           </Link>
         )}
       </header>
+
+      {(storeQuery.isError || ownStoresQuery.isError || addressesQuery.isError) && (
+        <Text role="status" className="animate-pulse-once">
+          Não foi possível carregar alguns dados da loja. Exibindo dados de
+          exemplo.
+        </Text>
+      )}
 
       <Separator variant="secondary" />
 

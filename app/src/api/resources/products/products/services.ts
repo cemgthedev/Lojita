@@ -10,6 +10,7 @@ import {
   type ProductQuery,
 } from "@/api/resources/products/products/validations/query.schema";
 import type { UpdateProduct } from "@/api/resources/products/products/validations/update.schema";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function productEndpoint(id: string) {
   return `${endpoints.products}/${encodeURIComponent(id)}`;
@@ -40,11 +41,13 @@ export const productsService = {
   },
 
   async create(product: CreateProduct): Promise<Product> {
+    assertNoMockIds("produto", product.storeId, product.categoryId);
     const response = await http.post<unknown>(endpoints.products, product);
     return productSchema.parse(response.data);
   },
 
   async update({ id, ...product }: UpdateProduct): Promise<Product> {
+    assertNoMockIds("produto", id, product.storeId, product.categoryId);
     const response = await http.put<unknown>(
       productEndpoint(id ?? ""),
       product,
@@ -53,6 +56,7 @@ export const productsService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("produto", id);
     await http.delete<void>(productEndpoint(id));
   },
 };

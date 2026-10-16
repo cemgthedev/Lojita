@@ -7,7 +7,8 @@ import type { CreateAddress } from "@/api/resources/addresses/validations/create
 import type { AddressQuery } from "@/api/resources/addresses/validations/query.schema";
 import type { UpdateAddress } from "@/api/resources/addresses/validations/update.schema";
 import { endpoints } from "@/api/resources/endpoints";
-import { userQuerySchema } from "@/api/resources/users/validations/query.schema";
+import { addressQuerySchema } from "@/api/resources/addresses/validations/query.schema";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function addressEndpoint(id: string) {
   return `${endpoints.addresses}/${encodeURIComponent(id)}`;
@@ -17,7 +18,7 @@ function queryString(query?: AddressQuery) {
   const params = new URLSearchParams();
 
   for (const [key, value] of Object.entries(
-    userQuerySchema.parse(query ?? {}),
+    addressQuerySchema.parse(query ?? {}),
   )) {
     if (value !== undefined) {
       params.set(key, String(value));
@@ -44,6 +45,7 @@ export const addressesService = {
   },
 
   async create(createdAddress: CreateAddress): Promise<Address> {
+    assertNoMockIds("endereço", createdAddress.userId);
     const response = await http.post<unknown>(
       endpoints.addresses,
       createdAddress,
@@ -53,6 +55,7 @@ export const addressesService = {
   },
 
   async update({ id, ...updatedAddress }: UpdateAddress): Promise<Address> {
+    assertNoMockIds("endereço", id, updatedAddress.userId);
     const response = await http.put<unknown>(
       addressEndpoint(id ?? ""),
       updatedAddress,
@@ -62,6 +65,7 @@ export const addressesService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("endereço", id);
     await http.delete<void>(addressEndpoint(id));
   },
 };

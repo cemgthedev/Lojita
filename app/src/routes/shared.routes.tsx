@@ -1,16 +1,16 @@
 import { urls } from "@/constants/urls";
 import { ProfilePage } from "@/pages/Profile";
-import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
-import { ProfileUpdatePage } from "@/pages/Profile/Update";
-import { SellerRegisterPage } from "@/pages/SellerRegister";
-import { WelcomeSellerPage } from "@/pages/SellerRegister/WelcomeSeller";
-import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
 import { AddressesPage } from "@/pages/Profile/Addresses";
 import { CreateAddressesPage } from "@/pages/Profile/Addresses/Create";
 import { UpdateAddressesPage } from "@/pages/Profile/Addresses/Update";
 import { PaymentMethodsPage } from "@/pages/Profile/Payments";
 import { CreatePaymentMethodPage } from "@/pages/Profile/Payments/Create";
 import { UpdatePaymentMethodPage } from "@/pages/Profile/Payments/Update";
+import { ProfileLayout } from "@/pages/Profile/ProfileLayout";
+import { ProfileUpdatePage } from "@/pages/Profile/Update";
+import { UpdatePasswordPage } from "@/pages/Profile/Update/UpdatePassword";
+import { SellerRegisterPage } from "@/pages/SellerRegister";
+import { WelcomeSellerPage } from "@/pages/SellerRegister/WelcomeSeller";
 import type { RouteObject } from "react-router";
 
 export const sharedRoutes: RouteObject[] = [
@@ -43,7 +43,7 @@ export const sharedRoutes: RouteObject[] = [
         element: <CreateAddressesPage />,
       },
       {
-        path: `${urls.addresses.slice(1)}${urls.update}/:addressId`,
+        path: `${urls.addresses.slice(1)}/:addressId${urls.update}`,
         element: <UpdateAddressesPage />,
       },
       {
@@ -55,7 +55,7 @@ export const sharedRoutes: RouteObject[] = [
         element: <CreatePaymentMethodPage />,
       },
       {
-        path: `${urls.payments.slice(1)}${urls.update}/:paymentMethodId`,
+        path: `${urls.payments.slice(1)}/:paymentMethodId${urls.update}`,
         element: <UpdatePaymentMethodPage />,
       },
       {

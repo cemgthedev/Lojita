@@ -75,6 +75,17 @@ export const mockUsersByRole: Record<Role, MockUser> = {
 };
 
 export const mockUsers = Object.values(mockUsersByRole);
+export const mockUserRecords: User[] = mockUsers.map((user) => ({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  avatarUrl: user.avatarUrl ?? "",
+  document: user.document,
+  phone: user.phone,
+  role: user.role,
+  createdAt: user.createdAt,
+  updatedAt: user.updatedAt,
+}));
 
 function toAuthUser(user: MockUser): AuthUser {
   return {

@@ -2,11 +2,17 @@ import {
   findMockUserByCredentials,
   findMockUserById,
   updateMockUserPasswordById,
-} from "@/mocks/users.mock";
+} from "@/api/resources/users/users.mock";
 import type {
   AuthUser,
   LoginCredentials,
+  Role,
 } from "@/api/resources/users/validations/auth.schema";
+import {
+  MOCK_LOGIN_PASSWORD,
+  mockUsers,
+  mockUsersByRole,
+} from "@/api/resources/users/users.mock";
 
 const MOCK_SESSION_KEY = "lojita:mock-session-user-id";
 
@@ -20,6 +26,26 @@ const MOCK_SESSION_KEY = "lojita:mock-session-user-id";
  */
 
 export const authApi = {
+  getDemoUsers(): AuthUser[] {
+    return mockUsers.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      document: user.document,
+      phone: user.phone,
+      role: user.role,
+      avatarUrl: user.avatarUrl,
+    }));
+  },
+
+  getDemoLoginCredentials(role?: Role): LoginCredentials {
+    const user = role ? mockUsersByRole[role] : mockUsers[0];
+    return {
+      email: user.email,
+      password: MOCK_LOGIN_PASSWORD,
+    };
+  },
+
   async login(credentials: LoginCredentials): Promise<AuthUser> {
     const user = findMockUserByCredentials(
       credentials.email,

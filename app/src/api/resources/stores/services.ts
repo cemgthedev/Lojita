@@ -10,6 +10,7 @@ import {
   type Store,
 } from "@/api/resources/stores/validations/store.schema";
 import type { UpdateStore } from "@/api/resources/stores/validations/update.schema";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function storesEndpoint(id: string) {
   return `${endpoints.stores}/${encodeURIComponent(id)}`;
@@ -46,12 +47,14 @@ export const storesService = {
   },
 
   async create(createdStore: CreateStore): Promise<Store> {
+    assertNoMockIds("loja", createdStore.userId);
     const response = await http.post<unknown>(endpoints.stores, createdStore);
 
     return storeSchema.parse(response.data);
   },
 
   async update({ id, ...updatedStore }: UpdateStore): Promise<Store> {
+    assertNoMockIds("loja", id, updatedStore.userId);
     const response = await http.put<unknown>(
       storesEndpoint(id ?? ""),
       updatedStore,
@@ -61,6 +64,7 @@ export const storesService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("loja", id);
     await http.delete<void>(storesEndpoint(id));
   },
 };

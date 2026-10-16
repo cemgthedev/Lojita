@@ -1,5 +1,4 @@
 import { useCategoriesQuery } from "@/api/resources/categories/queries";
-import type { Category } from "@/api/resources/categories/validations/category.schema";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import {
   Button,
@@ -20,7 +19,6 @@ import {
   SheetTrigger,
   Text,
 } from "@/components/ui";
-import { mockCategories } from "@/mocks/products.mock";
 import { FunnelIcon, SearchIcon, XIcon } from "lucide-react";
 import { Dialog } from "radix-ui";
 import type { Dispatch, SetStateAction } from "react";
@@ -52,8 +50,7 @@ export function ProductHeaderFilters({
   setSort,
 }: ProductHeaderFiltersProps) {
   const categoriesQuery = useCategoriesQuery();
-  const categories: Category[] =
-    categoriesQuery.data ?? (categoriesQuery.isError ? mockCategories : []);
+  const categories = categoriesQuery.data ?? [];
   const [searchValue, setSearchValue] = useState(filters.title ?? "");
 
   useEffect(() => {
@@ -81,6 +78,11 @@ export function ProductHeaderFilters({
 
   return (
     <div className="space-y-6">
+      {categoriesQuery.isError && (
+        <Text role="alert" className="animate-pulse-once">
+          Não foi possível carregar as categorias. Exibindo dados de exemplo.
+        </Text>
+      )}
       <div className="flex flex-col gap-4 items-center">
         <div className="w-full max-w-2xl flex gap-2">
           <InputGroup>

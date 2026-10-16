@@ -12,7 +12,6 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockStores } from "@/mocks/stores.mock";
 import { StoreForm } from "@/pages/Stores/form/StoreForm";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { ArrowLeftIcon } from "lucide-react";
@@ -24,16 +23,7 @@ export function StoreUpdatePage() {
   const { user } = useRequiredAuth();
   const storeQuery = useStoreQuery(storeId);
   const updateStoreMutation = useUpdateStoreMutation();
-  const shouldUseMock =
-    !storeQuery.isPending && (storeQuery.isError || !storeQuery.data);
-  const store =
-    storeQuery.data ??
-    (shouldUseMock
-      ? mockStores.find(
-          (mockStore) =>
-            mockStore.id === storeId || mockStore.userId === user.id,
-        )
-      : undefined);
+  const store = storeQuery.data;
   const canUpdateStore = user.role.some(
     (role) => role === ROLE.ADMIN || role === ROLE.SELLER,
   );
@@ -42,6 +32,10 @@ export function StoreUpdatePage() {
   async function handleSubmit(values: CreateStore) {
     if (!store) {
       throw new Error("Store is required before it can be updated.");
+    }
+
+    if (storeQuery.isError) {
+      throw new Error("Demo store data cannot be updated through the API.");
     }
 
     return updateStoreMutation.mutateAsync({
@@ -118,6 +112,13 @@ export function StoreUpdatePage() {
 
       <Separator variant="secondary" orientation="horizontal" />
 
+      {storeQuery.isError && (
+        <Text role="alert">
+          Não foi possível carregar a loja. Exibindo dados de exemplo; a
+          atualização está indisponível.
+        </Text>
+      )}
+
       <StoreForm
         key={store.id}
         userId={store.userId}
@@ -144,7 +145,7 @@ export function StoreUpdatePage() {
               : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(store.id)}`,
           )
         }
-        isPending={updateStoreMutation.isPending}
+        isPending={updateStoreMutation.isPending || storeQuery.isError}
       />
     </main>
   );

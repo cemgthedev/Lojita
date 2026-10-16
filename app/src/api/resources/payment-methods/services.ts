@@ -10,6 +10,7 @@ import {
   type PaymentMethodQuery,
 } from "@/api/resources/payment-methods/validations/query.schema";
 import type { UpdatePaymentMethod } from "@/api/resources/payment-methods/validations/update.schema";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function paymentMethodEndpoint(id: string) {
   return `${endpoints.paymentMethods}/${encodeURIComponent(id)}`;
@@ -46,6 +47,7 @@ export const paymentMethodsService = {
   },
 
   async create(createdPaymentMethod: CreatePaymentMethod): Promise<PaymentMethod> {
+    assertNoMockIds("método de pagamento", createdPaymentMethod.userId);
     const response = await http.post<unknown>(
       endpoints.paymentMethods,
       createdPaymentMethod,
@@ -58,6 +60,14 @@ export const paymentMethodsService = {
     id,
     ...updatedPaymentMethod
   }: UpdatePaymentMethod): Promise<PaymentMethod> {
+    if (!id) {
+      throw new Error("O identificador do método de pagamento é obrigatório.");
+    }
+    assertNoMockIds(
+      "método de pagamento",
+      id,
+      updatedPaymentMethod.userId,
+    );
     const response = await http.put<unknown>(
       paymentMethodEndpoint(id),
       updatedPaymentMethod,
@@ -67,6 +77,7 @@ export const paymentMethodsService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("método de pagamento", id);
     await http.delete<void>(paymentMethodEndpoint(id));
   },
 };

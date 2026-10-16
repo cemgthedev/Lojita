@@ -14,8 +14,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { mockAddresses } from "@/mocks/addresses.mock";
-import { mockStores } from "@/mocks/stores.mock";
 import { ListProducts } from "@/pages/Products/components/ListProducts";
 import { ArrowLeftIcon } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
@@ -29,18 +27,8 @@ export function StoreDetailsPage() {
   const navigate = useNavigate();
   const storeQuery = useStoreQuery(id);
   const addressesQuery = useAddressesQuery();
-  const shouldUseMockStore =
-    !storeQuery.isPending && (storeQuery.isError || !storeQuery.data);
-  const mockStore = mockStores.find(
-    (store) => store.id === id || store.url === id,
-  );
-  const store = storeQuery.data ?? (shouldUseMockStore ? mockStore : undefined);
-  const shouldUseMockAddresses =
-    !addressesQuery.isPending &&
-    (addressesQuery.isError || !addressesQuery.data?.length);
-  const addresses = shouldUseMockAddresses
-    ? mockAddresses
-    : (addressesQuery.data ?? []);
+  const store = storeQuery.data;
+  const addresses = addressesQuery.data ?? [];
   const storeAddress = store
     ? addresses.find(
         (address) =>
@@ -132,7 +120,14 @@ export function StoreDetailsPage() {
         )}
       </header>
 
-      <ListProducts storeId={store.id} />
+      {(storeQuery.isError || addressesQuery.isError) && (
+        <Text role="status" className="animate-pulse-once">
+          Não foi possível carregar alguns dados da loja. Exibindo dados de
+          exemplo.
+        </Text>
+      )}
+
+      <ListProducts />
     </main>
   );
 }

@@ -17,6 +17,10 @@ export function UpdatePaymentMethodPage() {
     );
   }
 
+  if (!paymentMethodQuery.data) {
+    return <Text role="alert">Método de pagamento não encontrado.</Text>;
+  }
+
   return (
     <section className="w-full space-y-4">
       <header className="space-y-1">

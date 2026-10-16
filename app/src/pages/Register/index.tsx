@@ -1,4 +1,5 @@
-import type { Role } from "@/api/resources/users/validations/auth.schema";
+import { authApi } from "@/api/auth.api";
+import { ROLE, type Role } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
   Field,
@@ -14,7 +15,6 @@ import {
   Text,
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
-import { MOCK_LOGIN_PASSWORD, mockUsers } from "@/mocks/users.mock";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   ArrowLeftIcon,
@@ -75,10 +75,8 @@ export function RegisterPage() {
     setIsSubmitting(true);
 
     try {
-      const { email } = mockUsers.find((mockUser) =>
-        mockUser.role.includes("customer"),
-      ) ?? { email: "" };
-      await login({ email, password: MOCK_LOGIN_PASSWORD });
+      const credentials = authApi.getDemoLoginCredentials(ROLE.CUSTOMER);
+      await login(credentials);
       const from = (location.state as LocationState | null)?.from?.pathname;
       navigate(from ?? defaultRouteByRole.customer, {
         replace: true,
@@ -214,6 +212,8 @@ export function RegisterPage() {
             </FieldSet>
           </FieldGroup>
         </form>
+
+        {error && <Text role="alert">{error}</Text>}
 
         <Link
           to={urls.login}

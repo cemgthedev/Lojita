@@ -25,8 +25,6 @@ import {
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
 import { useHighestRole } from "@/hooks/useHighestRole";
-import { mockCategories, mockProducts } from "@/mocks/products.mock";
-import { mockStores } from "@/mocks/stores.mock";
 import {
   ProductHeaderFilters,
   type ProductSort,
@@ -53,40 +51,29 @@ export function TableProducts() {
   const [filters, setFilters] = useState<ProductQuery>({});
   const [sort, setSort] = useState<ProductSort>("price-asc");
   const ownStoresQuery = useStoresQuery({ userId: user.id }, isSeller);
-  const useMockStores =
-    isSeller && (ownStoresQuery.isError || !ownStoresQuery.data?.length);
-  const stores = useMockStores ? mockStores : (ownStoresQuery.data ?? []);
   const storeId = isSeller
-    ? (stores.find((store) => store.userId === user.id)?.id ??
-      (useMockStores ? mockStores[0]?.id : undefined))
+    ? ownStoresQuery.data?.find((store) => store.userId === user.id)?.id
     : undefined;
   const productsQuery = useProductsQuery(
     { ...filters, ...(storeId ? { storeId } : {}) },
     !isSeller || (!ownStoresQuery.isPending && Boolean(storeId)),
   );
   const categoriesQuery = useCategoriesQuery();
-  const useMockProducts = productsQuery.isError || !productsQuery.data?.length;
-  const useMockCategories =
-    categoriesQuery.isError ||
-    (!categoriesQuery.isPending && !categoriesQuery.data?.length);
-  const categories = useMockCategories
-    ? mockCategories
-    : (categoriesQuery.data ?? []);
+  const categories = categoriesQuery.data ?? [];
   const deleteProductMutation = useDeleteProductMutation();
   const managementBaseUrl =
     role === ROLE.ADMIN
       ? urls.admin_dashboard
       : role === ROLE.SUPPORT
         ? urls.support_dashboard
-        : urls.seller_dashboard;
+        : role === ROLE.SELLER
+          ? urls.seller_dashboard
+          : role === ROLE.CUSTOMER
+            ? urls.customer_dashboard
+            : "";
 
   const products = useMemo(() => {
-    const productsFromQuery = useMockProducts
-      ? mockProducts.map((product) =>
-          isSeller && storeId ? { ...product, storeId } : product,
-        )
-      : (productsQuery.data ?? []);
-    const storeProducts = productsFromQuery.filter(
+    const storeProducts = (productsQuery.data ?? []).filter(
       (product) => !storeId || product.storeId === storeId,
     );
     const normalizedTitle = filters.title?.trim().toLocaleLowerCase("pt-BR");
@@ -116,15 +103,7 @@ export function TableProducts() {
 
         return sort === "price-asc" ? priceA - priceB : priceB - priceA;
       });
-  }, [
-    filters.categoryId,
-    filters.title,
-    isSeller,
-    productsQuery.data,
-    sort,
-    storeId,
-    useMockProducts,
-  ]);
+  }, [filters.categoryId, filters.title, productsQuery.data, sort, storeId]);
 
   return (
     <section
@@ -152,26 +131,21 @@ export function TableProducts() {
         <Text>Carregando produtos...</Text>
       ) : (
         <>
-          {useMockStores && (
-            <Text role="status">
+          {ownStoresQuery.isError && isSeller && (
+            <Text role="status" className="animate-pulse-once">
               Não foi possível carregar a loja vinculada a este usuário.
-              Exibindo dados de exemplo.
+              {storeId && " Exibindo dados de exemplo."}
             </Text>
           )}
-          {useMockProducts && (
-            <Text role="status">
-              {productsQuery.isError
-                ? "Não foi possível carregar os produtos."
-                : "Nenhum produto foi retornado."}{" "}
-              Exibindo dados de exemplo.
+          {productsQuery.isError && (
+            <Text role="status" className="animate-pulse-once">
+              Não foi possível carregar os produtos. Exibindo dados de exemplo.
             </Text>
           )}
-          {useMockCategories && (
-            <Text role="status">
-              {categoriesQuery.isError
-                ? "Não foi possível carregar as categorias."
-                : "Nenhuma categoria foi retornada."}{" "}
-              Exibindo categorias de exemplo.
+          {categoriesQuery.isError && (
+            <Text role="status" className="animate-pulse-once">
+              Não foi possível carregar as categorias. Exibindo dados de
+              exemplo.
             </Text>
           )}
 
@@ -257,7 +231,7 @@ export function TableProducts() {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem asChild>
                                   <Link
-                                    to={`${urls.stores}/${encodeURIComponent(product.storeId)}/products/${encodeURIComponent(product.id)}`}
+                                    to={`${managementBaseUrl}${urls.products}/${encodeURIComponent(product.id)}`}
                                   >
                                     <ExternalLinkIcon />
                                     Visualizar

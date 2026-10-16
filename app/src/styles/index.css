@@ -352,6 +352,11 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+
+  /*
+  * Animations
+  */
+  --animate-pulse-once: pulse-once 2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 }
 
 @layer base {
@@ -384,4 +389,28 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 0.3rem;
   background-color: var(--muted);
+}
+
+.animate-pulse-once {
+  animation: pulse-once 8s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes pulse-once {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.6;
+    display: none;
+  }
+}
+
+@utility animate-pulse-once {
+  animation: var(--animate-pulse-once);
+  animation-fill-mode: forwards;
 }

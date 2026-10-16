@@ -1,5 +1,6 @@
 import { http } from "@/api/http";
 import { endpoints } from "@/api/resources/endpoints";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 import type { CreateUser } from "@/api/resources/users/validations/create.schema";
 import {
   userQuerySchema,
@@ -52,6 +53,7 @@ export const usersService = {
   },
 
   async update({ id, ...updatedUser }: UpdateUser): Promise<User> {
+    assertNoMockIds("usuário", id);
     const response = await http.put<unknown>(
       userEndpoint(id ?? ""),
       updatedUser,
@@ -61,6 +63,7 @@ export const usersService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("usuário", id);
     await http.delete<void>(userEndpoint(id));
   },
 };

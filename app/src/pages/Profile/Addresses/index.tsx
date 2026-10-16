@@ -22,7 +22,6 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { urls } from "@/constants/urls";
-import { mockAddresses } from "@/mocks/addresses.mock";
 import { useRequiredAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import { HomeIcon, PencilIcon, Trash2Icon } from "lucide-react";
@@ -31,11 +30,9 @@ import { Link } from "react-router";
 
 export function AddressesPage() {
   const { user } = useRequiredAuth();
-  const addressesQuery = useAddressesQuery();
+  const addressesQuery = useAddressesQuery({ userId: user.id });
   const deleteAddressMutation = useDeleteAddressMutation();
-  const addresses = !addressesQuery.data?.length
-    ? mockAddresses.filter((address) => address.userId === user.id)
-    : (addressesQuery.data ?? []);
+  const addresses = addressesQuery.data ?? [];
   const [addressToDelete, setAddressToDelete] = useState<Address | null>(null);
 
   async function handleDelete() {
@@ -108,17 +105,16 @@ export function AddressesPage() {
         <Text aria-live="polite">Carregando endereços...</Text>
       )}
 
-      {/**
-       * Com userQueryAddress integrado com a api
-      *  {addressesQuery.isError && (
-        <Text role="alert">Não foi possível carregar os endereços.</Text>
+      {addressesQuery.isError && (
+        <Text role="status" className="animate-pulse-once">
+          Não foi possível carregar os endereços. Exibindo dados de exemplo.
+        </Text>
       )}
-      */}
 
-      {addresses.length === 0 && (
+      {!addressesQuery.isPending && addresses.length === 0 && (
         <Card variant="secondary-bordered" size="md" rounded="lg">
           <CardContent className="items-center gap-3 text-center">
-            <Text>Você ainda não cadastrou nenhum endereço.</Text>
+            <Text>Você ainda não cadastrou nenhum método de pagamento.</Text>
           </CardContent>
         </Card>
       )}
@@ -159,7 +155,7 @@ export function AddressesPage() {
                 </CardContent>
                 <div className="flex shrink-0 items-center gap-3">
                   <Link
-                    to={`${urls.profile}${urls.addresses}${urls.update}/${encodeURIComponent(address.id)}`}
+                    to={`${urls.profile}${urls.addresses}/${encodeURIComponent(address.id)}${urls.update}`}
                     className={buttonVariants({
                       variant: "secondary-bordered",
                       size: "sm",

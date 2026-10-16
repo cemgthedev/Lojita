@@ -10,6 +10,7 @@ import {
 } from "@/api/resources/categories/validations/query.schema";
 import type { UpdateCategory } from "@/api/resources/categories/validations/update.schema";
 import { endpoints } from "@/api/resources/endpoints";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function categoryEndpoint(id: string) {
   return `${endpoints.categories}/${encodeURIComponent(id)}`;
@@ -47,6 +48,7 @@ export const categoriesService = {
   },
 
   async update({ id, ...category }: UpdateCategory): Promise<Category> {
+    assertNoMockIds("categoria", id);
     const response = await http.put<unknown>(
       categoryEndpoint(id ?? ""),
       category,
@@ -55,6 +57,7 @@ export const categoriesService = {
   },
 
   async remove(id: string): Promise<void> {
+    assertNoMockIds("categoria", id);
     await http.delete<void>(categoryEndpoint(id));
   },
 };
