@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const storeQuerySchema = z.object({
   id: z.string().optional(),
+  userId: z.string().optional(),
   name: z.string().optional(),
   description: z.string().optional(),
   logoUrl: z.string().optional(),

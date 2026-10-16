@@ -53,11 +53,17 @@ export const urls = {
    * Welcome seller page
    */
   welcome_seller: "/welcome-seller",
-  /**
-   * Store page
-   */
-  store_dashboard: "/store-dashboard",
+  store: "/store",
   stores: "/stores",
+  users: "/users",
+  categories: "/categories",
+  variants: "/variants",
+  products: "/products",
+  coupons: "/coupons",
+  orders: "/orders",
+  reviews: "/reviews",
+  chats: "/chats",
+  attendances: "/support",
   /**
    * Customer dashboard page
    */
@@ -78,8 +84,4 @@ export const urls = {
    * Security page
    */
   security: "/security",
-  /**
-   * Categories page
-   */
-  categories: "/categories",
 };

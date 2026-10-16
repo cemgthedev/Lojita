@@ -37,6 +37,7 @@ export function StoreUpdatePage() {
   const canUpdateStore = user.role.some(
     (role) => role === ROLE.ADMIN || role === ROLE.SELLER,
   );
+  const isAdmin = user.role.includes(ROLE.ADMIN);
 
   async function handleSubmit(values: CreateStore) {
     if (!store) {
@@ -56,7 +57,11 @@ export function StoreUpdatePage() {
 
   async function handleSuccess() {
     toast("Loja atualizada com sucesso.", { variant: "success" });
-    navigate(`${urls.store_dashboard}/details/${encodeURIComponent(storeId)}`);
+    navigate(
+      isAdmin
+        ? `${urls.admin_dashboard}${urls.stores}/${encodeURIComponent(storeId)}`
+        : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(storeId)}`,
+    );
   }
 
   if (!canUpdateStore) {
@@ -95,6 +100,10 @@ export function StoreUpdatePage() {
     );
   }
 
+  if (!isAdmin && store.userId !== user.id) {
+    return <Navigate to={urls.home} replace />;
+  }
+
   return (
     <main className="flex min-h-screen flex-col gap-4 p-6">
       <Button onClick={() => navigate(-1)} className="bg-transparent p-0">
@@ -130,7 +139,9 @@ export function StoreUpdatePage() {
         }}
         onBack={() =>
           navigate(
-            `${urls.store_dashboard}/details/${encodeURIComponent(store.id)}`,
+            isAdmin
+              ? `${urls.admin_dashboard}${urls.stores}/${encodeURIComponent(store.id)}`
+              : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(store.id)}`,
           )
         }
         isPending={updateStoreMutation.isPending}

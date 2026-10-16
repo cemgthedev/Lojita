@@ -3,10 +3,11 @@ import { productsKeys } from "@/api/resources/products/products/keys";
 import { productsService } from "@/api/resources/products/products/services";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 
-export function useProductsQuery(query?: ProductQuery) {
+export function useProductsQuery(query?: ProductQuery, enabled = true) {
   return useQuery({
     queryKey: productsKeys.list(query),
     queryFn: () => productsService.list(query),
+    enabled,
   });
 }
 

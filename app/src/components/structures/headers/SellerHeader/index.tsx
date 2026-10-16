@@ -1,5 +1,4 @@
 import { authApi } from "@/api/auth.api";
-import { sellerNavConfig } from "@/components/structures/headers/SellerHeader/nav.config";
 import {
   Avatar,
   AvatarFallback,
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui";
 import { urls } from "@/constants/urls";
 import { useAuth } from "@/providers/AuthProvider";
-import { cn } from "@/utils/cn";
 import { LogOutIcon, UserCircle2Icon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
@@ -52,23 +50,6 @@ export function SellerHeader() {
             Lojita
           </Label>
         </Link>
-
-        <ul className="flex items-center gap-4">
-          {sellerNavConfig.map((item) => (
-            <li key={item.name}>
-              <Link
-                to={item.href ?? "#"}
-                className={cn(
-                  "flex items-center gap-2 hover:opacity-80 transition-opacity",
-                  pathname === item.href ? "text-secondary" : "text-foreground",
-                )}
-              >
-                {item.icon}
-                <span>{item.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
 
       <DropdownMenu>
@@ -103,7 +84,7 @@ export function SellerHeader() {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link
-                to={urls.store_dashboard}
+                to={`${urls.seller_dashboard}${urls.store}`}
                 className="hover:text-secondary flex gap-2 items-center transition-colors"
               >
                 Ver loja
