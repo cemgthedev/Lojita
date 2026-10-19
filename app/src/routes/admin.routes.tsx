@@ -1,11 +1,14 @@
-import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
-import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { AdminLayout } from "@/components/structures/layouts/AdminLayout";
 import { urls } from "@/constants/urls";
+import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
+import { AttributeCreatePage } from "@/pages/Attributes/Create";
+import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
+import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
+import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -39,6 +42,18 @@ export const adminRoutes: RouteObject[] = [
           {
             path: `${urls.admin_dashboard}${urls.categories}`,
             element: <CategoriesManagement />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attributes}`,
+            element: <AttributesManagementPage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attributes}${urls.create}`,
+            element: <AttributeCreatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attributes}/:attributeId${urls.update}`,
+            element: <AttributeUpdatePage />,
           },
           {
             path: `${urls.admin_dashboard}${urls.categories}${urls.create}`,

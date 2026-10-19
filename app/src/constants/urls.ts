@@ -57,6 +57,7 @@ export const urls = {
   stores: "/stores",
   users: "/users",
   categories: "/categories",
+  attributes: "/attributes",
   variants: "/variants",
   products: "/products",
   coupons: "/coupons",

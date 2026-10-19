@@ -20,6 +20,7 @@ import type { CreateAttributeValue } from "@/api/resources/products/attributes/v
 import type { CreateAttribute } from "@/api/resources/products/attributes/validations/create-attribute.schema";
 import type { UpdateAttributeValue } from "@/api/resources/products/attributes/validations/update-attribute-value.schema";
 import type { UpdateAttribute } from "@/api/resources/products/attributes/validations/update-attribute.schema";
+import { assertNoMockIds } from "@/api/resources/query-fallback";
 
 function endpoint(collection: string, id: string) {
   return `${collection}/${encodeURIComponent(id)}`;
@@ -55,6 +56,7 @@ export const attributesService = {
     return attributeSchema.parse(response.data);
   },
   async update({ id, ...attribute }: UpdateAttribute): Promise<Attribute> {
+    assertNoMockIds("atributo", id);
     const response = await http.put<unknown>(
       endpoint(endpoints.attributes, id ?? ""),
       attribute,
@@ -62,6 +64,7 @@ export const attributesService = {
     return attributeSchema.parse(response.data);
   },
   async remove(id: string): Promise<void> {
+    assertNoMockIds("atributo", id);
     await http.delete<void>(endpoint(endpoints.attributes, id));
   },
 };
@@ -80,6 +83,7 @@ export const attributeValuesService = {
     return attributeValueSchema.parse(response.data);
   },
   async create(value: CreateAttributeValue): Promise<AttributeValue> {
+    assertNoMockIds("valor de atributo", value.attributeId);
     const response = await http.post<unknown>(endpoints.attributeValues, value);
     return attributeValueSchema.parse(response.data);
   },
@@ -87,6 +91,7 @@ export const attributeValuesService = {
     id,
     ...value
   }: UpdateAttributeValue): Promise<AttributeValue> {
+    assertNoMockIds("valor de atributo", id, value.attributeId);
     const response = await http.put<unknown>(
       endpoint(endpoints.attributeValues, id ?? ""),
       value,
@@ -94,6 +99,7 @@ export const attributeValuesService = {
     return attributeValueSchema.parse(response.data);
   },
   async remove(id: string): Promise<void> {
+    assertNoMockIds("valor de atributo", id);
     await http.delete<void>(endpoint(endpoints.attributeValues, id));
   },
 };
