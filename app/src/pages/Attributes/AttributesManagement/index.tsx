@@ -4,7 +4,6 @@ import { urls } from "@/constants/urls";
 import { useHighestRole } from "@/hooks/useHighestRole";
 import { TableAttributes } from "@/pages/Attributes/components/TableAttributes";
 import { useRequiredAuth } from "@/providers/AuthProvider";
-import { ArrowLeftIcon } from "lucide-react";
 import { Link } from "react-router";
 
 export function AttributesManagementPage() {

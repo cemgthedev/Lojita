@@ -1,6 +1,8 @@
 import { AdminLayout } from "@/components/structures/layouts/AdminLayout";
 import { urls } from "@/constants/urls";
 import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
+import { AttributeCreatePage } from "@/pages/Attributes/Create";
+import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
@@ -44,6 +46,14 @@ export const adminRoutes: RouteObject[] = [
           {
             path: `${urls.admin_dashboard}${urls.attributes}`,
             element: <AttributesManagementPage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attributes}${urls.create}`,
+            element: <AttributeCreatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attributes}/:attributeId${urls.update}`,
+            element: <AttributeUpdatePage />,
           },
           {
             path: `${urls.admin_dashboard}${urls.categories}${urls.create}`,

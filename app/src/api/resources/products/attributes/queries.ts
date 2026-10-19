@@ -12,7 +12,10 @@ import {
   mockAttributes,
   mockAttributeValues,
 } from "@/api/resources/products/products.mock";
-import { withMockArrayFallback } from "@/api/resources/query-fallback";
+import {
+  withMockArrayFallback,
+  withMockDetailFallback,
+} from "@/api/resources/query-fallback";
 import { useQuery } from "@tanstack/react-query";
 
 export function useAttributesQuery(query?: AttributeQuery) {
@@ -33,17 +36,25 @@ export function useAttributesQuery(query?: AttributeQuery) {
 }
 
 export function useAttributeQuery(id: string) {
-  return useQuery({
+  const result = useQuery({
     queryKey: attributesKeys.detail(id),
     queryFn: () => attributesService.findById(id),
     enabled: id.length > 0,
   });
+  return withMockDetailFallback(
+    result,
+    mockAttributes.find((attribute) => attribute.id === id),
+  );
 }
 
-export function useAttributeValuesQuery(query?: AttributeValueQuery) {
+export function useAttributeValuesQuery(
+  query?: AttributeValueQuery,
+  enabled = true,
+) {
   const result = useQuery({
     queryKey: attributeValuesKeys.list(query),
     queryFn: () => attributeValuesService.list(query),
+    enabled,
   });
   const normalizedTitle = query?.title?.trim().toLocaleLowerCase("pt-BR");
   const normalizedValue = query?.value?.trim().toLocaleLowerCase("pt-BR");
