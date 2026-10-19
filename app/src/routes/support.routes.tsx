@@ -1,5 +1,6 @@
 import { SupportLayout } from "@/components/structures/layouts/SupportLayout";
 import { urls } from "@/constants/urls";
+import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
@@ -29,6 +30,10 @@ export const supportRoutes: RouteObject[] = [
           {
             path: `${urls.support_dashboard}${urls.categories}`,
             element: <CategoriesManagement />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.attributes}`,
+            element: <AttributesManagementPage />,
           },
           {
             path: `${urls.support_dashboard}${urls.categories}${urls.create}`,

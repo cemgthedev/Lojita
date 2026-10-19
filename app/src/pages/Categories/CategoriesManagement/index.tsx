@@ -22,7 +22,7 @@ export function CategoriesManagement() {
 
   return (
     <main className="space-y-6 p-6">
-      <div className="flex justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <header className="space-y-1">
           <Heading id="categories-management-heading" size="sm">
             Gerenciamento de categorias

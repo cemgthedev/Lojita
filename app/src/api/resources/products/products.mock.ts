@@ -1,6 +1,9 @@
 import type { ProductReview } from "@/api/resources/product-reviews/validations/product-review.schema";
 import type { AttributeValue } from "@/api/resources/products/attributes/validations/attribute-value.schema";
-import type { Attribute } from "@/api/resources/products/attributes/validations/attribute.schema";
+import {
+  ATTRIBUTE_TYPE,
+  type Attribute,
+} from "@/api/resources/products/attributes/validations/attribute.schema";
 import type { Product } from "@/api/resources/products/products/validations/product.schema";
 import type { VariantImage } from "@/api/resources/products/variant-images/validations/variant-image.schema";
 import type { Variant } from "@/api/resources/products/variants/validations/variant.schema";
@@ -17,21 +20,28 @@ export const mockAttributes: Attribute[] = [
   {
     id: "mock-attribute-color",
     name: "Cor",
-    type: "hex",
+    type: ATTRIBUTE_TYPE.HEX,
     createdAt,
     updatedAt: null,
   },
   {
     id: "mock-attribute-size",
     name: "Tamanho",
-    type: "number",
+    type: ATTRIBUTE_TYPE.NUMERIC,
     createdAt,
     updatedAt: null,
   },
   {
     id: "mock-attribute-material",
     name: "Material",
-    type: "string",
+    type: ATTRIBUTE_TYPE.WORD,
+    createdAt,
+    updatedAt: null,
+  },
+  {
+    id: "mock-attribute-measurement-range",
+    name: "Faixa de medidas",
+    type: ATTRIBUTE_TYPE.NUMERIC_RANGE,
     createdAt,
     updatedAt: null,
   },

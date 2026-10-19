@@ -1,13 +1,13 @@
 import { urls } from "@/constants/urls";
 import type { NavItem } from "@/types/NavItem";
 import {
-  BoxIcon,
   HandCoinsIcon,
   HomeIcon,
   ListSortAscendingIcon,
   MessageCircleCheckIcon,
   MessagesCircleIcon,
   ShoppingBasketIcon,
+  SlidersHorizontalIcon,
   StoreIcon,
   TagIcon,
   UsersIcon,
@@ -37,9 +37,9 @@ export const adminSidebarItems: NavItem[] = [
     icon: <ListSortAscendingIcon size={iconSize} />,
   },
   {
-    name: "Variantes",
-    href: `${urls.admin_dashboard}${urls.variants}`,
-    icon: <BoxIcon size={iconSize} />,
+    name: "Atributos",
+    href: `${urls.admin_dashboard}${urls.attributes}`,
+    icon: <SlidersHorizontalIcon size={iconSize} />,
   },
   {
     name: "Produtos",
@@ -90,9 +90,9 @@ export const supportSidebarItems: NavItem[] = [
     icon: <ListSortAscendingIcon size={iconSize} />,
   },
   {
-    name: "Variantes",
-    href: `${urls.support_dashboard}${urls.variants}`,
-    icon: <BoxIcon size={iconSize} />,
+    name: "Atributos",
+    href: `${urls.support_dashboard}${urls.attributes}`,
+    icon: <SlidersHorizontalIcon size={iconSize} />,
   },
   {
     name: "Produtos",
@@ -136,6 +136,11 @@ export const sellerSidebarItems: NavItem[] = [
     name: "Produtos",
     href: `${urls.seller_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
+  },
+  {
+    name: "Atributos",
+    href: `${urls.seller_dashboard}${urls.attributes}`,
+    icon: <SlidersHorizontalIcon size={iconSize} />,
   },
   {
     name: "Cupons",

@@ -1,8 +1,9 @@
-import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
-import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { SellerLayout } from "@/components/structures/layouts/SellerLayout";
 import { urls } from "@/constants/urls";
+import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
+import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
+import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -32,6 +33,10 @@ export const sellerRoutes: RouteObject[] = [
           {
             path: `${urls.seller_dashboard}${urls.products}`,
             element: <ProductsManagement />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.attributes}`,
+            element: <AttributesManagementPage />,
           },
           {
             path: `${urls.seller_dashboard}${urls.coupons}`,
