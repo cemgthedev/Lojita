@@ -145,7 +145,7 @@ export function StoreUpdatePage() {
               : `${urls.seller_dashboard}${urls.store}/${encodeURIComponent(store.id)}`,
           )
         }
-        isPending={updateStoreMutation.isPending || storeQuery.isError}
+        isPending={updateStoreMutation.isPending}
       />
     </main>
   );

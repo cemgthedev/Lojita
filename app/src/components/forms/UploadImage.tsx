@@ -19,12 +19,18 @@ type UploadImageProps = {
   value?: string;
   onChange: (image: string) => void;
   disabled?: boolean;
+  label?: string;
+  inputId?: string;
+  imageAlt?: string;
 };
 
 export function UploadImage({
   value,
   onChange,
   disabled = false,
+  label = "Foto de perfil",
+  inputId = "profile-avatar",
+  imageAlt = "Pré-visualização da foto de perfil",
 }: UploadImageProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,12 +70,12 @@ export function UploadImage({
   return (
     <Field>
       <div>
-        <FieldLabel htmlFor="profile-avatar">Foto de perfil</FieldLabel>
+        <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
         <Message variant="muted">Formatos de imagem de até 2 MB.</Message>
       </div>
       <div className="flex flex-col items-center gap-4">
         <Image rounded="lg" className="size-46 shrink-0">
-          <ImageContent src={value} alt="Pré-visualização da foto de perfil" />
+          <ImageContent src={value} alt={imageAlt} />
           <ImageSkeleton />
           <ImageFallback>
             <ImagePlusIcon aria-hidden="true" className="size-12" />
@@ -78,7 +84,7 @@ export function UploadImage({
         <div className="space-y-2">
           <Input
             ref={inputRef}
-            id="profile-avatar"
+            id={inputId}
             type="file"
             accept="image/*"
             className="hidden"
