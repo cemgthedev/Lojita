@@ -3,6 +3,8 @@ import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { AdminLayout } from "@/components/structures/layouts/AdminLayout";
 import { urls } from "@/constants/urls";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
+import { CategoryCreatePage } from "@/pages/Categories/Create";
+import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
@@ -37,6 +39,14 @@ export const adminRoutes: RouteObject[] = [
           {
             path: `${urls.admin_dashboard}${urls.categories}`,
             element: <CategoriesManagement />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.categories}${urls.create}`,
+            element: <CategoryCreatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.categories}/:categoryId${urls.update}`,
+            element: <CategoryUpdatePage />,
           },
           {
             path: `${urls.admin_dashboard}${urls.variants}`,

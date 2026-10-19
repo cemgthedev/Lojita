@@ -126,7 +126,7 @@ export function TableCategories() {
                 {categories.map((category) => (
                   <TableRow key={category.id}>
                     <TableCell>
-                      <div className="flex min-w-48 items-center gap-3">
+                      <div className="flex min-w-56 items-center gap-3">
                         <Image
                           size="sm"
                           rounded="md"
@@ -140,11 +140,11 @@ export function TableCategories() {
                             <Text size="xs">Sem imagem</Text>
                           </ImageFallback>
                         </Image>
-                        <Text>{category.title}</Text>
+                        <Text className="line-clamp-2">{category.title}</Text>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Text>
+                      <Text className="line-clamp-3">
                         {category.description || "Sem descrição disponível."}
                       </Text>
                     </TableCell>
