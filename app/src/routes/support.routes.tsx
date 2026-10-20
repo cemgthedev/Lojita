@@ -7,6 +7,7 @@ import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
+import { ProductUpdatePage } from "@/pages/Products/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -60,6 +61,10 @@ export const supportRoutes: RouteObject[] = [
           {
             path: `${urls.support_dashboard}${urls.products}`,
             element: <ProductsManagement />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.products}/:productId${urls.update}`,
+            element: <ProductUpdatePage />,
           },
           {
             path: `${urls.support_dashboard}${urls.coupons}`,

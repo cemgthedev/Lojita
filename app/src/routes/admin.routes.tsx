@@ -7,6 +7,7 @@ import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
+import { ProductUpdatePage } from "@/pages/Products/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
@@ -70,6 +71,10 @@ export const adminRoutes: RouteObject[] = [
           {
             path: `${urls.admin_dashboard}${urls.products}`,
             element: <ProductsManagement />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.products}/:productId${urls.update}`,
+            element: <ProductUpdatePage />,
           },
           {
             path: `${urls.admin_dashboard}${urls.coupons}`,
