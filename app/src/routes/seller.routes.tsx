@@ -4,6 +4,8 @@ import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagemen
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
+import { ProductCreatePage } from "@/pages/Products/Create";
+import { ProductUpdatePage } from "@/pages/Products/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
@@ -35,6 +37,14 @@ export const sellerRoutes: RouteObject[] = [
           {
             path: `${urls.seller_dashboard}${urls.products}`,
             element: <ProductsManagement />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.products}${urls.create}`,
+            element: <ProductCreatePage />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.products}/:productId${urls.update}`,
+            element: <ProductUpdatePage />,
           },
           {
             path: `${urls.seller_dashboard}${urls.attributes}`,
