@@ -9,6 +9,9 @@ import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/ProductDetailsManagement";
 import { ProductUpdatePage } from "@/pages/Products/Update";
+import { UserCreatePage } from "@/pages/Users/Create";
+import { UserUpdatePage } from "@/pages/Users/Update";
+import { UsersManagementPage } from "@/pages/Users/UsersManagement";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -25,7 +28,15 @@ export const supportRoutes: RouteObject[] = [
           },
           {
             path: `${urls.support_dashboard}${urls.users}`,
-            element: <div>Usuários</div>,
+            element: <UsersManagementPage />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.users}${urls.create}`,
+            element: <UserCreatePage />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.users}/:userId${urls.update}`,
+            element: <UserUpdatePage />,
           },
           {
             path: `${urls.support_dashboard}${urls.stores}`,
