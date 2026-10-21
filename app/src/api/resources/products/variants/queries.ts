@@ -9,10 +9,11 @@ import {
   withMockDetailFallback,
 } from "@/api/resources/query-fallback";
 
-export function useVariantsQuery(query?: VariantQuery) {
+export function useVariantsQuery(query?: VariantQuery, enabled = true) {
   const result = useQuery({
     queryKey: variantsKeys.list(query),
     queryFn: () => variantsService.list(query),
+    enabled,
   });
   return withMockArrayFallback(
     result,
