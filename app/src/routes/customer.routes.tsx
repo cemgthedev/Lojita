@@ -1,5 +1,6 @@
 import { CustomerLayout } from "@/components/structures/layouts/CustomerLayout";
 import { urls } from "@/constants/urls";
+import { ProductDetails } from "@/pages/Products/public/ProductDetails";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -13,6 +14,10 @@ export const customerRoutes: RouteObject[] = [
           {
             path: urls.customer_dashboard,
             element: <div>Customer Dashboard</div>,
+          },
+          {
+            path: `${urls.customer_dashboard}${urls.products}/:productId`,
+            element: <ProductDetails />,
           },
         ],
       },
