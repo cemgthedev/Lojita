@@ -17,15 +17,20 @@ import {
   SheetTrigger,
   Text,
 } from "@/components/ui";
+import { productReviewStatusLabel } from "@/pages/ProductsReviews/components/productReviewStatusLabel";
 import { FunnelIcon, SearchIcon, XIcon } from "lucide-react";
 import { Dialog } from "radix-ui";
-import { productReviewStatusLabel } from "@/pages/Products/components/productReviewStatusLabel";
 
 export type ProductReviewsHeaderFiltersProps = {
   title: string;
   subtitle: string;
   searchName: string;
   onSearchNameChange: (value: string) => void;
+  searchPlaceholder?: string;
+  searchAriaLabel?: string;
+  searchFilterLabel?: string;
+  sortOrder?: "newest" | "oldest";
+  onSortOrderChange?: (sortOrder: "newest" | "oldest") => void;
   ratingFilter?: number;
   onRatingFilterChange: (rating?: number) => void;
   statusFilter: string;
@@ -40,6 +45,11 @@ export function ProductReviewsHeaderFilters({
   subtitle,
   searchName,
   onSearchNameChange,
+  searchPlaceholder = "Nome do usuário",
+  searchAriaLabel = "Buscar avaliações pelo nome do usuário",
+  searchFilterLabel = "Usuário",
+  sortOrder,
+  onSortOrderChange,
   ratingFilter,
   onRatingFilterChange,
   statusFilter,
@@ -54,13 +64,13 @@ export function ProductReviewsHeaderFilters({
     (showStatusFilter && statusFilter !== "all");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       <div className="flex flex-col items-center gap-4">
         <div className="flex w-full max-w-2xl gap-2">
           <InputGroup className="w-full">
             <InputGroupInput
-              aria-label="Buscar avaliações pelo nome do usuário"
-              placeholder="Nome do usuário"
+              aria-label={searchAriaLabel}
+              placeholder={searchPlaceholder}
               value={searchName}
               onChange={(event) => onSearchNameChange(event.target.value)}
             />
@@ -138,7 +148,7 @@ export function ProductReviewsHeaderFilters({
                   endContent={<XIcon aria-hidden="true" size={14} />}
                   onClick={() => onSearchNameChange("")}
                 >
-                  Usuário: {searchName.trim()}
+                  {searchFilterLabel}: {searchName.trim()}
                 </Button>
               )}
               {ratingFilter !== undefined && (
@@ -180,6 +190,32 @@ export function ProductReviewsHeaderFilters({
             </div>
           )}
         </div>
+        {sortOrder && onSortOrderChange && (
+          <div className="flex shrink-0 items-center gap-2">
+            <Text className="whitespace-nowrap">Ordenar por</Text>
+            <Select
+              value={sortOrder}
+              onValueChange={(value) => {
+                if (value === "newest" || value === "oldest") {
+                  onSortOrderChange(value);
+                }
+              }}
+            >
+              <SelectTrigger
+                aria-label="Ordenar avaliações"
+                size="sm"
+                rounded="full"
+                className="min-w-40 px-2 py-1"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Mais recentes</SelectItem>
+                <SelectItem value="oldest">Mais antigas</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,20 +5,14 @@ import { useUsersQuery } from "@/api/resources/users/queries";
 import { ROLE } from "@/api/resources/users/validations/auth.schema";
 import {
   Button,
-  InputGroup,
   Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Separator,
   Text,
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { useHighestRole } from "@/hooks/useHighestRole";
-import { ProductReviewsHeaderFilters } from "@/pages/Products/components/ProductReviewsHeaderFilters";
-import { productReviewStatusLabel } from "@/pages/Products/components/productReviewStatusLabel";
+import { ProductReviewsHeaderFilters } from "@/pages/ProductsReviews/components/ProductReviewsHeaderFilters";
+import { productReviewStatusLabel } from "@/pages/ProductsReviews/components/productReviewStatusLabel";
 import { useAuth } from "@/providers/AuthProvider";
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -184,6 +178,11 @@ export function ListProductReviews({ productId }: { productId: string }) {
           setSearchName(value);
           setRequestedPage(1);
         }}
+        sortOrder={sortOrder}
+        onSortOrderChange={(value) => {
+          setSortOrder(value);
+          setRequestedPage(1);
+        }}
         ratingFilter={ratingFilter}
         onRatingFilterChange={(rating) => {
           setRatingFilter(rating);
@@ -242,31 +241,11 @@ export function ListProductReviews({ productId }: { productId: string }) {
             {rating}
           </Button>
         ))}
-        <InputGroup className="w-70 flex shrink-0 items-center gap-2 border-none">
-          <Text className="whitespace-nowrap">Ordenar por</Text>
-          <Select
-            value={sortOrder}
-            onValueChange={(value) =>
-              setSortOrder(value === "oldest" ? "oldest" : "newest")
-            }
-          >
-            <SelectTrigger
-              aria-label="Ordenar avaliações"
-              className="w-48 rounded-full"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="newest">Mais recentes</SelectItem>
-              <SelectItem value="oldest">Mais antigas</SelectItem>
-            </SelectContent>
-          </Select>
-        </InputGroup>
       </div>
 
       {reviewsQuery.isPending ? (
         <Text role="status">Carregando avaliações...</Text>
-      ) : !reviewsQuery.isError ? (
+      ) : reviewsQuery.isError ? (
         <Text role="alert">Não foi possível carregar as avaliações.</Text>
       ) : (
         <>

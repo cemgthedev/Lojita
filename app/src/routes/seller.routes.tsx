@@ -9,6 +9,7 @@ import { ProductCreatePage } from "@/pages/Products/Create";
 import { ProductUpdatePage } from "@/pages/Products/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
+import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -73,7 +74,7 @@ export const sellerRoutes: RouteObject[] = [
           },
           {
             path: `${urls.seller_dashboard}${urls.reviews}`,
-            element: <div>Avaliações</div>,
+            element: <ProductsReviewsManagement />,
           },
           {
             path: `${urls.seller_dashboard}${urls.chats}`,

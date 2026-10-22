@@ -9,6 +9,7 @@ import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/ProductDetailsManagement";
 import { ProductUpdatePage } from "@/pages/Products/Update";
+import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { UserCreatePage } from "@/pages/Users/Create";
 import { UserUpdatePage } from "@/pages/Users/Update";
 import { UsersManagementPage } from "@/pages/Users/UsersManagement";
@@ -92,7 +93,7 @@ export const supportRoutes: RouteObject[] = [
           },
           {
             path: `${urls.support_dashboard}${urls.reviews}`,
-            element: <div>Avaliações</div>,
+            element: <ProductsReviewsManagement />,
           },
           {
             path: `${urls.support_dashboard}${urls.attendances}`,
