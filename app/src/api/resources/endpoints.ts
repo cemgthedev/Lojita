@@ -26,4 +26,5 @@ export const endpoints = {
   attributeValues: "/attribute-values",
   specifications: "/specifications",
   productReviews: "/product-reviews",
+  favorites: "/favorites",
 };
