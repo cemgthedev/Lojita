@@ -33,7 +33,7 @@ import {
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
 import { useHighestRole } from "@/hooks/useHighestRole";
-import { ListProductReviews } from "@/pages/Products/components/ListProductReviews";
+import { ListProductReviews } from "@/pages/ProductsReviews/components/ListProductReviews";
 import { useAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
 import {
