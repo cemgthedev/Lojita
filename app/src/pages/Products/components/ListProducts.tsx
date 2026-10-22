@@ -125,19 +125,17 @@ export function ListProducts() {
             </Text>
           )}
 
-          <div className="border border-secondary-600 rounded-lg p-4">
-            {products.length > 0 && (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {products.map((product) => (
-                  <CardProduct
-                    key={product.id}
-                    baseUrl={`${managementBaseUrl}${urls.products}`}
-                    product={product}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          {products.length > 0 && (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {products.map((product) => (
+                <CardProduct
+                  key={product.id}
+                  baseUrl={`${managementBaseUrl}${urls.products}`}
+                  product={product}
+                />
+              ))}
+            </div>
+          )}
         </>
       )}
     </section>

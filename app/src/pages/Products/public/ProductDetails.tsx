@@ -306,7 +306,7 @@ export function ProductDetails() {
 
       <section className="flex gap-4 flex-wrap">
         <div className="space-y-4">
-          <div className="relative flex h-78 w-78 max-w-full items-center justify-center overflow-hidden rounded-lg bg-muted-200">
+          <div className="relative flex w-full md:h-96 md:w-96 items-center justify-center overflow-hidden rounded-lg bg-muted-200">
             {selectedImageUrl ? (
               <Image className="h-full w-full object-contain">
                 <ImageContent
@@ -365,7 +365,7 @@ export function ProductDetails() {
                 })
               }
             >
-              <div className="grid w-78 max-w-full grid-cols-2 gap-4">
+              <div className="grid w-full md:w-96 grid-cols-2 gap-4">
                 {[1, 2].map((index) => {
                   const image = images[index] ?? images[images.length - 1];
                   const opensGallery = index === 2;
@@ -399,7 +399,7 @@ export function ProductDetails() {
                         });
                       }}
                       className={cn(
-                        "relative h-37 w-37 max-w-full overflow-hidden rounded-lg border",
+                        "relative max-w-full overflow-hidden rounded-lg border",
                         !opensGallery && selectedImage === index
                           ? "border-primary-700"
                           : "border-secondary-600",
@@ -433,7 +433,7 @@ export function ProductDetails() {
 
               <DialogContent
                 aria-labelledby="product-image-gallery-title"
-                className="max-h-[90vh] w-full overflow-y-auto sm:max-w-4xl"
+                className="max-h-[90vh] w-full overflow-y-auto sm:max-w-4xl md:max-w-5xl"
               >
                 <DialogHeader>
                   <h2
@@ -456,17 +456,19 @@ export function ProductDetails() {
                           value: index,
                         })
                       }
-                      className={`overflow-hidden rounded-lg border ${
+                      className={cn(
+                        "overflow-hidden rounded-lg border hover:cursor-pointer hover:scale-105 transition-all",
                         selectedImage === index
                           ? "border-primary-700"
-                          : "border-secondary-600"
-                      }`}
+                          : "border-secondary-600",
+                      )}
                     >
-                      <img
-                        src={image}
-                        alt={`${product.title} - imagem ${index + 1}`}
-                        className="aspect-square w-full object-cover"
-                      />
+                      <Image className={cn("h-full w-full object-cover")}>
+                        <ImageContent
+                          src={image}
+                          alt={`${product.title} - imagem ${index + 1}`}
+                        />
+                      </Image>
                     </button>
                   ))}
                 </div>
