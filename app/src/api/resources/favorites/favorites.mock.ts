@@ -4,12 +4,12 @@ const createdAt = "2026-01-01T00:00:00.000Z";
 
 export const mockFavorites: Favorite[] = [
   {
-    variantId: 1,
+    variantId: "mock-variant-camiseta-basica-1",
     userId: "mock-customer-1",
     createdAt,
   },
   {
-    variantId: 2,
+    variantId: "mock-variant-polo-classica-1",
     userId: "mock-customer-1",
     createdAt,
   },

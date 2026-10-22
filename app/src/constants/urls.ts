@@ -82,6 +82,10 @@ export const urls = {
    */
   payments: "/payments",
   /**
+   * Favorites page
+   */
+  favorites: "/favorites",
+  /**
    * Security page
    */
   security: "/security",

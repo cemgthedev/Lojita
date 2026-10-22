@@ -11,8 +11,8 @@ import {
   type FavoriteQuery,
 } from "@/api/resources/favorites/validations/query.schema";
 
-function favoriteEndpoint(variantId: number, userId: string) {
-  return `${endpoints.favorites}/${encodeURIComponent(String(variantId))}/${encodeURIComponent(userId)}`;
+function favoriteEndpoint(variantId: string, userId: string) {
+  return `${endpoints.favorites}/${encodeURIComponent(variantId)}/${encodeURIComponent(userId)}`;
 }
 
 function queryString(query?: FavoriteQuery) {
@@ -36,7 +36,7 @@ export const favoritesService = {
     return favoriteSchema.array().parse(response.data);
   },
 
-  async findById(variantId: number, userId: string): Promise<Favorite> {
+  async findById(variantId: string, userId: string): Promise<Favorite> {
     const response = await http.get<unknown>(
       favoriteEndpoint(variantId, userId),
     );
@@ -44,12 +44,13 @@ export const favoritesService = {
   },
 
   async create(favorite: CreateFavorite): Promise<Favorite> {
+    assertNoMockIds("favorito", favorite.variantId);
     const response = await http.post<unknown>(endpoints.favorites, favorite);
     return favoriteSchema.parse(response.data);
   },
 
-  async remove(variantId: number, userId: string): Promise<void> {
-    assertNoMockIds("favorito", userId);
+  async remove(variantId: string, userId: string): Promise<void> {
+    assertNoMockIds("favorito", variantId, userId);
     await http.delete<void>(favoriteEndpoint(variantId, userId));
   },
 };

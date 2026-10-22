@@ -1,5 +1,6 @@
 import { CustomerLayout } from "@/components/structures/layouts/CustomerLayout";
 import { urls } from "@/constants/urls";
+import { FavoritesPage } from "@/pages/Favorites";
 import { ProductsPage } from "@/pages/Products/public";
 import { ProductDetails } from "@/pages/Products/public/ProductDetails";
 import { RequireRole } from "@/routes/guards/RequireRole";
@@ -23,6 +24,10 @@ export const customerRoutes: RouteObject[] = [
           {
             path: `${urls.customer_dashboard}${urls.products}/:productId`,
             element: <ProductDetails />,
+          },
+          {
+            path: `${urls.customer_dashboard}${urls.favorites}`,
+            element: <FavoritesPage />,
           },
         ],
       },

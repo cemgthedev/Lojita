@@ -28,7 +28,7 @@ export function useDeleteFavoriteMutation() {
       variantId,
       userId,
     }: {
-      variantId: number;
+      variantId: string;
       userId: string;
     }) => favoritesService.remove(variantId, userId),
     onSuccess: (_data, { variantId, userId }) => {

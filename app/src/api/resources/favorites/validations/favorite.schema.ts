@@ -2,10 +2,9 @@ import { messages } from "@/api/resources/favorites/messages";
 import { z } from "zod";
 
 export const favoriteSchema = z.object({
-  variantId: z.coerce
-    .number({ error: messages.variantId.invalid })
-    .int(messages.variantId.invalid)
-    .positive(messages.variantId.invalid),
+  variantId: z.string({ error: messages.variantId.invalid }).min(1, {
+    error: messages.variantId.required,
+  }),
   userId: z.string({ error: messages.userId.invalid }).min(1, {
     error: messages.userId.required,
   }),

@@ -5,6 +5,6 @@ export const favoritesKeys = {
   lists: () => [...favoritesKeys.all, "list"] as const,
   list: (query?: FavoriteQuery) => [...favoritesKeys.lists(), query] as const,
   details: () => [...favoritesKeys.all, "detail"] as const,
-  detail: (variantId: number, userId: string) =>
+  detail: (variantId: string, userId: string) =>
     [...favoritesKeys.details(), variantId, userId] as const,
 };

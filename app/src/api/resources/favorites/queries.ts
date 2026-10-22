@@ -9,10 +9,11 @@ import {
 } from "@/api/resources/query-fallback";
 import { useQuery } from "@tanstack/react-query";
 
-export function useFavoritesQuery(query?: FavoriteQuery) {
+export function useFavoritesQuery(query?: FavoriteQuery, enabled = true) {
   const result = useQuery({
     queryKey: favoritesKeys.list(query),
     queryFn: () => favoritesService.list(query),
+    enabled,
   });
   return withMockArrayFallback(
     result,
@@ -20,11 +21,11 @@ export function useFavoritesQuery(query?: FavoriteQuery) {
   );
 }
 
-export function useFavoriteQuery(variantId: number, userId: string) {
+export function useFavoriteQuery(variantId: string, userId: string) {
   const result = useQuery({
     queryKey: favoritesKeys.detail(variantId, userId),
     queryFn: () => favoritesService.findById(variantId, userId),
-    enabled: Number.isInteger(variantId) && variantId > 0 && userId.length > 0,
+    enabled: variantId.length > 0 && userId.length > 0,
   });
   return withMockDetailFallback(
     result,

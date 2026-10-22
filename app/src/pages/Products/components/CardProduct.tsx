@@ -16,6 +16,7 @@ import { Link } from "react-router";
 export type CardProductProps = {
   baseUrl: string;
   product: Product;
+  isFavorite?: boolean;
 };
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -23,7 +24,11 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export function CardProduct({ baseUrl, product }: CardProductProps) {
+export function CardProduct({
+  baseUrl,
+  product,
+  isFavorite = false,
+}: CardProductProps) {
   const productUrl = `${baseUrl.replace(/\/$/, "")}/${encodeURIComponent(product.id)}`;
   const imageUrl = product.defaultVariant?.urlImage;
   const price = product.defaultVariant?.price;
@@ -47,7 +52,10 @@ export function CardProduct({ baseUrl, product }: CardProductProps) {
           </ImageFallback>
         </Image>
 
-        <Button className="absolute top-2 right-2 p-1">
+        <Button
+          className="absolute top-2 right-2 p-1"
+          variant={isFavorite ? "danger" : "default"}
+        >
           <HeartIcon size={24} />
         </Button>
       </div>

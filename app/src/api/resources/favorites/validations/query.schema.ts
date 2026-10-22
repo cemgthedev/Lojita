@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const favoriteQuerySchema = z.object({
-  variantId: z.coerce.number().int().positive().optional(),
+  variantId: z.string().optional(),
   userId: z.string().optional(),
 });
 
