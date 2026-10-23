@@ -27,4 +27,8 @@ export const endpoints = {
   specifications: "/specifications",
   productReviews: "/product-reviews",
   favorites: "/favorites",
+  chats: "/chats",
+  chatParticipants: "/chat-participants",
+  messages: "/messages",
+  tickets: "/tickets",
 };

@@ -10,6 +10,7 @@ import {
   SlidersHorizontalIcon,
   StoreIcon,
   TagIcon,
+  TicketCheckIcon,
   UsersIcon,
 } from "lucide-react";
 
@@ -161,5 +162,10 @@ export const sellerSidebarItems: NavItem[] = [
     name: "Chats",
     href: `${urls.seller_dashboard}${urls.chats}`,
     icon: <MessagesCircleIcon size={iconSize} />,
+  },
+  {
+    name: "Atendimentos",
+    href: `${urls.seller_dashboard}${urls.attendances}`,
+    icon: <TicketCheckIcon size={iconSize} />,
   },
 ];

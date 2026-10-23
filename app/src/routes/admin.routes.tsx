@@ -4,12 +4,16 @@ import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagemen
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
+import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
 import { CategoryCreatePage } from "@/pages/Categories/Create";
 import { CategoryUpdatePage } from "@/pages/Categories/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/ProductDetailsManagement";
 import { ProductUpdatePage } from "@/pages/Products/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
+import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { UserCreatePage } from "@/pages/Users/Create";
@@ -107,7 +111,19 @@ export const adminRoutes: RouteObject[] = [
           },
           {
             path: `${urls.admin_dashboard}${urls.attendances}`,
-            element: <div>Atendimentos</div>,
+            element: <SupportTicketsManagementPage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attendances}${urls.create}`,
+            element: <SupportTicketCreatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attendances}/:ticketId${urls.update}`,
+            element: <SupportTicketUpdatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.chats}/:chatId`,
+            element: <ChatDetailsPage />,
           },
         ],
       },
