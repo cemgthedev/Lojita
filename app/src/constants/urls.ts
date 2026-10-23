@@ -65,6 +65,7 @@ export const urls = {
   reviews: "/reviews",
   chats: "/chats",
   attendances: "/support",
+  tickets: "/tickets",
   /**
    * Customer dashboard page
    */

@@ -126,7 +126,7 @@ export function CustomerHeader() {
             <Label size="xs">Suporte</Label>
             <DropdownMenuItem>
               <Link
-                to={urls.support_solicitations}
+                to={`${urls.customer_dashboard}${urls.tickets}`}
                 className="hover:text-secondary flex gap-2 items-center transition-colors"
               >
                 Solicitar atendimento
@@ -134,7 +134,7 @@ export function CustomerHeader() {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link
-                to={urls.support_solicitation}
+                to={`${urls.customer_dashboard}${urls.tickets}`}
                 className="hover:text-secondary flex gap-2 items-center transition-colors"
               >
                 Meus atendimentos

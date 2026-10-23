@@ -1,20 +1,17 @@
 import { messages } from "@/api/resources/tickets/messages";
+import { ticketMotiveSchema } from "@/api/resources/tickets/validations/motive.schema";
+import { ticketOriginSchema } from "@/api/resources/tickets/validations/origin.schema";
+import { ticketPrioritySchema } from "@/api/resources/tickets/validations/priority.schema";
 import { z } from "zod";
 
 export const ticketSchema = z.object({
   id: z.string({ error: messages.id.invalid }).min(1, {
     error: messages.id.required,
   }),
-  origin: z.string({ error: messages.origin.invalid }).min(1, {
-    error: messages.origin.required,
-  }),
-  motive: z.string({ error: messages.motive.invalid }).min(1, {
-    error: messages.motive.required,
-  }),
+  origin: ticketOriginSchema,
+  motive: ticketMotiveSchema,
   description: z.string({ error: messages.description.invalid }).nullable(),
-  priority: z.string({ error: messages.priority.invalid }).min(1, {
-    error: messages.priority.required,
-  }),
+  priority: ticketPrioritySchema,
   chatId: z.string({ error: messages.chatId.invalid }).nullable(),
   requesterId: z.string({ error: messages.requesterId.invalid }).min(1, {
     error: messages.requesterId.required,

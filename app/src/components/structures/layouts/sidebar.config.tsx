@@ -11,6 +11,7 @@ import {
   StoreIcon,
   TagIcon,
   UsersIcon,
+  TicketCheckIcon,
 } from "lucide-react";
 
 const iconSize = 20;
@@ -62,7 +63,7 @@ export const adminSidebarItems: NavItem[] = [
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
   {
-    name: "Atendimentos",
+    name: "Chamados",
     href: `${urls.admin_dashboard}${urls.attendances}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
@@ -115,7 +116,7 @@ export const supportSidebarItems: NavItem[] = [
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
   {
-    name: "Atendimentos",
+    name: "Chamados",
     href: `${urls.support_dashboard}${urls.attendances}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
@@ -161,5 +162,10 @@ export const sellerSidebarItems: NavItem[] = [
     name: "Chats",
     href: `${urls.seller_dashboard}${urls.chats}`,
     icon: <MessagesCircleIcon size={iconSize} />,
+  },
+  {
+    name: "Chamados",
+    href: `${urls.seller_dashboard}${urls.attendances}`,
+    icon: <TicketCheckIcon size={iconSize} />,
   },
 ];

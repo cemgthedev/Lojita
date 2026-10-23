@@ -1,6 +1,7 @@
 import { SellerLayout } from "@/components/structures/layouts/SellerLayout";
 import { urls } from "@/constants/urls";
 import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
+import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
@@ -10,6 +11,7 @@ import { ProductUpdatePage } from "@/pages/Products/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
+import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -79,6 +81,14 @@ export const sellerRoutes: RouteObject[] = [
           {
             path: `${urls.seller_dashboard}${urls.chats}`,
             element: <div>Chats</div>,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.chats}/:chatId`,
+            element: <ChatDetailsPage />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.attendances}`,
+            element: <SupportTicketsManagementPage />,
           },
         ],
       },
