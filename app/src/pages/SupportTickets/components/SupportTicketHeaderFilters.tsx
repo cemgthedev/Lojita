@@ -51,21 +51,21 @@ export function SupportTicketHeaderFilters({
   origins,
   resultCount,
 }: SupportTicketHeaderFiltersProps) {
-  const [searchValue, setSearchValue] = useState(filters.motive ?? "");
+  const [searchValue, setSearchValue] = useState(filters.subject ?? "");
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      const motive = searchValue.trim() || undefined;
-      if (motive !== filters.motive) {
-        setFilters((current) => ({ ...current, motive }));
+      const subject = searchValue.trim() || undefined;
+      if (subject !== filters.subject) {
+        setFilters((current) => ({ ...current, subject }));
       }
     }, 350);
 
     return () => window.clearTimeout(timeoutId);
-  }, [filters.motive, searchValue, setFilters]);
+  }, [filters.subject, searchValue, setFilters]);
 
   const hasFilters =
-    Boolean(filters.motive) ||
+    Boolean(filters.subject) ||
     Boolean(filters.status) ||
     Boolean(filters.priority) ||
     Boolean(filters.origin);
@@ -236,7 +236,7 @@ export function SupportTicketHeaderFilters({
           </div>
           {hasFilters && (
             <div className="flex flex-wrap items-center gap-2">
-              {filters.motive && (
+              {filters.subject && (
                 <Button
                   type="button"
                   size="xs"
@@ -246,10 +246,10 @@ export function SupportTicketHeaderFilters({
                   endContent={<XIcon aria-hidden="true" size={14} />}
                   onClick={() => {
                     setSearchValue("");
-                    setFilters((current) => ({ ...current, motive: undefined }));
+                    setFilters((current) => ({ ...current, subject: undefined }));
                   }}
                 >
-                  Assunto: {filters.motive}
+                  Assunto: {filters.subject}
                 </Button>
               )}
               {filters.status && (

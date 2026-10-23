@@ -18,7 +18,10 @@ export function useTicketsQuery(query?: TicketQuery, enabled = true) {
     Object.entries(query ?? {}).every(([key, value]) => {
       if (value === undefined) return true;
       const ticketValue = ticket[key as keyof typeof ticket];
-      if (key === "motive" && typeof value === "string") {
+      if (
+        (key === "motive" || key === "subject") &&
+        typeof value === "string"
+      ) {
         return String(ticketValue)
           .toLocaleLowerCase("pt-BR")
           .includes(value.trim().toLocaleLowerCase("pt-BR"));

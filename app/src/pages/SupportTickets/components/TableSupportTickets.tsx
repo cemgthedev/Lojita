@@ -1,8 +1,6 @@
 import { useUpdateTicketMutation } from "@/api/resources/tickets/mutations";
 import { useTicketsQuery } from "@/api/resources/tickets/queries";
-import {
-  TICKET_MOTIVE_LABEL,
-} from "@/api/resources/tickets/validations/motive.schema";
+import { TICKET_MOTIVE_LABEL } from "@/api/resources/tickets/validations/motive.schema";
 import {
   TICKET_ORIGIN,
   ticketOriginSchema,
@@ -12,17 +10,16 @@ import {
   TICKET_PRIORITY,
   TICKET_PRIORITY_LABEL,
   TICKET_PRIORITY_VARIANT,
+  ticketPrioritySchema,
 } from "@/api/resources/tickets/validations/priority.schema";
+import type { TicketQuery } from "@/api/resources/tickets/validations/query.schema";
 import {
   TICKET_STATUS,
   TICKET_STATUS_LABEL,
   TICKET_STATUS_VARIANT,
 } from "@/api/resources/tickets/validations/status.schema";
-import { ticketPrioritySchema } from "@/api/resources/tickets/validations/priority.schema";
-import type { TicketQuery } from "@/api/resources/tickets/validations/query.schema";
 import type { Ticket } from "@/api/resources/tickets/validations/ticket.schema";
 import { useUsersQuery } from "@/api/resources/users/queries";
-import { urls } from "@/constants/urls";
 import {
   Badge,
   Button,
@@ -49,8 +46,9 @@ import {
   Text,
 } from "@/components/ui";
 import { toast } from "@/components/ui/toast";
+import { urls } from "@/constants/urls";
 import { SupportTicketHeaderFilters } from "@/pages/SupportTickets/components/SupportTicketHeaderFilters";
-import { EllipsisIcon, MessageCircleIcon } from "lucide-react";
+import { EllipsisIcon, MessageCircleIcon, PencilIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
@@ -100,20 +98,25 @@ export function TableSupportTickets() {
     [allTickets],
   );
   const priorities = useMemo(
-    () =>
-      [
-        ...new Set([
-          ...priorityOptions,
-          ...allTickets.map((ticket) => ticket.priority),
-        ]),
-      ],
+    () => [
+      ...new Set([
+        ...priorityOptions,
+        ...allTickets.map((ticket) => ticket.priority),
+      ]),
+    ],
     [allTickets],
   );
   const origins = useMemo(
     () =>
-      [...new Set([...originOptions, ...allTickets.map((ticket) => ticket.origin)])]
-        .filter((origin): origin is TicketOrigin =>
-          ticketOriginSchema.safeParse(origin).success,
+      [
+        ...new Set([
+          ...originOptions,
+          ...allTickets.map((ticket) => ticket.origin),
+        ]),
+      ]
+        .filter(
+          (origin): origin is TicketOrigin =>
+            ticketOriginSchema.safeParse(origin).success,
         )
         .toSorted(),
     [allTickets],
@@ -127,6 +130,9 @@ export function TableSupportTickets() {
     [tickets],
   );
   const dashboardPath = location.pathname.match(/^\/[^/]+/)?.[0] ?? "";
+  const ticketListPath = `${dashboardPath}${
+    dashboardPath === urls.customer_dashboard ? urls.tickets : urls.attendances
+  }`;
 
   async function updateTicket(ticket: Ticket, changes: Partial<Ticket>) {
     try {
@@ -227,10 +233,11 @@ export function TableSupportTickets() {
                     </TableCell>
                     <TableCell>
                       <div className="min-w-52 space-y-1">
-                        <Text className="font-medium">
+                        <Text size="sm" variant={"secondary"}>
                           {TICKET_MOTIVE_LABEL[ticket.motive] ?? ticket.motive}
                         </Text>
-                        <Text size="sm" variant="secondary">
+                        <Label size="xs">{ticket.subject}</Label>
+                        <Text className="line-clamp-2">
                           {ticket.description || "Sem descrição"}
                         </Text>
                       </div>
@@ -259,7 +266,7 @@ export function TableSupportTickets() {
                       >
                         <SelectTrigger
                           aria-label={`Alterar prioridade do chamado ${ticket.motive}`}
-                          size="xs"
+                          size="sm"
                           rounded="full"
                         >
                           <SelectValue>
@@ -300,7 +307,7 @@ export function TableSupportTickets() {
                       >
                         <SelectTrigger
                           aria-label={`Alterar status do chamado ${ticket.motive}`}
-                          size="xs"
+                          size="sm"
                           rounded="full"
                         >
                           <SelectValue>
@@ -331,20 +338,30 @@ export function TableSupportTickets() {
                       </Select>
                     </TableCell>
                     <TableCell>
-                      {chatId ? (
-                        <div className="flex justify-end">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                type="button"
-                                variant="secondary-ghost"
-                                size="sm"
-                                aria-label={`Ações para o chamado ${ticket.motive}`}
-                              >
-                                <EllipsisIcon aria-hidden="true" size={18} />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
+                      <div className="flex justify-end">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="secondary-ghost"
+                              size="sm"
+                              aria-label={`Ações para o chamado ${ticket.subject}`}
+                            >
+                              <EllipsisIcon aria-hidden="true" size={18} />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                              onSelect={() =>
+                                navigate(
+                                  `${ticketListPath}/${encodeURIComponent(ticket.id)}${urls.update}`,
+                                )
+                              }
+                            >
+                              <PencilIcon aria-hidden="true" />
+                              Editar chamado
+                            </DropdownMenuItem>
+                            {chatId && (
                               <DropdownMenuItem
                                 onSelect={() =>
                                   navigate(
@@ -355,14 +372,10 @@ export function TableSupportTickets() {
                                 <MessageCircleIcon aria-hidden="true" />
                                 Abrir chat
                               </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
-                      ) : (
-                        <Text className="text-right" variant="secondary">
-                          Sem chat
-                        </Text>
-                      )}
+                            )}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </TableCell>
                   </TableRow>
                 );

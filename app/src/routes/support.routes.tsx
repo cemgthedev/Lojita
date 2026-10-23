@@ -12,6 +12,8 @@ import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/Pr
 import { ProductUpdatePage } from "@/pages/Products/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { UserCreatePage } from "@/pages/Users/Create";
 import { UserUpdatePage } from "@/pages/Users/Update";
 import { UsersManagementPage } from "@/pages/Users/UsersManagement";
@@ -100,6 +102,14 @@ export const supportRoutes: RouteObject[] = [
           {
             path: `${urls.support_dashboard}${urls.attendances}`,
             element: <SupportTicketsManagementPage />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.attendances}${urls.create}`,
+            element: <SupportTicketCreatePage />,
+          },
+          {
+            path: `${urls.support_dashboard}${urls.attendances}/:ticketId${urls.update}`,
+            element: <SupportTicketUpdatePage />,
           },
           {
             path: `${urls.support_dashboard}${urls.chats}/:chatId`,

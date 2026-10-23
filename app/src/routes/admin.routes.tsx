@@ -12,6 +12,8 @@ import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/Pr
 import { ProductUpdatePage } from "@/pages/Products/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { UserCreatePage } from "@/pages/Users/Create";
@@ -110,6 +112,14 @@ export const adminRoutes: RouteObject[] = [
           {
             path: `${urls.admin_dashboard}${urls.attendances}`,
             element: <SupportTicketsManagementPage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attendances}${urls.create}`,
+            element: <SupportTicketCreatePage />,
+          },
+          {
+            path: `${urls.admin_dashboard}${urls.attendances}/:ticketId${urls.update}`,
+            element: <SupportTicketUpdatePage />,
           },
           {
             path: `${urls.admin_dashboard}${urls.chats}/:chatId`,

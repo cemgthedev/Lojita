@@ -7,6 +7,7 @@ export const mockTickets: Ticket[] = [
     id: "mock-ticket-1",
     origin: "chat",
     motive: "order",
+    subject: "Dúvida sobre meu pedido",
     description: "Dúvida sobre o andamento do pedido.",
     priority: "normal",
     chatId: "mock-chat-1",

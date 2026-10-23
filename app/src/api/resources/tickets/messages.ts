@@ -11,6 +11,10 @@ export const messages = {
     required: "Motivo é obrigatório.",
     invalid: "Motivo inválido.",
   },
+  subject: {
+    required: "Assunto é obrigatório.",
+    invalid: "Assunto inválido.",
+  },
   description: {
     invalid: "Descrição inválida.",
   },

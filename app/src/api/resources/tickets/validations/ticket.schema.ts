@@ -10,6 +10,10 @@ export const ticketSchema = z.object({
   }),
   origin: ticketOriginSchema,
   motive: ticketMotiveSchema,
+  subject: z
+    .string({ error: messages.subject.invalid })
+    .trim()
+    .min(1, { error: messages.subject.required }),
   description: z.string({ error: messages.description.invalid }).nullable(),
   priority: ticketPrioritySchema,
   chatId: z.string({ error: messages.chatId.invalid }).nullable(),

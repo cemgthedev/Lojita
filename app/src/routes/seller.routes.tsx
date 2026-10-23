@@ -12,6 +12,8 @@ import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
 import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
 
@@ -89,6 +91,14 @@ export const sellerRoutes: RouteObject[] = [
           {
             path: `${urls.seller_dashboard}${urls.attendances}`,
             element: <SupportTicketsManagementPage />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.attendances}${urls.create}`,
+            element: <SupportTicketCreatePage />,
+          },
+          {
+            path: `${urls.seller_dashboard}${urls.attendances}/:ticketId${urls.update}`,
+            element: <SupportTicketUpdatePage />,
           },
         ],
       },

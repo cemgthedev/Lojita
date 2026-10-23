@@ -6,6 +6,7 @@ export const ticketQuerySchema = z.object({
   id: z.string().optional(),
   origin: ticketOriginSchema.optional(),
   motive: z.string().optional(),
+  subject: z.string().optional(),
   priority: ticketPrioritySchema.optional(),
   chatId: z.string().nullable().optional(),
   requesterId: z.string().optional(),
