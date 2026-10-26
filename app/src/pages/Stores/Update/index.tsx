@@ -46,6 +46,7 @@ export function StoreUpdatePage() {
       businessEmail: values.businessEmail,
       phone: values.phone,
       url: values.url,
+      status: values.status,
     });
   }
 
@@ -129,6 +130,7 @@ export function StoreUpdatePage() {
           businessEmail: store.businessEmail,
           phone: store.phone,
           url: store.url,
+          status: store.status,
         }}
         submitLabel="Atualizar loja"
         onSubmit={handleSubmit}

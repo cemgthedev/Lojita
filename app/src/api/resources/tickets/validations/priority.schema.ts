@@ -19,7 +19,7 @@ export const TICKET_PRIORITY_LABEL = {
 
 export const TICKET_PRIORITY_VARIANT = {
   [TICKET_PRIORITY.LOW]: "muted",
-  [TICKET_PRIORITY.NORMAL]: "muted",
+  [TICKET_PRIORITY.NORMAL]: "success-ghost",
   [TICKET_PRIORITY.MEDIUM]: "warning-ghost",
   [TICKET_PRIORITY.HIGH]: "danger-ghost",
   [TICKET_PRIORITY.URGENT]: "danger-ghost",

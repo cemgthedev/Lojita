@@ -13,6 +13,7 @@ export const mockStores: Store[] = [
     businessEmail: "loja.samu@lojita.local",
     phone: "(11) 90000-0003",
     url: "lojita-do-samuel",
+    status: "active",
     userId: "mock-seller-1",
     createdAt,
     updatedAt: createdAt,

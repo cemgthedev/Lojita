@@ -24,7 +24,7 @@ function formatAddress(address: Address) {
   return `${address.street}, ${address.number} - ${address.city}/${address.state}`;
 }
 
-export function StoreManagementPage() {
+export function StoreDetailsManagementPage() {
   const { storeId = "" } = useParams();
   const navigate = useNavigate();
   const { user } = useRequiredAuth();

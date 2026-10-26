@@ -1,4 +1,5 @@
 import { messages } from "@/api/resources/stores/messages";
+import { storeStatusSchema } from "@/api/resources/stores/validations/status.schema";
 import { z } from "zod";
 
 export const storeSchema = z.object({
@@ -13,6 +14,7 @@ export const storeSchema = z.object({
   businessEmail: z.string({ error: messages.businessEmail.invalid }),
   phone: z.string({ error: messages.phone.invalid }),
   url: z.string({ error: messages.url.invalid }),
+  status: storeStatusSchema,
   userId: z.string({ error: messages.userId.invalid }).min(1, {
     error: messages.userId.required,
   }),

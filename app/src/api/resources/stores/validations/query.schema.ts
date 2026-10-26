@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { storeStatusSchema } from "@/api/resources/stores/validations/status.schema";
 
 export const storeQuerySchema = z.object({
   id: z.string().optional(),
@@ -9,6 +10,7 @@ export const storeQuerySchema = z.object({
   businessEmail: z.string().optional(),
   phone: z.string().optional(),
   url: z.string().optional(),
+  status: storeStatusSchema.optional(),
 });
 
 export type StoreQuery = z.infer<typeof storeQuerySchema>;

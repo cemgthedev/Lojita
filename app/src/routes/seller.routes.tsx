@@ -1,18 +1,18 @@
 import { SellerLayout } from "@/components/structures/layouts/SellerLayout";
 import { urls } from "@/constants/urls";
 import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
-import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
+import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
+import { ProductCreatePage } from "@/pages/Products/Create";
 import { ProductsManagement } from "@/pages/Products/ProductsManagement";
 import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/ProductDetailsManagement";
-import { ProductCreatePage } from "@/pages/Products/Create";
 import { ProductUpdatePage } from "@/pages/Products/Update";
-import { StoreManagementPage } from "@/pages/Stores/StoreManagement";
-import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
-import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { StoreDetailsManagementPage } from "@/pages/Stores/StoresManagement/StoreDetailsManagement";
+import { StoreUpdatePage } from "@/pages/Stores/Update";
 import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
 import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
@@ -30,11 +30,11 @@ export const sellerRoutes: RouteObject[] = [
           },
           {
             path: `${urls.seller_dashboard}${urls.store}`,
-            element: <StoreManagementPage />,
+            element: <StoreDetailsManagementPage />,
           },
           {
             path: `${urls.seller_dashboard}${urls.store}/:storeId`,
-            element: <StoreManagementPage />,
+            element: <StoreDetailsManagementPage />,
           },
           {
             path: `${urls.seller_dashboard}${urls.store}/:storeId${urls.update}`,
