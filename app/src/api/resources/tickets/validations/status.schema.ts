@@ -1,3 +1,5 @@
+import z from "zod";
+
 export const TICKET_STATUS = {
   NEW: "new",
   OPEN: "open",
@@ -18,9 +20,13 @@ export const TICKET_STATUS_LABEL = {
 
 export const TICKET_STATUS_VARIANT = {
   [TICKET_STATUS.NEW]: "muted",
-  [TICKET_STATUS.OPEN]: "muted",
+  [TICKET_STATUS.OPEN]: "warning-ghost",
   [TICKET_STATUS.IN_PROGRESS]: "primary-ghost",
   [TICKET_STATUS.WAITING_CUSTOMER]: "warning-ghost",
   [TICKET_STATUS.RESOLVED]: "success-ghost",
   [TICKET_STATUS.CLOSED]: "success-ghost",
 } as const;
+
+export const ticketStatusSchema = z.enum(TICKET_STATUS);
+
+export type TicketStatus = z.infer<typeof ticketStatusSchema>;

@@ -17,6 +17,7 @@ import {
   TICKET_STATUS,
   TICKET_STATUS_LABEL,
   TICKET_STATUS_VARIANT,
+  ticketStatusSchema,
 } from "@/api/resources/tickets/validations/status.schema";
 import type { Ticket } from "@/api/resources/tickets/validations/ticket.schema";
 import { useUsersQuery } from "@/api/resources/users/queries";
@@ -134,12 +135,31 @@ export function TableSupportTickets() {
     dashboardPath === urls.customer_dashboard ? urls.tickets : urls.attendances
   }`;
 
-  async function updateTicket(ticket: Ticket, changes: Partial<Ticket>) {
+  async function updateStatus(
+    ticketId: string,
+    status: (typeof TICKET_STATUS)[keyof typeof TICKET_STATUS],
+  ) {
     try {
-      await updateTicketMutation.mutateAsync({ id: ticket.id, ...changes });
+      await updateTicketMutation.mutateAsync({ id: ticketId, status });
       toast("Chamado atualizado.", { variant: "success" });
     } catch {
-      toast("Não foi possível atualizar o chamado.", { variant: "danger" });
+      toast("Não foi possível atualizar o chamado.", {
+        variant: "danger",
+      });
+    }
+  }
+
+  async function updatePriority(
+    ticketId: string,
+    priority: (typeof TICKET_PRIORITY)[keyof typeof TICKET_PRIORITY],
+  ) {
+    try {
+      await updateTicketMutation.mutateAsync({ id: ticketId, priority });
+      toast("Chamado atualizado.", { variant: "success" });
+    } catch {
+      toast("Não foi possível atualizar o chamado.", {
+        variant: "danger",
+      });
     }
   }
 
@@ -250,16 +270,14 @@ export function TableSupportTickets() {
                     <TableCell>
                       <Select
                         value={ticket.priority}
-                        onValueChange={(priority) => {
-                          const parsedPriority =
-                            ticketPrioritySchema.safeParse(priority);
+                        onValueChange={(value) => {
+                          const priority =
+                            ticketPrioritySchema.safeParse(value);
                           if (
-                            parsedPriority.success &&
-                            parsedPriority.data !== ticket.priority
+                            priority.success &&
+                            priority.data !== ticket.priority
                           ) {
-                            void updateTicket(ticket, {
-                              priority: parsedPriority.data,
-                            });
+                            void updatePriority(ticket.id, priority.data);
                           }
                         }}
                         disabled={updateTicketMutation.isPending}
@@ -293,14 +311,10 @@ export function TableSupportTickets() {
                     <TableCell>
                       <Select
                         value={ticket.status}
-                        onValueChange={(status) => {
-                          if (status !== ticket.status) {
-                            void updateTicket(ticket, {
-                              status,
-                              ...(status === "closed" || status === "resolved"
-                                ? { closedAt: new Date().toISOString() }
-                                : { closedAt: null }),
-                            });
+                        onValueChange={(value) => {
+                          const status = ticketStatusSchema.safeParse(value);
+                          if (status.success && status.data !== ticket.status) {
+                            void updateStatus(ticket.id, status.data);
                           }
                         }}
                         disabled={updateTicketMutation.isPending}
@@ -314,15 +328,9 @@ export function TableSupportTickets() {
                             <Badge
                               size="xs"
                               rounded="full"
-                              variant={
-                                TICKET_STATUS_VARIANT[
-                                  ticket.status as keyof typeof TICKET_STATUS_VARIANT
-                                ] ?? "muted"
-                              }
+                              variant={TICKET_STATUS_VARIANT[ticket.status]}
                             >
-                              {TICKET_STATUS_LABEL[
-                                ticket.status as keyof typeof TICKET_STATUS_LABEL
-                              ] ?? ticket.status}
+                              {TICKET_STATUS_LABEL[ticket.status]}
                             </Badge>
                           </SelectValue>
                         </SelectTrigger>

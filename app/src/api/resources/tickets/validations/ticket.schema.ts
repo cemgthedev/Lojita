@@ -2,6 +2,7 @@ import { messages } from "@/api/resources/tickets/messages";
 import { ticketMotiveSchema } from "@/api/resources/tickets/validations/motive.schema";
 import { ticketOriginSchema } from "@/api/resources/tickets/validations/origin.schema";
 import { ticketPrioritySchema } from "@/api/resources/tickets/validations/priority.schema";
+import { ticketStatusSchema } from "@/api/resources/tickets/validations/status.schema";
 import { z } from "zod";
 
 export const ticketSchema = z.object({
@@ -24,9 +25,7 @@ export const ticketSchema = z.object({
     error: messages.createdAt.required,
   }),
   updatedAt: z.string({ error: messages.updatedAt.invalid }).nullable(),
-  status: z.string({ error: messages.status.invalid }).min(1, {
-    error: messages.status.required,
-  }),
+  status: ticketStatusSchema,
   closedAt: z.string({ error: messages.closedAt.invalid }).nullable(),
 });
 

@@ -3,6 +3,7 @@ import {
   type CreateStore,
 } from "@/api/resources/stores/validations/create.schema";
 import type { Store } from "@/api/resources/stores/validations/store.schema";
+import { STORE_STATUS } from "@/api/resources/stores/validations/status.schema";
 import { UploadImage } from "@/components/forms/UploadImage";
 import {
   Button,
@@ -39,6 +40,7 @@ const emptyValues: StoreFormValues = {
   businessEmail: "",
   phone: "",
   url: "",
+  status: STORE_STATUS.ACTIVE,
 };
 
 export function StoreForm({
