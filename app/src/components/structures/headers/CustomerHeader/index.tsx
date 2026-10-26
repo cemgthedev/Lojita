@@ -17,7 +17,11 @@ import {
 import { urls } from "@/constants/urls";
 import { useAuth } from "@/providers/AuthProvider";
 import { cn } from "@/utils/cn";
-import { LogOutIcon, UserCircle2Icon } from "lucide-react";
+import {
+  LogOutIcon,
+  ShoppingCartIcon,
+  UserCircle2Icon,
+} from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 const notVisibleHeaderRoutes = [urls.login, urls.register];
@@ -71,88 +75,97 @@ export function CustomerHeader() {
         </ul>
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger className="border-none bg-transparent p-0 hover:opacity-80 hover:cursor-pointer transition-opacity">
-          <UserCircle2Icon size={32} />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="min-w-64 max-w-64 p-3">
-          <DropdownMenuGroup>
-            <div className="flex items-center gap-2">
-              <Avatar size="lg">
-                <AvatarImage src={user?.avatarUrl} alt="logo" />
-                <AvatarFallback variant="primary">AU</AvatarFallback>
-              </Avatar>
-              <div>
-                <Label size="xs">{user?.name || "Usuário"}</Label>
-                <Text>{user?.email}</Text>
+      <div className="flex items-center gap-4">
+        <Link
+          to={`${urls.customer_dashboard}${urls.cart}`}
+          aria-label="Abrir carrinho"
+          className="rounded-full p-2 transition-opacity hover:opacity-80"
+        >
+          <ShoppingCartIcon aria-hidden="true" size={24} />
+        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="border-none bg-transparent p-0 hover:opacity-80 hover:cursor-pointer transition-opacity">
+            <UserCircle2Icon size={32} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="min-w-64 max-w-64 p-3">
+            <DropdownMenuGroup>
+              <div className="flex items-center gap-2">
+                <Avatar size="lg">
+                  <AvatarImage src={user?.avatarUrl} alt="logo" />
+                  <AvatarFallback variant="primary">AU</AvatarFallback>
+                </Avatar>
+                <div>
+                  <Label size="xs">{user?.name || "Usuário"}</Label>
+                  <Text>{user?.email}</Text>
+                </div>
               </div>
-            </div>
-            <Separator
-              variant={"secondary"}
-              orientation="horizontal"
-              className="my-2"
-            />
-            <Label size="xs">Minha conta</Label>
-            <DropdownMenuItem>
-              <Link
-                to={urls.profile}
-                className="hover:text-secondary flex gap-2 items-center transition-colors"
-              >
-                Ver perfil
-              </Link>
-            </DropdownMenuItem>
-            {user?.role.includes("seller") ? (
+              <Separator
+                variant={"secondary"}
+                orientation="horizontal"
+                className="my-2"
+              />
+              <Label size="xs">Minha conta</Label>
               <DropdownMenuItem>
                 <Link
-                  to={`${urls.seller_dashboard}${urls.store}`}
+                  to={urls.profile}
                   className="hover:text-secondary flex gap-2 items-center transition-colors"
                 >
-                  Ver loja
+                  Ver perfil
                 </Link>
               </DropdownMenuItem>
-            ) : (
+              {user?.role.includes("seller") ? (
+                <DropdownMenuItem>
+                  <Link
+                    to={`${urls.seller_dashboard}${urls.store}`}
+                    className="hover:text-secondary flex gap-2 items-center transition-colors"
+                  >
+                    Ver loja
+                  </Link>
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem>
+                  <Link
+                    to={urls.seller_register}
+                    className="hover:text-secondary flex gap-2 items-center transition-colors"
+                  >
+                    Torne-se vendedor
+                  </Link>
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuGroup>
+
+            <DropdownMenuGroup>
+              <Label size="xs">Suporte</Label>
               <DropdownMenuItem>
                 <Link
-                  to={urls.seller_register}
+                  to={`${urls.customer_dashboard}${urls.tickets}`}
                   className="hover:text-secondary flex gap-2 items-center transition-colors"
                 >
-                  Torne-se vendedor
+                  Solicitar atendimento
                 </Link>
               </DropdownMenuItem>
-            )}
-          </DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link
+                  to={`${urls.customer_dashboard}${urls.tickets}`}
+                  className="hover:text-secondary flex gap-2 items-center transition-colors"
+                >
+                  Meus atendimentos
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
 
-          <DropdownMenuGroup>
-            <Label size="xs">Suporte</Label>
             <DropdownMenuItem>
-              <Link
-                to={`${urls.customer_dashboard}${urls.tickets}`}
-                className="hover:text-secondary flex gap-2 items-center transition-colors"
+              <Button
+                onClick={handleLogout}
+                className="bg-transparent p-0 text-danger flex gap-2 items-center"
               >
-                Solicitar atendimento
-              </Link>
+                <LogOutIcon size={16} />
+                Sair
+              </Button>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                to={`${urls.customer_dashboard}${urls.tickets}`}
-                className="hover:text-secondary flex gap-2 items-center transition-colors"
-              >
-                Meus atendimentos
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-
-          <DropdownMenuItem>
-            <Button
-              onClick={handleLogout}
-              className="bg-transparent p-0 text-danger flex gap-2 items-center"
-            >
-              <LogOutIcon size={16} />
-              Sair
-            </Button>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </header>
   );
 }

@@ -1,6 +1,7 @@
 import { CustomerLayout } from "@/components/structures/layouts/CustomerLayout";
 import { urls } from "@/constants/urls";
 import { FavoritesPage } from "@/pages/Favorites";
+import { CartPage } from "@/pages/Carts";
 import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
 import { ProductsPage } from "@/pages/Products/public";
 import { ProductDetails } from "@/pages/Products/public/ProductDetails";
@@ -32,6 +33,10 @@ export const customerRoutes: RouteObject[] = [
           {
             path: `${urls.customer_dashboard}${urls.favorites}`,
             element: <FavoritesPage />,
+          },
+          {
+            path: `${urls.customer_dashboard}${urls.cart}`,
+            element: <CartPage />,
           },
           {
             path: `${urls.customer_dashboard}${urls.tickets}`,

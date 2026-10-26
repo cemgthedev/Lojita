@@ -86,6 +86,7 @@ export const urls = {
    * Favorites page
    */
   favorites: "/favorites",
+  cart: "/cart",
   /**
    * Security page
    */
