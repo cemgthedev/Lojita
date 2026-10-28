@@ -4,6 +4,7 @@ import { ListCategoriesPage } from "@/pages/Categories/public/ListCategoriesPage
 import { LoginPage } from "@/pages/Login";
 import { ProductsPage } from "@/pages/Products/public";
 import { ProductDetails } from "@/pages/Products/public/ProductDetails";
+import { PublicDashboard } from "@/pages/PublicDashboard";
 import { RegisterPage } from "@/pages/Register";
 import { StoreDetailsPage } from "@/pages/Stores/public/StoreDetails";
 import type { RouteObject } from "react-router";
@@ -14,7 +15,7 @@ export const publicRoutes: RouteObject[] = [
     children: [
       {
         path: urls.home,
-        element: <div />,
+        element: <PublicDashboard />,
       },
       {
         path: urls.login,

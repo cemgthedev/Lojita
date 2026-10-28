@@ -1,12 +1,13 @@
 import { CustomerLayout } from "@/components/structures/layouts/CustomerLayout";
 import { urls } from "@/constants/urls";
-import { FavoritesPage } from "@/pages/Favorites";
 import { CartPage } from "@/pages/Carts";
 import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
+import { FavoritesPage } from "@/pages/Favorites";
 import { ProductsPage } from "@/pages/Products/public";
 import { ProductDetails } from "@/pages/Products/public/ProductDetails";
-import { SupportTicketsPage } from "@/pages/SupportTickets/public";
+import { PublicDashboard } from "@/pages/PublicDashboard";
 import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
+import { SupportTicketsPage } from "@/pages/SupportTickets/public";
 import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { RequireRole } from "@/routes/guards/RequireRole";
 import type { RouteObject } from "react-router";
@@ -20,7 +21,7 @@ export const customerRoutes: RouteObject[] = [
         children: [
           {
             path: urls.customer_dashboard,
-            element: <div>Customer Dashboard</div>,
+            element: <PublicDashboard />,
           },
           {
             path: `${urls.customer_dashboard}${urls.products}`,

@@ -17,7 +17,12 @@ export type CardCategoryProps = {
 };
 
 export function CardCategory({ baseUrl, category }: CardCategoryProps) {
-  const categoryUrl = `${baseUrl.replace(/\/$/, "")}/${encodeURIComponent(category.id)}`;
+  const categoryId = encodeURIComponent(category.id);
+  const normalizedBaseUrl = baseUrl.trim();
+  const categoryUrl =
+    normalizedBaseUrl.endsWith("=") || normalizedBaseUrl.endsWith("&")
+      ? `${normalizedBaseUrl}${categoryId}`
+      : `${normalizedBaseUrl.replace(/\/+$/, "")}/${categoryId}`;
 
   return (
     <Card

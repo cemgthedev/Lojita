@@ -9,7 +9,8 @@ export const mockStores: Store[] = [
     name: "Lojita do Samuel",
     description:
       "Produtos selecionados com carinho para deixar o seu dia a dia melhor.",
-    logoUrl: "",
+    logoUrl:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
     businessEmail: "loja.samu@lojita.local",
     phone: "(11) 90000-0003",
     url: "lojita-do-samuel",

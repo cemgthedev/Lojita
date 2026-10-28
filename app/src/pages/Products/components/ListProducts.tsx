@@ -1,5 +1,4 @@
 import { useCategoriesQuery } from "@/api/resources/categories/queries";
-import { useDeleteProductMutation } from "@/api/resources/products/products/mutations";
 import { useProductsQuery } from "@/api/resources/products/products/queries";
 import type { ProductQuery } from "@/api/resources/products/products/validations/query.schema";
 import { useStoresQuery } from "@/api/resources/stores/queries";
@@ -14,17 +13,18 @@ import {
 } from "@/pages/Products/components/ProductHeaderFilters";
 import { useAuth } from "@/providers/AuthProvider";
 import { useMemo, useState } from "react";
-
-const currencyFormatter = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+import { useLocation, useSearchParams } from "react-router";
 
 export function ListProducts() {
   const { user } = useAuth();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const role = useHighestRole(user?.role ?? []);
   const isSeller = role === ROLE.SELLER;
-  const [filters, setFilters] = useState<ProductQuery>({});
+  const [filters, setFilters] = useState<ProductQuery>(() => {
+    const categoryId = searchParams.get("categoryId");
+    return categoryId ? { categoryId } : {};
+  });
   const [sort, setSort] = useState<ProductSort>("price-asc");
   const ownStoresQuery = useStoresQuery({ userId: user?.id }, isSeller);
   const storeId = isSeller
@@ -35,18 +35,17 @@ export function ListProducts() {
     !isSeller || (!ownStoresQuery.isPending && Boolean(storeId)),
   );
   const categoriesQuery = useCategoriesQuery();
-  const categories = categoriesQuery.data ?? [];
-  const deleteProductMutation = useDeleteProductMutation();
-  const managementBaseUrl =
-    role === ROLE.ADMIN
+  const isPublicCatalog =
+    location.pathname === urls.home || location.pathname === urls.products;
+  const managementBaseUrl = isPublicCatalog
+    ? urls.products
+    : role === ROLE.ADMIN
       ? urls.admin_dashboard
       : role === ROLE.SUPPORT
         ? urls.support_dashboard
         : role === ROLE.SELLER
           ? urls.seller_dashboard
-          : role === ROLE.CUSTOMER
-            ? urls.customer_dashboard
-            : "";
+          : urls.products;
 
   const products = useMemo(() => {
     const storeProducts = (productsQuery.data ?? []).filter(
