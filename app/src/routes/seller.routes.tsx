@@ -1,6 +1,7 @@
 import { SellerLayout } from "@/components/structures/layouts/SellerLayout";
 import { urls } from "@/constants/urls";
 import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
+import { SellerDashboard } from "@/pages/SellerDashboard";
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { ChatDetailsPage } from "@/pages/Chats/ChatDetails";
@@ -26,7 +27,7 @@ export const sellerRoutes: RouteObject[] = [
         children: [
           {
             path: urls.seller_dashboard,
-            element: <div>Dashboard</div>,
+            element: <SellerDashboard />,
           },
           {
             path: `${urls.seller_dashboard}${urls.store}`,

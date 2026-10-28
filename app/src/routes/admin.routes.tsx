@@ -1,6 +1,7 @@
 import { AdminLayout } from "@/components/structures/layouts/AdminLayout";
 import { urls } from "@/constants/urls";
 import { AttributesManagementPage } from "@/pages/Attributes/AttributesManagement";
+import { AdminDashboard } from "@/pages/AdminDashboard";
 import { AttributeCreatePage } from "@/pages/Attributes/Create";
 import { AttributeUpdatePage } from "@/pages/Attributes/Update";
 import { CategoriesManagement } from "@/pages/Categories/CategoriesManagement";
@@ -32,7 +33,7 @@ export const adminRoutes: RouteObject[] = [
         children: [
           {
             path: urls.admin_dashboard,
-            element: <div>Dashboard</div>,
+            element: <AdminDashboard />,
           },
           {
             path: `${urls.admin_dashboard}${urls.users}`,

@@ -12,6 +12,7 @@ import { ProductDetailsManagement } from "@/pages/Products/ProductsManagement/Pr
 import { ProductUpdatePage } from "@/pages/Products/Update";
 import { ProductsReviewsManagement } from "@/pages/ProductsReviews/ProductsReviewsManagement";
 import { SupportTicketsManagementPage } from "@/pages/SupportTickets/SupportTicketsManagement";
+import { AdminDashboard } from "@/pages/AdminDashboard";
 import { SupportTicketCreatePage } from "@/pages/SupportTickets/Create";
 import { SupportTicketUpdatePage } from "@/pages/SupportTickets/Update";
 import { UserCreatePage } from "@/pages/Users/Create";
@@ -29,7 +30,7 @@ export const supportRoutes: RouteObject[] = [
         children: [
           {
             path: urls.support_dashboard,
-            element: <div>Dashboard</div>,
+            element: <AdminDashboard />,
           },
           {
             path: `${urls.support_dashboard}${urls.users}`,
