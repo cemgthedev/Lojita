@@ -1,7 +1,6 @@
 import { urls } from "@/constants/urls";
 import type { NavItem } from "@/types/NavItem";
 import {
-  HandCoinsIcon,
   HomeIcon,
   ListSortAscendingIcon,
   MessageCircleCheckIcon,
@@ -9,7 +8,6 @@ import {
   ShoppingBasketIcon,
   SlidersHorizontalIcon,
   StoreIcon,
-  TagIcon,
   TicketCheckIcon,
   UsersIcon,
 } from "lucide-react";
@@ -47,7 +45,8 @@ export const adminSidebarItems: NavItem[] = [
     href: `${urls.admin_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
   },
-  {
+  /**
+   * {
     name: "Cupons",
     href: `${urls.admin_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
@@ -57,6 +56,7 @@ export const adminSidebarItems: NavItem[] = [
     href: `${urls.admin_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
+   */
   {
     name: "Avaliações",
     href: `${urls.admin_dashboard}${urls.reviews}`,
@@ -100,7 +100,8 @@ export const supportSidebarItems: NavItem[] = [
     href: `${urls.support_dashboard}${urls.products}`,
     icon: <ShoppingBasketIcon size={iconSize} />,
   },
-  {
+  /**
+   * {
     name: "Cupons",
     href: `${urls.support_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
@@ -110,6 +111,7 @@ export const supportSidebarItems: NavItem[] = [
     href: `${urls.support_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
+   */
   {
     name: "Avaliações",
     href: `${urls.support_dashboard}${urls.reviews}`,
@@ -143,7 +145,8 @@ export const sellerSidebarItems: NavItem[] = [
     href: `${urls.seller_dashboard}${urls.attributes}`,
     icon: <SlidersHorizontalIcon size={iconSize} />,
   },
-  {
+  /**
+   * {
     name: "Cupons",
     href: `${urls.seller_dashboard}${urls.coupons}`,
     icon: <TagIcon size={iconSize} />,
@@ -153,16 +156,19 @@ export const sellerSidebarItems: NavItem[] = [
     href: `${urls.seller_dashboard}${urls.orders}`,
     icon: <HandCoinsIcon size={iconSize} />,
   },
+   */
   {
     name: "Avaliações",
     href: `${urls.seller_dashboard}${urls.reviews}`,
     icon: <MessageCircleCheckIcon size={iconSize} />,
   },
-  {
+  /**
+   * {
     name: "Chats",
     href: `${urls.seller_dashboard}${urls.chats}`,
     icon: <MessagesCircleIcon size={iconSize} />,
   },
+   */
   {
     name: "Atendimentos",
     href: `${urls.seller_dashboard}${urls.attendances}`,
