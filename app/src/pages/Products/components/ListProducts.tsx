@@ -13,11 +13,10 @@ import {
 } from "@/pages/Products/components/ProductHeaderFilters";
 import { useAuth } from "@/providers/AuthProvider";
 import { useMemo, useState } from "react";
-import { useLocation, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 export function ListProducts() {
   const { user } = useAuth();
-  const location = useLocation();
   const [searchParams] = useSearchParams();
   const role = useHighestRole(user?.role ?? []);
   const isSeller = role === ROLE.SELLER;
