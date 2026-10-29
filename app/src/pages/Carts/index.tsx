@@ -287,11 +287,6 @@ export function CartPage() {
           )}
 
           {productsForStore.map(([storeId, group], index) => {
-            const subtotal = group.lines.reduce(
-              (total, line) => total + line.variant.price * line.quantity,
-              0,
-            );
-
             return (
               <section
                 key={storeId}
