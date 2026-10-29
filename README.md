@@ -2,7 +2,7 @@
 
 A multi-vendor marketplace for discovering products, shopping online, and managing stores in one place.
 
-[GitHub repository](https://github.com/cemgthedev/Lojita) · Online demo: not yet available · [Technical guide to routes and permissions](app/src/routes/guide.md)
+[Live demo](https://lojita.vercel.app) · [GitHub repository](https://github.com/cemgthedev/Lojita) · [Technical guide to routes and permissions](app/src/routes/guide.md)
 
 ## Showcase
 

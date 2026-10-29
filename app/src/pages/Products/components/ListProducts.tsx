@@ -35,17 +35,17 @@ export function ListProducts() {
     !isSeller || (!ownStoresQuery.isPending && Boolean(storeId)),
   );
   const categoriesQuery = useCategoriesQuery();
-  const isPublicCatalog =
-    location.pathname === urls.home || location.pathname === urls.products;
-  const managementBaseUrl = isPublicCatalog
-    ? urls.products
-    : role === ROLE.ADMIN
+
+  const managementBaseUrl =
+    role === ROLE.ADMIN
       ? urls.admin_dashboard
       : role === ROLE.SUPPORT
         ? urls.support_dashboard
         : role === ROLE.SELLER
           ? urls.seller_dashboard
-          : urls.products;
+          : role === ROLE.CUSTOMER
+            ? urls.customer_dashboard
+            : "";
 
   const products = useMemo(() => {
     const storeProducts = (productsQuery.data ?? []).filter(
@@ -129,7 +129,7 @@ export function ListProducts() {
               {products.map((product) => (
                 <CardProduct
                   key={product.id}
-                  baseUrl={`${managementBaseUrl}${urls.products}`}
+                  baseUrl={managementBaseUrl}
                   product={product}
                 />
               ))}

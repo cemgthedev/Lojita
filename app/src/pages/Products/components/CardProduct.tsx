@@ -10,6 +10,7 @@ import {
   Label,
   Text,
 } from "@/components/ui";
+import { urls } from "@/constants/urls";
 import { HeartIcon } from "lucide-react";
 import { Link } from "react-router";
 
@@ -29,7 +30,7 @@ export function CardProduct({
   product,
   isFavorite = false,
 }: CardProductProps) {
-  const productUrl = `${baseUrl.replace(/\/$/, "")}/${encodeURIComponent(product.id)}`;
+  const productUrl = `${baseUrl.replace(/\/$/, "")}/${urls.products}/${encodeURIComponent(product.id)}`;
   const imageUrl = product.defaultVariant?.urlImage;
   const price = product.defaultVariant?.price;
 
